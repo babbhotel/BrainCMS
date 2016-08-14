@@ -1,0 +1,74 @@
+<?php
+	error_reporting(1);
+?>
+<html lang="en">
+	<head>
+		<script src="/system/theme/brain/style/js/index/index.js?v=4"></script>
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
+		<link rel="stylesheet" href="/system/theme/brain/style/css/main2.css?v=<?= $config['hash'] ?>" type="text/css">
+		<link rel="stylesheet" href="/system/theme/brain/style/css/home.css?v=<?= $config['hash'] ?>" type="text/css">
+	</head>
+	<style>
+		input[type="submitred"], input:-webkit-autofill, .submitred {
+		-webkit-appearance: none;
+		border-radius: 3px;
+		height: 35px;
+		width: 100%;
+		background: #c70c0c;
+		border-bottom: 2px solid #3c0606;
+		color: rgba(255,255,255,1);
+		cursor: pointer;
+		text-align: center;
+		display: block;
+		text-decoration: none;
+		border: 0px;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-latest.js"></script>	
+	<body background="/system/theme/brain/style/images/headerbg/background2016.png">
+		<title>Toegang geblokkeerd</title>
+		<div class="center">
+			<div style="width: 100%;" class="columleft">
+				<div class="box">
+					<div class="title red">
+						<?= $config['hotelName'] ?> heeft jou toegang geblokkeerd!
+					</div>
+					<div class="mainBox" style="float;left">
+						<?php 
+							if (loggedIn())
+							{
+								$user = User::userData('username');
+							}
+							else
+							{
+								$user = null;
+							}
+							$banQuery = DB::Query("SELECT * FROM bans WHERE (bantype = 'user' && value = '".DB::Escape($user)."') OR (bantype = 'ip' && value = '".checkCloudFlare()."')");
+							while($banInfo = DB::Fetch($banQuery))
+							{
+							?>
+							<img src='http://i.imgur.com/Rug0VxW.gif' align='right'>
+							<h3>Beste bezoeker,</h3>
+							Helaas ben je verbannen van onze website.<br> Dit komt omdat jij je niet aan onze regels hebt gehouden.<br><br><br>Je bent verbanen om de volgende reden:
+							<i><b><?= $banInfo['reason']; ?></b></i>
+							<br /><br />
+							Je bent verbannen vanaf: <b><u><?php echo gmdate("d-m-Y H:i", $banInfo['added_date']); ?></u></b> tot <b><u><?php echo gmdate("d-m-Y H:i", $banInfo['expire']); ?></u></b>.<br />Ban ID: <b><?= $banInfo['id']; ?></b><br /><hr>
+							<h4>Klopt dit niet?</h4>
+							Neem contact op met het Staffteam via deze mail: <b><font color="blue"><u><a href='mailto:info@horba.net'>info@horba.net</a></u></font></b>.
+							<hr>
+							<h4>Unban kopen?</h4>
+							Neem contact op met Romeo via deze mail: <b><font color="blue"><u><a href='mailto:romeobaas@outlook.com'>romeobaas@Outlook.com</a></u></font></b>.<br><small>Gelieve je Gebruikersnaam & IP-Adres sturen!</small>
+							<?php
+							}
+						?>
+					</div>
+				</div>
+				<div class="boxfooter">
+					<?= $config['hotelName'] ?> hotel &copy; 2016 - 2017 |
+					<span style="cursor:pointer;text-decoration:underline;" class='lireSuite' onclick="document.location.href='/#'">Algemene voorwaarden</span> |
+					<span style="cursor:pointer;text-decoration:underline;" class='lireSuite' onclick="document.location.href='#'">Privacyverklaring</span> |
+					<span style="cursor:pointer;text-decoration:underline;" class='lireSuite' onclick="document.location.href='#'">Gids voor ouders</span>
+				</div>
+			</body>
+		</html>						
