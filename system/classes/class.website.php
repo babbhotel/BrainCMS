@@ -5,6 +5,8 @@
 		--------------- 
 		
 		userHome();	
+		staffApplication();
+		userOfTheWeak();
 	*/
 	
 	class Website 
@@ -68,5 +70,14 @@
 				echo'<b><font color="green"> Jouw sollicitatie is verzonden!</b></font>';												
 			}
 		}
+		public static function userOfTheWeak()
+		{
+		$getUOTW = DB::Fetch(DB::Query("SELECT userid,text FROM uotw"));
+		$getUserData = DB::Fetch(DB::Query("SELECT id,look,username,motto FROM users WHERE id = '" . $getUOTW['userid'] . "'"));
+		
+		echo '<div class="userNew" style="height: 110px;  background: url(/system/habbo-imaging/avatar.php?username='.$getUserData['username'].'&direction=2&head_direction=3&action=crr=667&gesture=sml);float: left;background-repeat: no-repeat;"></div>';
+		echo '<div style="">Naam:  <b>'.filter($getUserData['username']).'</b></div>';
+		echo '<div style="">Motto:  <b>'.filter($getUserData['motto']).'</b></div>';
+		echo '<div style=""><h4>'.$getUOTW['text'].'</h4></div>';		}
 	}	
 ?>

@@ -1,12 +1,12 @@
 <?php
 
 
-	
+
 	/* Database Setting */
 	$db['host'] = '127.0.0.1';
 	$db['port'] = '3306';
 	$db['user'] = "root";
-	$db['pass'] = '****';
+	$db['pass'] = '******';
 	$db['db'] = "hotel";
 	
 	/* General Setting */

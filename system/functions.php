@@ -48,7 +48,7 @@
 	{
 		$script = file_get_contents("http://brain.retroripper.com/version.txt");
 		$update = file_get_contents("http://brain.retroripper.com/update.txt");
-		$version = '0.2.9';
+		$version = '0.3.0';
 		if($version == $script) {
 			echo'<div style = "width: 100%;
 			background-color: green;
@@ -56,7 +56,7 @@
 			padding: 10px;
 			color: white;
 			margin-bottom: 10px;
-			font-size: 17px;">Deze versie van brainCMS is up to date!</div>';
+			font-size: 17px;">Deze versie van brainCMS is up to date! V '.$script.'</div>';
 			} else {
 			echo'<div style = "width: 100%;
 			background-color: red;

@@ -73,6 +73,11 @@
 							<a href="bans.php">
 							<i class="fa fa-users"></i> <span>Banlijst</span>
 							</a>
+							</li>
+							<li>
+							<a href="userofteweek.php">
+							<i class="fa fa-user"></i> <span>'.$config['hotelName'].' van de week</span>
+							</a>
 							</li>';
 						}
 					?>

@@ -140,6 +140,15 @@
 				?>
 			</div>
 			<div class="box">
+				<div class="title green">
+					<?= $config['hotelName'] ?> van de week
+				</div>
+				<div class="mainBox" style="float;left">
+					<div class="boxHeader"></div>
+					<?= Website::userOfTheWeak() ?>
+				</div>
+			</div>
+			<div class="box">
 				<div class="title orange">
 					Momenteel in de kamer
 				</div>

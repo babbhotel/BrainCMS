@@ -67,7 +67,7 @@
 			global $config;
 			if($config['staffCheckClient'] == true)
 			{
-				if (Self::userData('rank') > 3)
+				if (self::userData('rank') > 3)
 				{
 					if (empty($_SESSION['staffCheck'])) 
 					{ 
@@ -116,7 +116,7 @@
 				{
 					if (!empty($_POST['username']))
 					{
-						if (Self::validName($_POST['username']))
+						if (self::validName($_POST['username']))
 						{
 							if (!empty($_POST['password']))
 							{

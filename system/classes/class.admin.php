@@ -23,13 +23,6 @@
 		public static function UpdateUser()
 		{
 			if (isset($_POST['update'])) {
-				$username = DB::Escape($_POST['naam']);
-				$motto = DB::Escape($_POST['motto']);
-				$mail = DB::Escape($_POST['mail']);
-				$credits = DB::Escape($_POST['credits']);
-				$activity_points = DB::Escape($_POST['activity_points']);
-				$vip_points = DB::Escape($_POST['vip_points']);
-				$rank = DB::Escape($_POST['rank']);
 				if ($updatesql = DB::Query("UPDATE users SET 
 				motto='".DB::Escape($_POST['motto'])."' ,
 				username='".DB::Escape($_POST['naam'])."',
@@ -39,6 +32,20 @@
 				activity_points='".DB::Escape($_POST['activity_points'])."',
 				rank='".DB::Escape($_POST['rank'])."'
 				WHERE username = '".$username."'")) {
+					Admin::gelukt("De gebruiker is opgeslagen!");
+					} else {
+					Admin::error("Niet gelukt!");
+				}  
+			}
+		}
+		public static function UpdateUserOfTheWeek()
+		{
+			if (isset($_POST['update'])) {
+				$getUserData = DB::Fetch(DB::Query("SELECT id,username FROM users WHERE username = '" . $_POST['naam'] . "'"));
+				if ($updatesql = DB::Query("UPDATE uotw SET 
+				userid='".DB::Escape($getUserData['id'])."',
+				text='".DB::Escape($_POST['uftwtext'])."'
+				")) {
 					Admin::gelukt("De gebruiker is opgeslagen!");
 					} else {
 					Admin::error("Niet gelukt!");
@@ -63,19 +70,46 @@
 		}
 		public static function searchUser()
 		{
-				if(isset($_POST['zoek'])) {	
-					$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.$_POST['user'].'"'));
-					if ($searchUser == 1)
-					{
-						Admin::gelukt('Gebruiker '.$_POST['user'].' gevonden! Klik <a href ="gebruiker.php?user='.$_POST['user'].'">hier</a> om naar zijn account te gaan.');
-					}
-					else
-					{
-						Admin::error("Gebruiker ".$_POST['user']." niet gevonden!");
-					}
+			if(isset($_POST['zoek'])) {	
+				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.$_POST['user'].'"'));
+				if ($searchUser == 1)
+				{
+					Admin::gelukt('Gebruiker '.$_POST['user'].' gevonden! Klik <a href ="gebruiker.php?user='.$_POST['user'].'">hier</a> om naar zijn account te gaan.');
 				}
+				else
+				{
+					Admin::error("Gebruiker ".$_POST['user']." niet gevonden!");
+				}
+			}
+		}
+		public static function searchUserOfTheWeek()
+		{
+			if(isset($_POST['zoek'])) {	
+				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.$_POST['user'].'"'));
+				if ($searchUser == 1)
+				{
+					Admin::gelukt(''.$_POST['user'].' gevonden! Klik <a href ="giveuseroftheweek.php?user='.$_POST['user'].'">hier</a> om deze gebruiker Brain van de week te geven!');
+				}
+				else
+				{
+					Admin::error("Gebruiker ".$_POST['user']." niet gevonden!");
+				}
+			}
 		}
 		public static function EditUser($variable)
+		{
+			if (isset($_GET['user'])) {
+				if ($getUser = DB::Query("SELECT * FROM users WHERE username='".DB::Escape($_GET['user'])."' LIMIT 1")) {
+					if (DB::NumRows($getUser) == 1) {
+						$user = DB::Fetch($getUser);
+						return $user[$variable];
+						} else {
+						Admin::error("Gebruiker niet gevonden!"); exit;
+					}
+				}
+			}
+		}
+		public static function EditUserOfTheWeek($variable)
 		{
 			if (isset($_GET['user'])) {
 				if ($getUser = DB::Query("SELECT * FROM users WHERE username='".DB::Escape($_GET['user'])."' LIMIT 1")) {

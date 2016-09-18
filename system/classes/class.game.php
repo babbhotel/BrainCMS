@@ -13,11 +13,11 @@
 	{
 		public static function sso()
 		{
-			global $config;
+			global $version;
 			$timeNow = strtotime("now");
-			$sessionKey  = 'BrainStorm-'.substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 5)), 0, 25).'-SSO';
-			$Query = DB::Query("UPDATE users SET auth_ticket = '".DB::Escape($sessionKey)."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
-			$Query2 = DB::Query("UPDATE users SET last_online = '".DB::Escape($timeNow)."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
+			$sessionKey  = 'BrainStorm-0.3.0-'.substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 5)), 0, 25).'-SSO';
+			DB::Query("UPDATE users SET auth_ticket = '".DB::Escape($sessionKey)."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
+			DB::Query("UPDATE users SET last_online = '".DB::Escape($timeNow)."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
 		}
 		Public static function usersOnline()
 		{
@@ -28,10 +28,10 @@
 		{
 			global $config;
 			if (isset($_GET['room'])) {
-				$Query = DB::Query("UPDATE users SET home_room = '".DB::Escape($_GET['room'])."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
+				DB::Query("UPDATE users SET home_room = '".DB::Escape($_GET['room'])."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
 			}
 			else{
-				$Query = DB::Query("UPDATE users SET home_room = '".$config['homeRoom']."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
+				DB::Query("UPDATE users SET home_room = '".$config['homeRoom']."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
 			}
 		}
 	}	

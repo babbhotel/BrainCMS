@@ -19,7 +19,7 @@
 					if (strtotime(gmdate($rowIp['expire'])) <= strtotime('now'))
 					{
 						return true;
-					}
+						}
 					else
 					{
 						return false;
@@ -51,7 +51,7 @@
 		}
 		public static function page()
 		{
-			global $config, $lang, $hotel;
+			global $config, $lang, $hotel, $version;
 			
 			if (loggedIn())
 			{
@@ -61,12 +61,12 @@
 			{
 				$user = null;
 			}
-			if (Self::checkBan(checkCloudflare(), $user))
+			if (self::checkBan(checkCloudflare(), $user))
 			{
 				include("system/theme/".$config['skin']."/pages/banned.php");
 				exit();
 			}
-			if (Self::checkBan(checkCloudflare(), $user))
+			if (self::checkBan(checkCloudflare(), $user))
 			{
 				include("system/theme/".$config['skin']."/pages/banned.php");
 				exit();
