@@ -1,6 +1,7 @@
 
 <?php
 	admin::CheckRank(3);
+	
 	?>
 <header style="    padding-top: 20px;"class="header">
             <a href="/admin/index.php" class="logo">

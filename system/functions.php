@@ -44,6 +44,36 @@
 		// we are done...
 		return $data;
 	}
+	function checkVersion()
+	{
+		$script = file_get_contents("http://brain.retroripper.com/version.txt");
+		$update = file_get_contents("http://brain.retroripper.com/update.txt");
+		$version = '0.2.9';
+		if($version == $script) {
+			echo'<div style = "width: 100%;
+			background-color: green;
+			border-radius: 5px;
+			padding: 10px;
+			color: white;
+			margin-bottom: 10px;
+			font-size: 17px;">Deze versie van brainCMS is up to date!</div>';
+			} else {
+			echo'<div style = "width: 100%;
+			background-color: red;
+			border-radius: 5px;
+			padding: 10px;
+			color: white;
+			margin-bottom: 10px;
+			font-size: 17px;">Er is een nieuwe versie beschiktbaar! V '.$script.'</div>
+			<div style = "width: 100%;
+			background-color: green;
+			border-radius: 5px;
+			padding: 10px;
+			color: white;
+			margin-bottom: 10px;
+			font-size: 17px;">'.$update.'</div>';
+		}	
+	}
 	function loggedIn()
 	{
 		if (isset($_SESSION['id']))
@@ -72,4 +102,4 @@
 		$hidCode = md5(date("d-m-Y-l"));
 		return $hidCode;
 	}
-	?>
+?>

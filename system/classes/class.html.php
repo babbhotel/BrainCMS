@@ -52,6 +52,7 @@
 		public static function page()
 		{
 			global $config, $lang, $hotel;
+			
 			if (loggedIn())
 			{
 				$user = User::userData('username');
@@ -59,6 +60,11 @@
 			else
 			{
 				$user = null;
+			}
+			if (Self::checkBan(checkCloudflare(), $user))
+			{
+				include("system/theme/".$config['skin']."/pages/banned.php");
+				exit();
 			}
 			if (Self::checkBan(checkCloudflare(), $user))
 			{
@@ -79,8 +85,7 @@
 						}
 						if (!$config['maintenance'] == true){
 							$fileExists = $_SERVER['DOCUMENT_ROOT'] . '/system/theme/'.$config['skin'].'/pages/'.$page.".php";
-							$cleanedFileUrl = strval(str_replace("\0", "", $fileExists));
-							if(file_exists($cleanedFileUrl))
+							if(file_exists(filter($fileExists)))
 							{
 								include("system/theme/".$config['skin']."/pages/".$page.".php");
 							} 
@@ -112,8 +117,6 @@
 					case "register":
 					header('Location: '.$config['hotelUrl'].'/me');
 					break;
-					default:
-					break;
 				}
 			}
 			if(!loggedIn()){ 
@@ -128,10 +131,9 @@
 					case "staff":
 					case "team":
 					case "advertentie_tips":
+					case "online":
 					case "home/":
-					User::loginTrue();
-					break;
-					default:
+					header('Location: '.$config['hotelUrl'].'/index');
 					break;
 				}
 			}
@@ -145,4 +147,4 @@
 			echo $succesMessage;
 		}
 	}
-?>
+?>			

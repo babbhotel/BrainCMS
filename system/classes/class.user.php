@@ -5,7 +5,6 @@
 		---------------
 		checkUser();
 		hashed();
-		loginTrue();
 		validName();
 		userData();;
 		staffPin();
@@ -23,14 +22,6 @@
 		public static function hashed($password)
 		{
 			return password_hash($password, PASSWORD_BCRYPT);
-		}
-		public static function loginTrue()
-		{
-			if (!loggedIn())
-			{
-				header("Location: ./index");
-				exit();
-			}
 		}
 		public static function validName($username)
 		{

@@ -17,6 +17,12 @@
 						<b>   Het Staffpaneel dat wordt gebruikt op <?= $config['hotelName'] ?> Hotel.</b><br>
 					</header>
 					<div class="panel-body">
+					<?php 
+					
+					checkVersion();
+					
+					?>
+					
 						Welkom in de HK van <?= $config['hotelName'] ?> hotel.<b></b>!<br>
 						Gebruik het Admin Paneel zoals het hoort, regels zijn regels en afspraken zijn afspraken.
 						<br>Alles wat je hier in doet kunnen wij achterhalen.
