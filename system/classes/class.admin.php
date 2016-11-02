@@ -30,8 +30,9 @@
 				credits='".DB::Escape($_POST['credits'])."',
 				vip_points='".DB::Escape($_POST['vip_points'])."',
 				activity_points='".DB::Escape($_POST['activity_points'])."',
+				teamrank='".DB::Escape($_POST['teamrank'])."',
 				rank='".DB::Escape($_POST['rank'])."'
-				WHERE username = '".$username."'")) {
+				WHERE username = '".DB::Escape($_POST['naam'])."'")) {
 					Admin::gelukt("De gebruiker is opgeslagen!");
 					} else {
 					Admin::error("Niet gelukt!");

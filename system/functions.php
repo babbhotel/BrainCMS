@@ -48,7 +48,7 @@
 	{
 		$script = file_get_contents("http://brain.retroripper.com/version.txt");
 		$update = file_get_contents("http://brain.retroripper.com/update.txt");
-		$version = '0.3.0';
+		$version = '0.3.2';
 		if($version == $script) {
 			echo'<div style = "width: 100%;
 			background-color: green;

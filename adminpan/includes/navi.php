@@ -35,7 +35,7 @@
 							';
 						}
 
-						if (User::userData('rank') > '4')
+						if (User::userData('rank') > '6')
 						{
 							echo'	
 							<li>

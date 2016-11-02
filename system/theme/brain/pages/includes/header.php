@@ -87,6 +87,7 @@
 								<a href="/staff"><?= $config['hotelName'] ?> Staff</a>
 								<div class="submenu">
 									<a href="/staff"><?= $config['hotelName'] ?> Staff</a>
+									<a href="/teams"><?= $config['hotelName'] ?> Teams</a>
 								</div>
 							</li>
 							<a href="<?= $config['hotelUrl'] ?>/logout"><li class="logout">Log uit</li></a>

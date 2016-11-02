@@ -41,50 +41,8 @@
 				<?php
 				}
 			?>
-			
-			<div class="col-md-12">
-				<section class="panel">
-					<header class="panel-heading">
-						<b>Gebruikerlijst van alle gebruikers die gerigistreerd zijn.</b><br>
-						<form name="mygallery" action="" method="POST">
-						</header>
-						<div class="panel-body">
-							<?php admin::DeleteBans(); ?>
-							<table class="table table-striped table-bordered table-condensed">
-								<tbody>
-									<strong><tr style="width: 5%;"><td><b>ID</b></td><td><b>Naam</b></td><td><b>Email</b></td><td><b>Motto</b></td><?php 	if (User::userData('rank') > '6')
-										{
-											echo'<td style="width: 5%;"><b>Bewerken</b></td></tr></strong>
-											</tr>';
-										}
-									?>
-									
-									
-									<?php
-										
-										$sql = DB::Query("SELECT * FROM users ORDER BY id DESC");
-										while($news = $sql->fetch_assoc())
-										{
-											echo'';
-											echo'<tr>
-											<td>'.$news["id"].'</td>
-											<td style="width: 13%;">'.$news["username"].'</td>
-											<td style="width: 25%;">'.$news["mail"].'</td>
-											<td>'.htmlentities($news["motto"]).'</td>
-											';
-											if (User::userData('rank') > '5')
-											{
-												echo'<td><a href=gebruiker.php?user='.$news["username"].'><i style="padding-top: 4px; color:green;" class="fa fa-edit"></i></center></a></td>
-												</tr>';
-											}
-										}
-									?>
-									</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-						<?php
-							include_once "includes/footer.php";
-							include_once "includes/script.php";
-						?>																					
+		</div>
+		<?php
+			include_once "includes/footer.php";
+			include_once "includes/script.php";
+		?>																							
