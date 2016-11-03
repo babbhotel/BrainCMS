@@ -6,7 +6,7 @@
 	$db['host'] = '127.0.0.1';
 	$db['port'] = '3306';
 	$db['user'] = "root";
-	$db['pass'] = '*****';
+	$db['pass'] = '******';
 	$db['db'] = "hotel";
 	
 	/* General Setting */
@@ -16,9 +16,12 @@
 	$config['startMotto'] = "Welkom in Brain!";
 	$config['favicon'] = "http://127.0.0.1/system/theme/brain/style/images/favicon/favicon.ico";
 	$config['staffCheckClient'] = true;
+	$config['staffCheckClientMinimumRank '] = 3;
 	$config['homeRoom'] = '0';
 	$config['maintenance'] = false;
 	$config['showErrors'] = true;
+	
+	$emu['hotelEMU'] = "plus"; //phoenix // plus // arcturus
 	
 	/* Social settings */
 	$config['facebook'] = 'https://www.facebook.com/Habbo/';
@@ -49,4 +52,10 @@
 	   Go to this website to create a recaptcha Site Key: https://www.google.com/recaptcha/intro/index.html	*/
 	$config['recaptchaSiteKey'] = "6LdSSykTAAAAAJtY8DuXw9Cu9F0ZJ7J3tu0QpUUk";
 	$config['recaptchaSiteKeyEnable'] = true;
+	
+	
+
+
+
+	
 ?>

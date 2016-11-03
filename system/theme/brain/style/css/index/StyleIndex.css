@@ -90,10 +90,34 @@ hr { border: 0; height: 1px; border-bottom: 1px dotted rgba(0, 0, 0, .3); backgr
 .staff .ddright { margin-top: 22px; margin-left: 5px; float: right; width: 100px; }
 .hbox { padding: 15px; border: 1px solid rgba(0, 0, 0, .05); border-radius: 5px; background: rgba(0, 0, 0, .02); }
 .alert { border-radius: 5px; margin-bottom: 10px; padding: 10px; border: 1px solid grey; border-bottom: 2px solid grey; background: #CCCCCC; color: #222222; }
-.error { background: rgba(217, 7, 7, .85); border-color: rgba(217, 7, 7, .94); color: #FFFFFF; }
 .success { background: #28C213; border-color: #24A314; color: #FFFFFF; }
 .warning { background: #EB581A; font-size: 10pt; border-color: #C94810; color: #FFFFFF; }
-
+.error
+{
+	background: #f44336;
+	color: #fff;
+	display: none;
+	font-size: 13px;
+	line-height: 40px;
+	padding: 0 10px;
+	text-align: center;
+	overflow: hidden;
+	font-family: Ubuntu,sans-serif;
+}
+.errorSucces
+{
+	background: #28bb20;
+	border-radius: 2px;
+	color: #fff;
+	display: none;
+	font-size: 13px;
+	line-height: 40px;
+	margin-bottom: 8px;
+	padding: 0 10px;
+	text-align: center;
+	overflow: hidden;
+	font-family: Ubuntu,sans-serif;
+}
 .ousers{
 	background-color: rgba(0,0,0,0.8);
     width: 175px;

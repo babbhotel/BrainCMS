@@ -1,7 +1,7 @@
 <html lang="en">
 	<head>
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
-		<link rel="stylesheet" href="/system/theme/brain/style/css/main2.css" type="text/css">
+		<link rel="stylesheet" href="/system/theme/brain/style/css/main2.css?v=5" type="text/css">
 		<link rel="stylesheet" href="/system/theme/brain/style/css/home.css" type="text/css">
 	</head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -59,7 +59,7 @@
 								<a href="/"><?= User::userData('username') ?></a>
 								<div class="submenu">
 									<a href="/me"><?= User::userData('username') ?></a>
-									<a href="/settings">Account Instellingen</a> 
+									<a href="/settingspassword">Account Instellingen</a> 
 									<a href="/home/<?= User::userData('username') ?>">Mijn profiel</a>
 									<a href="/logout">Uitloggen</a>
 								</div>

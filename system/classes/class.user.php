@@ -1,17 +1,20 @@
 <?php
-	
 	/* 
 		Functions list Class User.
 		---------------
 		checkUser();
 		hashed();
 		validName();
-		userData();;
+		userData();
+		emailTaken();
+		userTaken();
 		staffPin();
 		staffCheck();
 		login();
 		register();
 		editPassword();
+		editHotelSettings();
+		editEmail();
 	*/
 	class User 
 	{
@@ -35,10 +38,34 @@
 		{
 			if (loggedIn())
 			{
-				$query = DB::Fetch(DB::Query("SELECT id,username,motto,auth_ticket,credits,vip_points,activity_points,look,rank,online FROM users WHERE id = '" . DB::Escape($_SESSION['id']) . "'"));
+				$query = DB::Fetch(DB::Query("SELECT id,username,mail,motto,auth_ticket,credits,vip_points,activity_points,look,rank,online FROM users WHERE id = '" . DB::Escape($_SESSION['id']) . "'"));
 				return filter($query[$key]);
 			}
 			return false;
+		}
+		public static function emailTaken($email)
+		{
+			$sqlEmailTaken = DB::Query("SELECT*FROM users WHERE mail = '" . DB::Escape($email) . "' LIMIT 1");
+			if ($sqlEmailTaken->num_rows > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+				public static function userTaken($username)
+		{
+			$sqlEmailTaken = DB::Query("SELECT*FROM users WHERE username = '" . DB::Escape($username) . "' LIMIT 1");
+			if ($sqlEmailTaken->num_rows > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		public static function staffPin()
 		{
@@ -67,7 +94,7 @@
 			global $config;
 			if($config['staffCheckClient'] == true)
 			{
-				if (self::userData('rank') > 3)
+				if (self::userData('rank') > $config['staffCheckClientMinimumRank '])
 				{
 					if (empty($_SESSION['staffCheck'])) 
 					{ 
@@ -126,9 +153,9 @@
 									{
 										if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 										{
-											if (DB::NumRowsQuery("SELECT username FROM users WHERE username = '".DB::Escape($_POST['username'])."'") == 0)
-											{
-												if (DB::NumRowsQuery("SELECT mail FROM users WHERE mail = '".DB::Escape($_POST['email'])."'") == 0)
+											if (!Self::userTaken(DB::Escape($_POST['username'])))
+												{
+												if (!Self::emailTaken(DB::Escape($_POST['email'])))
 												{
 													if (strlen($_POST['password']) > 5)
 													{
@@ -179,73 +206,72 @@
 																}
 																else
 																{
-																	echo 'Druk op "Ik ben geen robot"!'; 
+																	return html::error('Druk op "Ik ben geen robot"!'); 
 																}
 															}
 															else
 															{
-																echo "Sorry maar je mag maar 3 accounts hebben per IP!"; 
+																return html::error("Sorry maar je mag maar 3 accounts hebben per IP!"); 
 															}
 														}
 														else
 														{
-															echo "Ingevoerde wachtwoorden komen niet overeen!";
+															return html::error("Ingevoerde wachtwoorden komen niet overeen!");
 														}
 													}
 													else
 													{
-														echo "Wachtwoord moet bestaan uit meer dan 6 tekens!"; 
+														return html::error("Wachtwoord moet bestaan uit meer dan 6 tekens!"); 
 													}
 												}
 												else
 												{
-													echo "Email is al geregistreerd!";
+													return html::error("Email is al geregistreerd!");
 												}
 											}
 											else
 											{
-												echo "Gebruikersnaam is al gebruik!";
+												return html::error("Gebruikersnaam is al gebruik!");
 											}
 										}
 										else
 										{
-											echo "Email is niet toegestaan!";
+											return html::error("Email is niet toegestaan!");
 										}
 									}
 									else
 									{
-										echo "Email is leeg";
+										return html::error("Email is leeg");
 									}
 								}
 								else
 								{
-									echo "Ingevoerde wachtwoorden komen niet overeen!"; 
+									return html::error("Ingevoerde wachtwoorden komen niet overeen!"); 
 								}
 							}
 							else
 							{
-								echo "Ingevoerde wachtwoorden komen niet overeen!"; 
+								return html::error("Ingevoerde wachtwoorden komen niet overeen!"); 
 							}
 						}
 						else
 						{
-							echo "Je naam moet minimaal uit 3 karakters bestaan en niet langer dan 13 karakters!";
+							return html::error("Je naam moet minimaal uit 3 karakters bestaan en niet langer dan 13 karakters!");
 						}
 					}
 					else
 					{
-						echo "Gebruikersnaam is leeg";
+						return html::error("Gebruikersnaam is leeg");
 					}
 				}
 				else
 				{
-					echo "Er is iets mis gegaan!";
+					return html::error("Er is iets mis gegaan!");
 				}
 			}
 		}
 		Public static function editPassword()
 		{
-			global $config;
 			if (isset($_POST['password']))
 			{
 				if (isset($_POST['oldpassword']) && !empty($_POST['oldpassword']))
@@ -268,31 +294,79 @@
 								)
 								)
 								{
-									echo "Wachtwoord is gewijzigd!";
+									return Html::errorSucces('Wachtwoord is gewijzigd!');
 								}
 								else
 								{
-									echo'niet gelukt!';
+									return Html::error('niet gelukt!');
 								}
 							}
 							else
 							{
-								echo"Wachtwoord moet meer dan 6 tekens hebben";
+								return Html::error('Wachtwoord moet meer dan 6 tekens hebben');
 							}
 						}
 						else
 						{
-							echo"Je oude wachtwoord is verkeerd!";
+							return Html::error('Je oude wachtwoord is verkeerd!');
 						}
 					}
 					else
 					{
-						echo"Je nieuwe wachtwoord is leeg!";
+						return Html::error('Je nieuwe wachtwoord is leeg!');
 					}
 				}
 				else
 				{
-					echo"Oude wachtwoord is leeg!";
+					return Html::error('Oude wachtwoord is leeg!');
+				}
+			}
+		}
+		Public static function editHotelSettings()
+		{
+			if (isset($_POST['hinstellingenv']))
+			{
+				$user = DB::Query("UPDATE users SET ignore_invites = '". DB::Escape($_POST['hinstellingenv'])."' WHERE id = '". DB::Escape($_SESSION['id'])."'");
+			}
+			if (isset($_POST['hinstellingenl']))
+			{
+				$user = DB::Query("UPDATE users SET allow_mimic = '". DB::Escape($_POST['hinstellingenl'])."' WHERE id = '". DB::Escape($_SESSION['id'])."'");
+			}
+			if (isset($_POST['hinstellingeno']))
+			{
+				$user = DB::Query("UPDATE users SET hide_online = '". DB::Escape($_POST['hinstellingeno'])."' WHERE id = '". DB::Escape($_SESSION['id'])."'");	
+			}
+			if (isset($_POST['hotelsettings']))
+			{
+				return Html::errorSucces('Hotel Instellingen gewijzicht');
+			}
+		}
+		Public static function editEmail()
+		{
+			if (isset($_POST['account']))
+			{
+				if (isset($_POST['email']) && !empty($_POST['email']))
+				{
+					if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+					{
+						if (!Self::emailTaken($_POST['email']))
+						{
+							$user = DB::Query("UPDATE users SET mail = '". DB::Escape($_POST['email'])."' WHERE id = '". DB::Escape($_SESSION['id'])."'");
+							return Html::errorSucces("Je email adres is gewijzigd. ");
+						}
+						else
+						{
+							return Html::error("Dit email adres is al in gebruik!");
+						}
+					}
+					else
+					{
+						return Html::error("Dit email is niet geldig!");
+					}
+				}
+				else
+				{
+					return Html::error("Er is geen emial ingevuld!");
 				}
 			}
 		}

@@ -40,7 +40,7 @@
 						<fieldset>
 							<input type="hidden" name="hiddenField_register" required="" value="<?= hiddenField(); ?>"></input>
 							<legend>Registreren</legend>
-							<div class="error" style="display: block;"><?php User::Register(); ?></div>
+							<?php User::Register(); ?>
 							<div class="form-group">
 								<label for="inputUsername" class="col-lg-4 control-label"><?= $config['hotelName'] ?>Naam</label>
 								<div class="col-lg-8">

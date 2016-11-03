@@ -21,11 +21,12 @@
             <div id="site">
                <div id="body">
                   <link rel="stylesheet" href="/system/theme/brain/style/css/index/style.css">
-                  <link rel="stylesheet" href="/system/theme/brain/style/css/index/StyleIndex.css">
+                  <link rel="stylesheet" href="/system/theme/brain/style/css/index/StyleIndex.css?v=4">
                   <style type="text/css">
                      @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,700,300);
                      @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
                   </style>
+				   <?php User::Login(); ?>	
                   <header style="background-position-x: -4607px;">
                      <div id="main">
                         <div class="left">
@@ -40,7 +41,7 @@
                            <div class="login">
                               <form method="post">
                               <form action="post" method="post">
-                                 <b><font color="red"><?php User::Login(); ?></font></b>			
+                                	
                                  <div class="pfeil"> 	</div>
                                  <input type="hidden" name="hiddenField_login" required="" value="<?= hiddenField(); ?>"></input>
                                  <input type="text" id="username" name="username" placeholder="Gebruikersnaam">

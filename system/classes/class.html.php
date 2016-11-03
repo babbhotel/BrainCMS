@@ -9,6 +9,7 @@
 	*/
 	class Html 
 	{
+	
 		private static function checkBan($ip, $username = null)
 		{
 			if (DB::NumRowsQuery("SELECT bantype,expire FROM bans WHERE bantype = 'ip' && value = '".DB::Escape($ip)."'") === 1)
@@ -51,7 +52,7 @@
 		}
 		public static function page()
 		{
-			global $config, $lang, $hotel, $version;
+			global $emu, $config, $lang, $hotel, $version;
 			
 			if (loggedIn())
 			{
@@ -123,13 +124,13 @@
 				switch($page)
 				{
 					case "me":
-					case "client":
+					case "game":
 					case "pin":
-					case "settings":
+					case "password":
 					case "community":
 					case "news":
 					case "staff":
-					case "team":
+					case "teams":
 					case "advertentie_tips":
 					case "online":
 					case "home/":
@@ -140,11 +141,11 @@
 		}
 		public static function error($errorName)
 		{
-			echo $errorName;
+			echo '<div class="error" style="display: block;">'.$errorName.'</div>';
 		}
 		public static function errorSucces($succesMessage)
 		{
-			echo $succesMessage;
+			echo '<div class="errorSucces" style="display: block;">'.$succesMessage.'</div>';
 		}
 	}
 ?>			
