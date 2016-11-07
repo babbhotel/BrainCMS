@@ -147,5 +147,5 @@
 		{
 			echo '<div class="errorSucces" style="display: block;">'.$succesMessage.'</div>';
 		}
-	}
+	} 
 ?>			

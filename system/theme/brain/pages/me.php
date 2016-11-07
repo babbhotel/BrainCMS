@@ -8,7 +8,7 @@
 			<div class="userplate">
 				<img src="/system/theme/brain/style/images/icons/online/<?= User::userData('online') ?>.png" style="float:left;padding: 5px;">
 				<div class="useravatar">
-					<div class="avatar" style="background-image:url(/system/habbo-imaging/avatar.php?username=<?= User::userData('username') ?>&amp;direction=2&amp;head_direction=3&amp;action=crr=667&amp;gesture=sml);"></div>
+					<div class="avatar" style="background-image:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= User::userData('look') ?>&amp;direction=2&amp;head_direction=3&amp;action=crr=667&amp;gesture=sml);"></div>
 				</div>
 			</div>
 			<div class="userfirst">
@@ -24,23 +24,23 @@
 				</div>
 				<div class="userbuttonbox">
 					<a href="/game" onclick="window.open('/game','new','toolbar=0,scrollbars=0,location=1,statusbar=1,menubar=0,resizable=1,width=1270,height=700');return false;"><div class="userbutton">
-						Ga naar <?= $config['hotelName'] ?>
+						<?= $lang["Mgoto"] ?>
 					</div></a>
 				</div>
 			</div>
 			<div class="userstatsbox">
 				<div style="color: #f8ef2b; background-image: url(/system/theme/brain/style/images/icons/crediticon.png);" class="userstats ">
-					<?= User::userData('credits') ?> Credits
+					<?= User::userData('credits') ?> <?= $lang["Mcredits"] ?>
 				</div>
 			</div>
 			<div class="userstatsbox">
 				<div style="color: #e99bdc; background-image: url(/system/theme/brain/style/images/icons/duckicon.png);" class="userstats">
-					<?= User::userData('activity_points') ?> Duckets
+					<?= User::userData('activity_points') ?> <?= $lang["Mduckets"] ?>
 				</div>
 			</div>
 			<div style="margin-bottom: 0px;" class="userstatsbox">
 				<div style="color: #6caff4; background-image: url(/system/theme/brain/style/images/icons/diaicon.png);" class="userstats">
-					<?= User::userData('vip_points') ?> Diamanten
+					<?= User::userData('vip_points') ?> <?= $lang["Mdiamond"] ?>
 				</div>
 			</div>
 		</div>
@@ -48,16 +48,16 @@
 		</style>
 		<div style = "height: 169px;" class="box">
 			<div class="lblue title">
-				Wie zijn er nieuw in <?= $config['hotelName'] ?>?
+				<?= $lang["Mnewinhabbo"] ?>
 			</div>
 			<div class="mainBox" style="float;left">
 				<?php
-					$sqlGetUsersByRankDev = DB::Query("SELECT username FROM users ORDER BY ID DESC LIMIT 5");
+					$sqlGetUsersByRankDev = DB::Query("SELECT username,look FROM users ORDER BY ID DESC LIMIT 5");
 					while ($getUsersDev = DB::Fetch($sqlGetUsersByRankDev))
 					{
 					?>
 					<div class="userNewBox">
-						<a href="/home/<?= filter($getUsersDev['username']) ?>"><div class="userNew" style="background: url(/system/habbo-imaging/avatar.php?username=<?= filter($getUsersDev['username']) ?>&direction=3&head_direction=3&action=wav&headonly=0); background-position: 15px 2px;width: 80px;float: left;background-repeat: no-repeat;"></div>
+						<a href="/home/<?= filter($getUsersDev['username']) ?>"><div class="userNew" style="background: url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= filter($getUsersDev['look']) ?>&direction=3&head_direction=3&action=wav&headonly=0); background-position: 15px 2px;width: 80px;float: left;background-repeat: no-repeat;"></div>
 							<div class="userNewName">
 							<?= filter($getUsersDev['username']) ?></a>
 						</div>
@@ -69,7 +69,7 @@
 			</div>
 			<div style = "height: 169px;" class="box">
 				<div class="blue title">
-					Top Groepen in <?= $config['hotelName'] ?>
+					<?= $lang["Mtopgroupsinhabbo"] ?>
 				</div>
 				<div class="mainBox" style="float;left">
 					<?php
@@ -78,7 +78,7 @@
 						{
 						?>
 						<div class="groupboxbg">
-							<a class="tooltip" href="#"><div class="userNew" style="background: url(swf/habbo-imaging/badge.php?badge=<?= filter($row['badge']); ?>); background-position: 30px 15px;width: 80px;float: left;background-repeat: no-repeat;"></div>
+							<a class="tooltip" href="#"><div class="userNew" style="background: url(<?= $config['groupBadgeURL'] ?><?= filter($row['badge']); ?>); background-position: 30px 15px;width: 80px;float: left;background-repeat: no-repeat;"></div>
 								<div class="userNewName">
 									<?= filter($row['name']); ?>
 									<span>
@@ -98,7 +98,7 @@
 				?>
 				<div class="box">
 					<div class="purple title">
-						<?= $config['hotelName'] ?> Facebook
+						<?= $lang["Mfacebook"] ?>
 					</div>
 					<div class="mainBox" style="float;left">
 						<div id="fb-root"></div>
@@ -141,7 +141,7 @@
 			</div>
 			<div class="box">
 				<div class="title green">
-					<?= $config['hotelName'] ?> van de week
+					<?= $lang["Muotw"] ?>
 				</div>
 				<div class="mainBox" style="float;left">
 					<div class="boxHeader"></div>
@@ -150,12 +150,12 @@
 			</div>
 			<div class="box">
 				<div class="title orange">
-					Momenteel in de kamer
+					<?= $lang["Mnowinroom"] ?>
 				</div>
 				<div class="mainBox" style="float;left">
 					<div class="boxHeader"></div>
 					<div class="scroll" style="width:330px;overflow-y: auto;overflow-x: hidden;">
-						<div id="roomcount">Laden...</div>
+						<div id="roomcount"><?= $lang["mloading"] ?></div>
 					</div>
 				</div>
 			</div>
@@ -165,7 +165,7 @@
 				?>
 				<div class="box">
 					<div class="yellow title">
-						<?= $config['hotelName'] ?> Twitter
+						<?= $lang["Mtwitter"] ?>
 					</div>
 					<a class="twitter-timeline" data-width="320" data-height="420" data-link-color="#FAB81E" href="<?= $config['twitter'] ?>">Tweets by <?= $config['hotelName'] ?></a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 				</div>

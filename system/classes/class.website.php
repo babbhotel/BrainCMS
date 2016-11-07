@@ -19,20 +19,20 @@
 				echo "Profiel bestaat niet.";
 				exit();
 			}
-			$userGet = $_GET['user'];
+			$userGet = DB::Escape($_GET['user']);
 			$usersSql = DB::Fetch(DB::Query("SELECT id,username,motto,credits,vip_points,activity_points,look,account_created,last_online FROM users WHERE username = '" . DB::Escape($userGet) . "' LIMIT 1"));
 			
 			
-			return $usersSql[$key];
+			return DB::Escape($usersSql[$key]);
 			if ($usersSql->num_rows !== 1)
 			{
-				echo "User not found!";
+				echo "Profiel bestaat niet.";
 				exit();
 			}
 		}
 		public static function staffApplication()
 		{
-			Global $db;
+			Global $db,$lang;
 			if (isset($_POST['addsollie']))
 			{
 				$realname = DB::Escape($_POST['realname']);
@@ -67,17 +67,18 @@
 				}
 				$AddSollie = DB::Fetch(DB::Query("INSERT INTO staffApplication (username, realname, skype, age, functie, onlinetime,knowing,quarrel,serious,improve,microphone,ip,date) VALUES ('".User::userData('username')."', '" .$realname. "', '".$skype."', '".$age."' ,'".$functieName."','".$onlinetime."','".$knowing."','".$quarrel."','".$serious."','".$improve."' ,'".$microphone."'  ,'".$_SERVER['REMOTE_ADDR']."','". time() ."')"));
 				;
-				echo'<b><font color="green"> Jouw sollicitatie is verzonden!</b></font>';												
+				echo'<b><font color="green"> '.$lang["Ssend"].'</b></font>';												
 			}
 		}
 		public static function userOfTheWeak()
 		{
+		global $lang;
 		$getUOTW = DB::Fetch(DB::Query("SELECT userid,text FROM uotw"));
 		$getUserData = DB::Fetch(DB::Query("SELECT id,look,username,motto FROM users WHERE id = '" . $getUOTW['userid'] . "'"));
 		
-		echo '<div class="userNew" style="height: 110px;  background: url(/system/habbo-imaging/avatar.php?username='.$getUserData['username'].'&direction=2&head_direction=3&action=crr=667&gesture=sml);float: left;background-repeat: no-repeat;"></div>';
-		echo '<div style="">Naam:  <b>'.filter($getUserData['username']).'</b></div>';
-		echo '<div style="">Motto:  <b>'.filter($getUserData['motto']).'</b></div>';
+		echo '<div class="userNew" style="height: 110px;  background: url(https://avatar-retro.com/habbo-imaging/avatarimage?figure='.$getUserData['look'].'&direction=2&head_direction=3&action=crr=667&gesture=sml);float: left;background-repeat: no-repeat;"></div>';
+		echo '<div style="">'.$lang["Hname"].'  <b>'.filter($getUserData['username']).'</b></div>';
+		echo '<div style="">'.$lang["Hmotto"].'  <b>'.filter($getUserData['motto']).'</b></div>';
 		echo '<div style=""><h4>'.$getUOTW['text'].'</h4></div>';		}
-	}	
+	}
 ?>

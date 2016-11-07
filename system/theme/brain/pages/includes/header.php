@@ -36,7 +36,11 @@
 		<header id="mainheader">
 			<div class="center">
 				<a href="#">
-					<div class="head_enter"><a href="/game" onclick="window.open('/game','new','toolbar=0,scrollbars=0,location=1,statusbar=1,menubar=0,resizable=1,width=1270,height=700');return false;" class="btn btn-success">Naar <?= $config['hotelName'] ?> </a> <a onclick="<?= $config['hotelUrl'] ?>/logout" href="<?= $config['hotelUrl'] ?>/logout" class="btn btn-danger">Log uit</a></div> <div class="wrap">
+					<div class="head_enter">
+						<a href="/game" onclick="window.open('/game','new','toolbar=0,scrollbars=0,location=1,statusbar=1,menubar=0,resizable=1,width=1270,height=700');return false;" class="btn btn-success"><?= $lang["Hgoto"] ?></a> 
+						<a onclick="<?= $config['hotelUrl'] ?>/logout" href="<?= $config['hotelUrl'] ?>/logout" class="btn btn-danger"><?= $lang["HsignOut"] ?></a>
+					</div> 
+					<div class="wrap">
 						<div class="logo">
 						</div>
 					</a>
@@ -59,16 +63,16 @@
 								<a href="/"><?= User::userData('username') ?></a>
 								<div class="submenu">
 									<a href="/me"><?= User::userData('username') ?></a>
-									<a href="/settingspassword">Account Instellingen</a> 
-									<a href="/home/<?= User::userData('username') ?>">Mijn profiel</a>
-									<a href="/logout">Uitloggen</a>
+									<a href="/settingspassword"><?= $lang["Naccountsettings"] ?></a> 
+									<a href="/home/<?= User::userData('username') ?>"><?= $lang["Nmyprofile"] ?></a>
+									<a href="/logout"><?= $lang["NsignOut"] ?></a>
 								</div>
 							</li>
 							<li class="rood">
-								<a href="/community">Gemeenschap</a>
+								<a href="/community"><?= $lang["Ncommunity"] ?></a>
 								<div class="submenu">
-									<a href="/community">Gemeenschap</a>
-									<a href="/sollicitaties">Solliciteren</a>
+									<a href="/community"><?= $lang["Ncommunity"] ?></a>
+									<a href="/sollicitaties"><?= $lang["Nstaffapply"] ?></a>
 									<a href="<?php
 										$sql = DB::Query("SELECT * FROM cms_news ORDER BY ID DESC LIMIT 1");
 										{
@@ -77,20 +81,20 @@
 												echo "/news/".$row['id']."";
 											}
 										}
-									?>">Nieuwsberichten </a>
-									<a href="/advertentie_tips">Advertentie Tips</a>
-									<a href="/stats">Statistieken</a>
-									<a href="/online">Online <?= $config['hotelName'] ?>'s</a>
+									?>"><?= $lang["Nnews"] ?></a>
+									<a href="/advertentie_tips"><?= $lang["Nadvertisementtips"] ?></a>
+									<a href="/stats"><?= $lang["Nstatistics"] ?></a>
+									<a href="/online"><?= $lang["Nonline"] ?> <?= $config['hotelName'] ?>'s</a>
 								</div>
 							</li>
 							<li class="paars">
-								<a href="/staff"><?= $config['hotelName'] ?> Staff</a>
+								<a href="/staff"><?= $lang["Nstaff"] ?></a>
 								<div class="submenu">
-									<a href="/staff"><?= $config['hotelName'] ?> Staff</a>
-									<a href="/teams"><?= $config['hotelName'] ?> Teams</a>
+									<a href="/staff"><?= $lang["Nstaff"] ?></a>
+									<a href="/teams"><?= $lang["Nteams"] ?></a>
 								</div>
 							</li>
-							<a href="<?= $config['hotelUrl'] ?>/logout"><li class="logout">Log uit</li></a>
+							<a href="<?= $config['hotelUrl'] ?>/logout"><li class="logout"><?= $lang["NsignOut"] ?></li></a>
 						</ul>
 					</div>
-				</nav>						
+				</nav>										

@@ -1,12 +1,12 @@
 <?php
 	include_once 'includes/header.php';
 ?>
-<title><?= $config['hotelName'] ?>: Staffteam</title>
+<title><?= $config['hotelName'] ?>: <?= $lang["Sstaff"] ?></title>
 <div class="center">
 	<div style="width: 600px;"class="columleft">
 		<style>.staff-offline{text-indent:-9999px;width:0px;position:absolute;margin-top:6px;margin-left:7px;height:0px;border:5px solid #F37373;box-shadow:0px 0px 0px 1px rgba(0,0,0,0.2);border-radius:50%;}.staff-online{text-indent:-9999px;width:0px;position:absolute;margin-top:6px;margin-left:7px;height:0px;border:5px solid #73F375;box-shadow:0px 0px 0px 1px rgba(0,0,0,0.2);border-radius:50%;}</style>
 		<?php
-			$getRanks = DB::Query("SELECT id,name FROM ranks WHERE id in (9,7,6,5,4)  ORDER BY id DESC");
+			$getRanks = DB::Query("SELECT id,name,badgeid FROM ranks WHERE id in (9,7,6,5,4)  ORDER BY id DESC");
 			while ($Ranks = mysqli_fetch_assoc($getRanks))
 			{	
 				echo '
@@ -28,9 +28,9 @@
 						if($online == 1){ $OnlineStatus = "online"; } else { $OnlineStatus = "offline"; }
 						echo '
 						<a href="/home/'.$username.'"><div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 275px;margin-bottom: 0px;margin-left: 5px;margin-right: 5px;">
-						<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(/system/habbo-imaging/avatar.php?username='.$username.'&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
+						<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure='.$look.'&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
 						<b  style="font-size: 16px;">' .$username . ' </b> <span class="staff-'.$OnlineStatus.'">0</span> 
-						<img src="/system/theme/brain/style/images/badges/ADM.gif" style="margin-right:5px;" align="right"> 
+						<img src="'.$config['badgeURL'].'' . $Ranks['badgeid'] . '.gif" style="margin-right:5px;" align="right"> 
 						</a>
 						<br>  <img src="/system/theme/brain/style/images/icons/motto.png"> <i style="font-size: 12px;">' .$motto . '</i>
 						<BR>
@@ -40,7 +40,7 @@
 				}
 				else
 				{
-					echo 'Nog niemand heeft deze rank.';
+					echo $lang["Snostaff"];
 				}
 				echo '
 				</div>
@@ -51,16 +51,11 @@
 	<div style="width: 370px;" class="columright">
 		<div class="box">
 			<div class="black title">
-				Het Staffeam
+				<?= $lang["Sthestaff"] ?>
 			</div>
 			<div class="mainBox" style="float;left">
 				<div class="boxHeader"></div>
-				<img src="/system/theme/brain/style/images/badges/ADM.gif" align="right">
-			<?= $config['hotelName'] ?> heeft een enorm team van vrijwilligers die elke dag zich uren inzetten om de kwaliteit van de website en het hotel te verbeteren en natuurlijk de boel gezellig te houden. Als onze medewerkers niet bij <?= $config['hotelName'] ?> waren, was <?= $config['hotelName'] ?> nooit zover gekomen als het vandaag de dag is. Hier vind je de medewerkers die op dit moment actief zijn in- en rondom <?= $config['hotelName'] ?>.</p>
-			<br>
-		<b><font color="#4699E2">Hoe kan ik een <?= $config['hotelName'] ?> Staff worden?</b><br></font></b>
-		Het is mogelijk om een stafflid te worden als je aan een aantal eisen voldoet. Als wij op zoek zijn naar nieuwe collega's vermelden wij dat in het nieuws.
-	</div>
+				<?= $lang["Sthestafftext"] ?></div>
 </div>
 </div>
 <?php

@@ -1,20 +1,20 @@
 <?php
 	include_once 'includes/header.php';
 ?>
-<title><?= $config['hotelName'] ?>: Statistieken</title>
+<title><?= $config['hotelName'] ?>: Online</title>
 <div class="center">
 	<div style="width: 100%;" class="columleft">
 		<div class="box">
 			<div class="title blue">
-				Online <?= $config['hotelName'] ?>'s
+				<?= $lang["Oonline"] ?>
 			</div>
 			<div class="mainBox" style="float;left">
-				<?php $getOnline = DB::Query("SELECT id,username,motto,online from users WHERE online = '1' ORDER BY RAND()");
+				<?php $getOnline = DB::Query("SELECT id,username,motto,online,look from users WHERE online = '1' ORDER BY RAND()");
 					while($onlineRow = mysqli_fetch_assoc($getOnline))
 					{
 					?>
 					<div style="cursor:pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 225px;margin-bottom: 10px;margin-left: 5px;margin-right: 5px;">
-						<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(/system/habbo-imaging/avatar.php?username=<?= $onlineRow['username'] ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
+						<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= $onlineRow['look'] ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
 					<b style="font-size: 16px; color: black;"><?= $onlineRow['username'] ?> </b><br><?= filter($onlineRow['motto']) ?></a>
 				</div>		
 				<?php

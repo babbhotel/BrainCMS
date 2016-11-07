@@ -44,8 +44,8 @@
                                 	
                                  <div class="pfeil"> 	</div>
                                  <input type="hidden" name="hiddenField_login" required="" value="<?= hiddenField(); ?>"></input>
-                                 <input type="text" id="username" name="username" placeholder="Gebruikersnaam">
-                                 <input type="password" id="password" name="password" placeholder="Wachtwoord">
+                                 <input type="text" id="username" name="username" placeholder="<?php echo $lang['Iusername']; ?>">
+                                 <input type="password" id="password" name="password" placeholder="<?php echo $lang['Ipassword']; ?>">
                                  <button type="submit" class="submit" name="login"><img src="/system/theme/brain/style/images/login/go.gif">
                            </div>
                            </button></form>
@@ -59,13 +59,13 @@
                         <div class="text">
                            <div class="animated bounceIn">
                               <center>
-                                 <h2><b>Hey, welkom op <?= $config['hotelName'] ?>!</b></h2>
-                                 <p><b>Welkom op <?= $config['hotelName'] ?>, Vergeet niet je vrienden uit te nodigen!</b></p>
+                                 <h2><b><?php echo $lang['Islogan1']; ?></b></h2>
+                                 <p><b><?php echo $lang['Islogan2']; ?></b></p>
                               </center>
                            </div>
                         </div>
                         <div onclick="showReg();" id="registerbutton">
-                           <div class="animated bounceIn">Registreer
+                           <div class="animated bounceIn"><?php echo $lang['Iregister']; ?>
                            </div>
                         </div>
                      </div>
@@ -73,38 +73,35 @@
                         <div class="text">
                            <div class="animated bounceIn">
                               <b>
-                                 <center>Snelheid & Lag</center>
+                                 <center><?php echo $lang['Itext1header']; ?></center>
                               </b>
-                              Dit betekend dat we een stabiele en consistente omgeving kunnen garanderen, voor u allen om te spelen! Merk  je dat je in de problemen komt? neem dan zo snel mogelijk contact op met een medewerker! We kunnen je niet helpen als je niet vraagt.<br><br><br><br><br><br>
-                           </div>
+                           <?php echo $lang['Itext1']; ?></div>
                         </div>
                      </div>
                      <div id="recorder-container-box" style="background-image: url(/system/theme/brain/style/images/login/eventbox-bg.png); margin-left: 19px;">
                         <div class="text">
                            <div class="animated bounceIn">
                               <b>
-                                 <center>Dagelijkse Evenementen</center>
+                                 <center><?php echo $lang['Itext2header']; ?></center>
                               </b>
-                              Hier bij <?= $config['hotelName'] ?> Hotel, onze medewerker(s) zijn gemotiveerd en zal dagelijks evenementen organiseren, Dit zorgt ervoor dat jij en de rest van de leden niet je eigen vervelen. Als er geen evenementen worden georganiseerd, moet u bedrade evenementen zoals Ping Pong spelen, Beat the Holo, en de draak mig's doolhof!<br><br><br><br>
-                           </div>
+                           <?php echo $lang['Itext2']; ?></div>
                         </div>
                      </div>
                      <div id="recorder-container-box" style="background-image: url(/system/theme/brain/style/images/login/updatebox-bg.png); float: right; margin-right: 0px;">
                         <div class="text">
                            <div class="animated bounceIn">
                               <b>
-                                 <center>Updates</center>
+                                 <center><?php echo $lang['Itext3header']; ?></center>
                               </b>
-                              We werken onze server dagelijks bij, het toevoegen van nieuwe functies voor de client en de website. Deze functies kunnen omvatten dingen zoals nieuwe commando's, nieuw meubilair, nieuwe website features, en ga zo maar door! Als er een meubels, badge of opdracht die we niet hebben, en je wilt .. Gewoon vragen! Een van de ontwikkelaars zal het toevoegen!<br><br><br>
-                           </div>
+                           <?php echo $lang['Itext3']; ?></div>
                         </div>
                      </div>
                   </div>
                   <br>
                   <div id="footer" style="font-family: verdana, arial, sans-serif;">
                      <div id="inner">
-                        <div id="middle">Copyright <b>© 2016 <?= $config['hotelUrl'] ?></b> - Alle rechten voorbehouden.
-                           <br>We zijn niet onderschreven, verbonden of worden aangeboden door Sulake Corporation Oy.
+                        <div id="middle"> <?php echo $lang['ICopyright1']; ?>
+                            <?php echo $lang['ICopyright2']; ?>
                         </div>
                      </div>
                   </div>

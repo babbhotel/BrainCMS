@@ -39,40 +39,40 @@
 					<form method="post" class="form-horizontal">
 						<fieldset>
 							<input type="hidden" name="hiddenField_register" required="" value="<?= hiddenField(); ?>"></input>
-							<legend>Registreren</legend>
+							<legend><?php echo $lang['Rregister']; ?></legend>
 							<?php User::Register(); ?>
 							<div class="form-group">
-								<label for="inputUsername" class="col-lg-4 control-label"><?= $config['hotelName'] ?>Naam</label>
+								<label for="inputUsername" class="col-lg-4 control-label"><?php echo $lang['Rname']; ?></label>
 								<div class="col-lg-8">
-									<input type="text" class="form-control" name="username" id="username" placeholder="<?= $config['hotelName'] ?>Naam...">
+									<input type="text" class="form-control" name="username" id="username" placeholder="<?php echo $lang['Rname']; ?>...">
 									<i class="glyphicon glyphicon-user form-control-feedback" style="right: 10px;"></i>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputUsername" class="col-lg-4 control-label">Motto</label>
+								<label for="inputUsername" class="col-lg-4 control-label"><?php echo $lang['Rmotto']; ?></label>
 								<div class="col-lg-8">
-									<input type="text" class="form-control" name="motto" id="motto" placeholder="<?= $config['startMotto'] ?>" value="<?= $config['startMotto'] ?>">
+									<input type="text" class="form-control" name="motto" id="motto" placeholder="<?php echo $lang['Rmotto']; ?>" value="<?= $config['startMotto'] ?>">
 									<i class="glyphicon glyphicon-star form-control-feedback" style="right: 10px;"></i>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail" class="col-lg-4 control-label">Email</label>
+								<label for="inputEmail" class="col-lg-4 control-label"><?php echo $lang['Remail']; ?></label>
 								<div class="col-lg-8">
-									<input type="text" class="form-control" name="email" id="email" placeholder="Email...">
+									<input type="text" class="form-control" name="email" id="email" placeholder="<?php echo $lang['Remail']; ?>...">
 									<i class="glyphicon glyphicon-envelope form-control-feedback" style="right: 10px;"></i>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword" class="col-lg-4 control-label">Wachtwoord</label>
+								<label for="inputPassword" class="col-lg-4 control-label"><?php echo $lang['Rpassword']; ?></label>
 								<div class="col-lg-8">
-									<input type="password" class="form-control" name="password" id="password" placeholder="Wachtwoord...">
+									<input type="password" class="form-control" name="password" id="password" placeholder="<?php echo $lang['Rpassword']; ?>...">
 									<i class="glyphicon glyphicon-lock form-control-feedback" style="right: 10px;"></i>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword2" class="col-lg-4 control-label">Wachtwoord (herhaal)</label>
+								<label for="inputPassword2" class="col-lg-4 control-label"><?php echo $lang['Rrepeatpassword']; ?></label>
 								<div class="col-lg-8">
-									<input type="password" class="form-control" name="password_repeat" id="password_repeat" placeholder="Wachtwoord (herhaal)...">
+									<input type="password" class="form-control" name="password_repeat" id="password_repeat" placeholder="<?php echo $lang['Rrepeatpassword']; ?>...">
 									<i class="glyphicon glyphicon-lock form-control-feedback" style="right: 10px;"></i>
 								</div>
 							</div>
@@ -163,7 +163,7 @@
 								{
 								?>
 								<div class="form-group">
-									<label for="inputcaptcha" class="col-lg-4 control-label"><?= $lang["protect"] ?></label>
+									<label for="inputcaptcha" class="col-lg-4 control-label"><?php echo $lang['Rrobot']; ?></label>
 									<div class="col-lg-8">
 										<div class="g-recaptcha" data-sitekey="<?= $config['recaptchaSiteKey'] ?>"></div>
 									</div>
@@ -177,8 +177,8 @@
 								</div
 							<div class="form-group" style="text-align: right;">
 							<div class="col-lg-8 col-lg-offset-4">
-								<a href="/index" class="btn btn-default">Terug</a>
-								<button href="/me"   type="submit" name="register"class="btn btn-primary">Registreren</button>
+								<a href="/index" class="btn btn-default"><?php echo $lang['Rback']; ?></a>
+								<button href="/me"   type="submit" name="register"class="btn btn-primary"><?php echo $lang['Rregister']; ?></button>
 							</div>
 						</div>
 					</fieldset>
@@ -186,28 +186,28 @@
 				<div style="float: right; width: 42%;" class="list-group">
 					<a class="list-group-item">
 						<div class="subimage1"></div>
-						<h4 class="list-group-item-heading">Wat is <?= $config['hotelName'] ?> hotel?</h4>
-						<p class="list-group-item-text"><?= $config['hotelName'] ?> is een gratis virtuele wereld waar je kunt chatten, lopen, vrienden kunt maken en ontmoeten. Ook is het mogelijk om je eigen virtuele kamer te creeëren die je vervolgens naar eigen keus kunt inrichten.</p>
+						<h4 class="list-group-item-heading"><?php echo $lang['Rtext1header']; ?></h4>
+						<p class="list-group-item-text"><?php echo $lang['Rtext1']; ?></p>
 					</a>
 					<a  class="list-group-item">
 						<div class="subimage2"></div>
-						<h4 class="list-group-item-heading">Wat kan je doen in <?= $config['hotelName'] ?>?</h4>
-						<p class="list-group-item-text">In <?= $config['hotelName'] ?> kan je nieuwe vrienden maken. een praatje met andere <?= $config['hotelName'] ?>'s maken, een potje voetballen of gezellig meehelpen aan het bouwen van een mooie kamer. Het kan allemaal in <?= $config['hotelName'] ?>!</p>
+						<h4 class="list-group-item-heading"><?php echo $lang['Rtext2header']; ?></h4>
+						<p class="list-group-item-text"><?php echo $lang['Rtext2']; ?></p>
 					</a>
 					<a  class="list-group-item">
 						<div class="subimage3"></div>
-						<h4 class="list-group-item-heading">Meer dan alleen spelen...</h4>
-						<p class="list-group-item-text">Het stylen van je avatar naar de laatste modetrends is niet de enige manier waarop je plezier kunt hebben op <?= $config['hotelName'] ?>. Wil je de architect van de eeuw zijn en duizelingwekkende gebouwen ontwerpen? Dan is de Builders Club echt iets voor jou! Wil je laten zien hoe goed je bent in het maken van games en al je vrienden imponeren? Doe dan mee met onze competities! Ben je gek op selfies en grappige foto's? Onze camera-feature staat garant voor onbeperkt plezier!</p>
+						<h4 class="list-group-item-heading"><?php echo $lang['Rtext3header']; ?></h4>
+						<p class="list-group-item-text"><?php echo $lang['Rtext3']; ?></p>
 					</a>
 					<a  class="list-group-item">
 						<div class="subimage4"></div>
-						<h4 class="list-group-item-heading">Speel gratis, voor altijd.</h4>
-						<p class="list-group-item-text"><?= $config['hotelName'] ?> is een gratis game, dus je kunt een enorme wereld vol kamers ontdekken, quests voltooien, chatten en prijzen winnen zonder dat je er ooit voor hoeft te betalen!<br>Sommige extra's in het spel zoals huisdieren, <?= $config['hotelName'] ?> Club-lidmaatschap, Builders Club-lidmaatschap en meubilair kunnen worden aangeschaft met <?= $config['hotelName'] ?> Credits. Voor meer informatie over deze in-game extra's kun je vinden in de <?= $config['hotelName'] ?> winkel.</p>
+						<h4 class="list-group-item-heading"><?php echo $lang['Rtext4header']; ?></h4>
+						<p class="list-group-item-text"><?php echo $lang['Rtext4']; ?></p>
 					</a>
 				</div>
 				<div style="clear:both;"></div><footer class="footer" style="font-size: 13.5px; font-weight: 100;">
 					<center>
-						Copyright <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true" style="/* float: right; *//* top: 4px; */"></span> 2016 <?= $config['hotelName'] ?> Hotel. Alle rechten voorbehouden./footer>
+						<?php echo $lang['RCopyright']; ?>
 					</div>
 				</body>
 			</html>

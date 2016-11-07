@@ -27,12 +27,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-latest.js"></script>	
 	<body background="/system/theme/brain/style/images/headerbg/background2016.png">
-		<title>Toegang geblokkeerd</title>
+		<title><?= $lang["Bblockked"] ?></title>
 		<div class="center">
 			<div style="width: 100%;" class="columleft">
 				<div class="box">
 					<div class="title red">
-						<?= $config['hotelName'] ?> heeft jou toegang geblokkeerd!
+					<?= $lang["Bhotelblack"] ?>
 					</div>
 					<div class="mainBox" style="float;left">
 						<?php 
@@ -49,23 +49,18 @@
 							{
 							?>
 							<img src='http://i.imgur.com/Rug0VxW.gif' align='right'>
-							<h3>Beste bezoeker,</h3>
-							Helaas ben je verbannen van onze website.<br> Dit komt omdat jij je niet aan onze regels hebt gehouden.<br><br><br>Je bent verbanen om de volgende reden:
+							<?= $lang["Bvisitor"] ?>
 							<i><b><?= $banInfo['reason']; ?></b></i>
 							<br /><br />
-							Je bent verbannen vanaf: <b><u><?php echo gmdate("d-m-Y H:i", $banInfo['added_date']); ?></u></b> tot <b><u><?php echo gmdate("d-m-Y H:i", $banInfo['expire']); ?></u></b>.<br />Ban ID: <b><?= $banInfo['id']; ?></b><br /><hr>
-							<h4>Klopt dit niet?</h4>
-							Neem contact op met het Staffteam via deze mail: <b><font color="blue"><u><a href='mailto:info@horba.net'>info@horba.net</a></u></font></b>.
-							<hr>
-							<h4>Unban kopen?</h4>
-							Neem contact op met Romeo via deze mail: <b><font color="blue"><u><a href='mailto:romeobaas@outlook.com'>romeobaas@Outlook.com</a></u></font></b>.<br><small>Gelieve je Gebruikersnaam & IP-Adres sturen!</small>
+							<?= $lang["Bbantil"] ?> <b><u><?php echo gmdate("d-m-Y H:i", $banInfo['added_date']); ?></u></b> <?= $lang["Buntil"] ?> <b><u><?php echo gmdate("d-m-Y H:i", $banInfo['expire']); ?></u></b>.<br />Ban ID: <b><?= $banInfo['id']; ?></b><br /><hr>
+							<?= $lang["Bwrong"]  ?>
 							<?php
 							}
 						?>
 					</div>
 				</div>
 				<div class="boxfooter">
-					<?= $config['hotelName'] ?> hotel &copy; 2016 - 2017 |
+					<?= $config['hotelName'] ?> &copy; 2016 - 2017 |
 					<span style="cursor:pointer;text-decoration:underline;" class='lireSuite' onclick="document.location.href='/#'">Algemene voorwaarden</span> |
 					<span style="cursor:pointer;text-decoration:underline;" class='lireSuite' onclick="document.location.href='#'">Privacyverklaring</span> |
 					<span style="cursor:pointer;text-decoration:underline;" class='lireSuite' onclick="document.location.href='#'">Gids voor ouders</span>

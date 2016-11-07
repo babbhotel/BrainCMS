@@ -54,9 +54,11 @@
 				}
 			}
 		}
+		
 		public static function AddParam($key, $value){
 			self::$params[$key] = ((is_string($value)) ? "'" . $value . "'" : $value);
 		}
+		
 		public static function Query($query, $is_sellect = false){
 			if(substr($query, 0, 5) == "SELECT") {
 				if(stristr($query, "UPDATE")) die("Beste Hacker,<br/><stront>Fuck op!</strong>");
@@ -87,19 +89,24 @@
 				return $quer;
 			}
 		}
+		
 		public static function NumRows($resource){
 			return mysqli_num_rows($resource);
 		}
+		
 		public static function NumRowsQuery($query){
 			$data = self::Query($query);
 			return self::NumRows($data);
 		}
+		
 		public static function Escape($string){
 			return mysqli_escape_string(self::$verbinding, $string);
 		}
+		
 		public static function Fetch($resource){
 			return @mysqli_fetch_assoc($resource);
 		}
+		
 		public static function SaveQuery($query){
 			self::$queriesb[] = $query;
 		}
@@ -112,6 +119,7 @@
 			$out .= "</div>\n";
 			return print $out;
 		}
+		
 		public static function Close(){
 			return mysqli_close(self::$verbinding);
 		}

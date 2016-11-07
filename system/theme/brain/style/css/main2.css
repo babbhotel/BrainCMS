@@ -7,7 +7,7 @@
 	-moz-box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
 	box-shadow: 0px 5px 5px -5px rgba(0,0,0,0.75);
     border-bottom: 3px solid grey;
-	}
+}
 #mainheader #onlinecounter
 {
 	background-color: #FFF;
@@ -24,24 +24,24 @@
 	position: absolute;
 }
 input[type="text"] {
-  padding: 10px 0px;
-  border: solid 1px #dcdcdc;
-  transition: box-shadow 0.3s, border 0.3s;
+	padding: 10px 0px;
+	border: solid 1px #dcdcdc;
+	transition: box-shadow 0.3s, border 0.3s;
 }
 input[type="text"]:focus,
 input[type="text"].focus {
-  border: solid 1px #707070;
-  box-shadow: 0 0 5px 1px #969696;
+	border: solid 1px #707070;
+	box-shadow: 0 0 5px 1px #969696;
 }
 input[type="password"] {
-  padding: 10px 0px;
-  border: solid 1px #dcdcdc;
-  transition: box-shadow 0.3s, border 0.3s;
+	padding: 10px 0px;
+	border: solid 1px #dcdcdc;
+	transition: box-shadow 0.3s, border 0.3s;
 }
 input[type="password"]:focus,
 input[type="password"].focus {
-  border: solid 1px #707070;
-  box-shadow: 0 0 5px 1px #969696;
+	border: solid 1px #707070;
+	box-shadow: 0 0 5px 1px #969696;
 }
 #mainheader #melding
 {
@@ -120,7 +120,7 @@ input[type="submit"], input:-webkit-autofill, .submit {
 	line-height: 50px;
 	padding: 0 30px 0px 30px;
 	position: relative;
-	width: 100px;
+	width: auto;
 }
 #navigator ul li.blauw:hover
 {
@@ -154,7 +154,7 @@ input[type="submit"], input:-webkit-autofill, .submit {
 #navigator ul li.groen
 {
 	background-image: url(../../style/images/menuicons/shopicon.png);
-	background-position: 16px 16px;
+	background-position: 7px 16px;
 	background-repeat: no-repeat;
 }
 #navigator ul li.groen:hover
@@ -165,13 +165,13 @@ input[type="submit"], input:-webkit-autofill, .submit {
 #navigator ul li.logout
 {
 	background-image: url(../../style/images/menuicons/logouticon.png);
-	background-position: 16px 16px;
+	background-position: 7px 16px;
 	background-repeat: no-repeat;
 }
 #navigator ul li.logout
 {
 	box-shadow: -1px 0 rgba(0,0,0,.06),inset -1px 0 rgba(0,0,0,.06);
-	width: 120px;
+	width: auto;
 }
 #navigator ul li.logout:hover
 {
@@ -181,7 +181,7 @@ input[type="submit"], input:-webkit-autofill, .submit {
 #navigator ul li.paars
 {
 	background-image: url(../../style/images/menuicons/stafficon.png);
-	background-position: 16px 16px;
+	background-position: 7px 16px;
 	background-repeat: no-repeat;
 }
 #navigator ul li.paars:hover
@@ -192,7 +192,7 @@ input[type="submit"], input:-webkit-autofill, .submit {
 #navigator ul li.rood
 {
 	background-image: url(../../style/images/menuicons/communityicon.png);
-	background-position: 6px 19px;
+	background-position: 7px 20px;
 	background-repeat: no-repeat;
 }
 #navigator ul li.rood:hover
@@ -209,37 +209,7 @@ input[type="submit"], input:-webkit-autofill, .submit {
 {
 	list-style: none;
 }
-#PINbox
-{
-	background: #ededed;
-	border: 1px solid #d5d5d5;
-	font-size: 4em;
-	margin: 3.5%;
-	text-align: center;
-	width: 92%;
-}
-#PINform
-{
-	background: #ededed;
-	box-shadow: 0px 5px 5px -0px rgba(0,0,0,0.3);
-	height: 400px;
-	left: 50%;
-	margin-left: -180px;
-	margin-top: -215px;
-	moz-box-shadow: 0px 5px 5px -0px rgba(0,0,0,0.3);
-	padding: 30px;
-	position: absolute;
-	top: 50%;
-	webkit-box-shadow: 0px 5px 5px -0px rgba(0,0,0,0.3);
-	width: 309px;
-}
-#PINform input:focus,
-#PINform select:focus,
-#PINform textarea:focus,
-#PINform button:focus
-{
-	outline: none;
-}
+
 .box
 {
 	background-color: #FFF;
@@ -536,28 +506,6 @@ input[type="submit"], input:-webkit-autofill, .submit {
 	height: 65px;
 	padding-left: 20px;
 	width: 170px;
-}
-.PINbutton
-{
-	background: #ededed;
-	border: none;
-	border-radius: 50%;
-	color: #7e7e7e;
-	font-size: 1.5em;
-	height: 60px;
-	margin: 7px 20px;
-	padding: 0;
-	text-align: center;
-	width: 60px;
-}
-.PINbutton:active
-{
-	background: #506CE8;
-	color: #fff;
-}
-.PINbutton:hover
-{
-	box-shadow: #506CE8 0 0 1px 1px;
 }
 .shadow
 {
@@ -957,4 +905,44 @@ fieldset[disabled] .btn-danger.focus {
     margin: 10px;
     padding-right: 10px;
     width: 90px;
+}
+.oddeven:nth-child(odd) {
+	background-color: rgba(0,0,0,0.06);
+}
+.oddeven {
+	transition: .1s all ease-out;
+	padding: 10px;
+	max-height: 30px;
+	border-bottom: 1px dotted #BDBDBD;
+	cursor: pointer;
+}
+#lft {
+	float: left;
+}
+#rght {
+	float: right;
+}
+.hidde {
+	display: none;
+}
+.burst {
+	width: 29px;
+	float: left;
+	height: 38px;
+	padding-top: 6px;
+	padding-left: 10px;
+}
+label {
+	cursor: default;
+}
+.burst_active {
+	background: url(/system/theme/brain/style/images/account/burst_tiny.png);
+	width: 28px;
+	height: 32px;
+	float: left;
+	padding-top: 6px;
+	padding-left: 10px;
+}
+.c {
+	clear: both;
 }

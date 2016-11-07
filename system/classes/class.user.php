@@ -13,8 +13,8 @@
 		login();
 		register();
 		editPassword();
-		editHotelSettings();
 		editEmail();
+		editHotelSettings();
 	*/
 	class User 
 	{
@@ -55,7 +55,7 @@
 				return false;
 			}
 		}
-				public static function userTaken($username)
+		public static function userTaken($username)
 		{
 			$sqlEmailTaken = DB::Query("SELECT*FROM users WHERE username = '" . DB::Escape($username) . "' LIMIT 1");
 			if ($sqlEmailTaken->num_rows > 0)
@@ -69,7 +69,7 @@
 		}
 		public static function staffPin()
 		{
-			global $config;
+			global $config, $lang;
 			if (isset($_POST['loginPin']))
 			{
 				if (!empty($_POST['PINbox']))
@@ -81,20 +81,20 @@
 						header('Location: '.$config['hotelUrl'].'/game');
 					}
 					else{
-						echo'Je ingevulde PIN klopt niet!';
+						echo $lang["Ppinwrong"];
 					}
 				}
 				else{
-					echo'Geen PIN ingevuld!';
+					echo $lang["Pnopin"];
 				}
 			}
 		}
 		Public static function staffCheck()
 		{
-			global $config;
-			if($config['staffCheckClient'] == true)
+			global $config,$hotel;
+			if($hotel['staffCheckClient'] == true)
 			{
-				if (self::userData('rank') > $config['staffCheckClientMinimumRank '])
+				if (self::userData('rank') > $hotel['staffCheckClientMinimumRank '])
 				{
 					if (empty($_SESSION['staffCheck'])) 
 					{ 
@@ -106,7 +106,7 @@
 		}
 		public static function login()
 		{
-			global $config;
+			global $config,$lang;
 			if (isset($_POST['login']))
 			{
 				if ($_POST['hiddenField_login'] == hiddenField())
@@ -123,20 +123,20 @@
 									$_SESSION['id'] = $getInfo['id'];
 									header('Location: '.$config['hotelUrl'].'/me');
 								}
-								return html::error("Je wachtwoord klopt niet!");
+								return html::error($lang["Lpasswordwrong"]);
 							}
-							return html::error("Deze gebruikersnaam bestaat niet.");
+							return html::error($lang["Lnotexistuser"]);
 						}
-						return html::error("Je hebt geen wachtwoord ingevuld.");
+						return html::error($lang["Lnopassword"]);
 					}
-					return html::error("Je hebt geen gebruikersnaam ingevuld.");
+					return html::error($lang["Lnousername"]);
 				}
-				return html::error("Er is iets mis gegaan!");
+				return html::error($lang["Lwrong"]);
 			}
 		}
 		public static function register()
 		{
-			global $config;
+			global $config, $lang;
 			if (isset($_POST['register']))
 			{
 				if ($_POST['hiddenField_register'] == hiddenField())
@@ -154,7 +154,7 @@
 										if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 										{
 											if (!Self::userTaken(DB::Escape($_POST['username'])))
-												{
+											{
 												if (!Self::emailTaken(DB::Escape($_POST['email'])))
 												{
 													if (strlen($_POST['password']) > 5)
@@ -206,72 +206,73 @@
 																}
 																else
 																{
-																	return html::error('Druk op "Ik ben geen robot"!'); 
+																	return html::error($lang["Rnorobot"]); 
 																}
 															}
 															else
 															{
-																return html::error("Sorry maar je mag maar 3 accounts hebben per IP!"); 
+																return html::error($lang["Rmaxaccounts"]); 
 															}
 														}
 														else
 														{
-															return html::error("Ingevoerde wachtwoorden komen niet overeen!");
+															return html::error($lang["Rpasswordswrong"]);
 														}
 													}
 													else
 													{
-														return html::error("Wachtwoord moet bestaan uit meer dan 6 tekens!"); 
+														return html::error($lang["Rpasswordshort"]); 
 													}
 												}
 												else
 												{
-													return html::error("Email is al geregistreerd!");
+													return html::error($lang["Remailexists"]);
 												}
 											}
 											else
 											{
-												return html::error("Gebruikersnaam is al gebruik!");
+												return html::error($lang["Rusernameused"]);
 											}
 										}
 										else
 										{
-											return html::error("Email is niet toegestaan!");
+											return html::error($lang["Remailnotallowed"]);
 										}
 									}
 									else
 									{
-										return html::error("Email is leeg");
+										return html::error($lang["Remailempty"]);
 									}
 								}
 								else
 								{
-									return html::error("Ingevoerde wachtwoorden komen niet overeen!"); 
+									return html::error($lang["Rpasswordsempty"]); 
 								}
 							}
 							else
 							{
-								return html::error("Ingevoerde wachtwoorden komen niet overeen!"); 
+								return html::error($lang["Rpasswordsempty"]); 
 							}
 						}
 						else
 						{
-							return html::error("Je naam moet minimaal uit 3 karakters bestaan en niet langer dan 13 karakters!");
+							return html::error($lang["Rusernameshort"]);
 						}
 					}
 					else
 					{
-						return html::error("Gebruikersnaam is leeg");
+						return html::error($lang["Rusrnameempty"]);
 					}
 				}
 				else
 				{
-					return html::error("Er is iets mis gegaan!");
+					return html::error($lang["Rwrong"]);
 				}
 			}
 		}
 		Public static function editPassword()
 		{
+			global $lang;
 			if (isset($_POST['password']))
 			{
 				if (isset($_POST['oldpassword']) && !empty($_POST['oldpassword']))
@@ -294,21 +295,21 @@
 								)
 								)
 								{
-									return Html::errorSucces('Wachtwoord is gewijzigd!');
+									return Html::errorSucces($lang["Ppasswordchanges"]);
 								}
 								else
 								{
-									return Html::error('niet gelukt!');
+									return Html::error($lang["Pnotwork"]);
 								}
 							}
 							else
 							{
-								return Html::error('Wachtwoord moet meer dan 6 tekens hebben');
+								return Html::error($lang["Ppasswordshort"]);
 							}
 						}
 						else
 						{
-							return Html::error('Je oude wachtwoord is verkeerd!');
+							return Html::error($lang["Poldpasswordwrong"]);
 						}
 					}
 					else
@@ -322,8 +323,39 @@
 				}
 			}
 		}
+		Public static function editEmail()
+		{
+			global $lang;
+			if (isset($_POST['account']))
+			{
+				if (isset($_POST['email']) && !empty($_POST['email']))
+				{
+					if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+					{
+						if (!Self::emailTaken($_POST['email']))
+						{
+							$user = DB::Query("UPDATE users SET mail = '". DB::Escape($_POST['email'])."' WHERE id = '". DB::Escape($_SESSION['id'])."'");
+							return Html::errorSucces($lang["Eemailchanges"]);
+						}
+						else
+						{
+							return Html::error($lang["Eemailexists"]);
+						}
+					}
+					else
+					{
+						return Html::error($lang["Eemailnotallowed"]);
+					}
+				}
+				else
+				{
+					return Html::error($lang["Enoemail"]);
+				}
+			}
+		}
 		Public static function editHotelSettings()
 		{
+			global $lang;
 			if (isset($_POST['hinstellingenv']))
 			{
 				$user = DB::Query("UPDATE users SET ignore_invites = '". DB::Escape($_POST['hinstellingenv'])."' WHERE id = '". DB::Escape($_SESSION['id'])."'");
@@ -338,37 +370,8 @@
 			}
 			if (isset($_POST['hotelsettings']))
 			{
-				return Html::errorSucces('Hotel Instellingen gewijzicht');
+				return Html::errorSucces($lang["Hchanges"]);
 			}
 		}
-		Public static function editEmail()
-		{
-			if (isset($_POST['account']))
-			{
-				if (isset($_POST['email']) && !empty($_POST['email']))
-				{
-					if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
-					{
-						if (!Self::emailTaken($_POST['email']))
-						{
-							$user = DB::Query("UPDATE users SET mail = '". DB::Escape($_POST['email'])."' WHERE id = '". DB::Escape($_SESSION['id'])."'");
-							return Html::errorSucces("Je email adres is gewijzigd. ");
-						}
-						else
-						{
-							return Html::error("Dit email adres is al in gebruik!");
-						}
-					}
-					else
-					{
-						return Html::error("Dit email is niet geldig!");
-					}
-				}
-				else
-				{
-					return Html::error("Er is geen emial ingevuld!");
-				}
-			}
-		}
-	}	
+	}
 ?>										

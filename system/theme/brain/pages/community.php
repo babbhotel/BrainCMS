@@ -1,22 +1,22 @@
 <?php
 	include_once 'includes/header.php';
 ?>
-<title><?= $config['hotelName'] ?>: Community</title>
+<title><?= $config['hotelName'] ?>: <?= $lang["Ccommunity"] ?></title>
 <div class="center">
 	<div class="columleft">
 		<div class="box">
 			<div class="title">
-				Random speler(s)
+				<?= $lang["Crandomplayers"] ?>
 			</div>
 			<div class="mainBox" style="float;left">
 				<div class="boxHeader"></div>
 				<?php
-					$sqlGetUsersByRankDev = DB::Query("SELECT username FROM users ORDER BY RAND() LIMIT 15");
+					$sqlGetUsersByRankDev = DB::Query("SELECT username,look FROM users ORDER BY RAND() LIMIT 15");
 					while ($getUsersDev = DB::Fetch($sqlGetUsersByRankDev))
 					{
 					?>
 					<div class="userNewBox">
-						<a href="/home/<?= filter($getUsersDev['username']) ?>"><div class="userNew" style="background: url(/system/habbo-imaging/avatar.php?username=<?= filter($getUsersDev['username']) ?>&direction=3&head_direction=3&action=wav&headonly=0); background-position: 15px 2px;width: 80px;float: left;background-repeat: no-repeat;"></div>
+						<a href="/home/<?= filter($getUsersDev['username']) ?>"><div class="userNew" style="background: url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= filter($getUsersDev['look']) ?>&direction=3&head_direction=3&action=wav&headonly=0); background-position: 15px 2px;width: 80px;float: left;background-repeat: no-repeat;"></div>
 							<div class="userNewName">
 							<?= filter($getUsersDev['username']) ?></a>
 						</div>
@@ -52,12 +52,12 @@
 			</div>
 			<div class="box">
 				<div class="title green">
-					Populaire kamers
+					<?= $lang["Cnowinroom"] ?>
 				</div>
 				<div class="mainBox" style="float;left">
 					<div class="boxHeader"></div>
 					<div class="scroll" style="width:330px;overflow-y: auto;overflow-x: hidden;">
-						<div id="roomcount"><?= $lang["loading"] ?></div>
+						<div id="roomcount"><?= $lang["Cloading"] ?></div>
 					</div>
 				</div>
 			</div>

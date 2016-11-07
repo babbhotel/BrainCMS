@@ -1,13 +1,11 @@
 <body style="background: #3498db;">
 	<html>
 		<head>
-			<link rel="stylesheet" href="/system/theme/brain/style/css/main2.css?v=<?= $config['hash'] ?>" type="text/css">
+			<link rel="stylesheet" href="/system/theme/brain/style/css/pin.css?v=<?= $config['hash'] ?>" type="text/css">
 		</head>
 		<body >
 			<div class="error" style="display: block;"><?php User::staffPin(); ?></div>
-			<center><div class="staff"><div class="staff2">Staff beveiliging<br></div>
-				Als je nog geen PIN hebt neem dan contact op met de hotel manager
-			</div></center>
+
 			
 			<div id="PINcode"></div>
 			<script src="system/theme/brain/style/js/jquery.min.js" type="text/javascript"></script>
@@ -30,7 +28,7 @@
 				<input type='button' class='PINbutton clear' name='-' value='clear' id='-' onClick=clearForm(this); />
 				<input type='button' class='PINbutton' name='0' value='0' id='0' onClick=addNumber(this); />
 				
-				<input class='PINbutton enter' type="submit" name="loginPin" value="Enter">
+				<input class='PINbutton' type="submit" name="loginPin" value="Enter">
 			</form>
 			<script>
 				function addNumber(e){

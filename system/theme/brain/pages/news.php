@@ -1,7 +1,7 @@
 <?php
 	include_once 'includes/header.php';
 ?>
-<title><?= $config['hotelName'] ?>: Nieuwsberichten</title>
+<title><?= $config['hotelName'] ?>: <?=  $lang["Nnews"] ?></title>
 <style type="text/css">
 	.mainBox.newsBox a {
 	color: #1c76c7;
@@ -16,7 +16,7 @@
 	<div style="margin-left: 0px;" class="columright">
 		<div style = "" class="box">
 			<div class="title">
-				Nieuws berichten
+				<?=  $lang["Nnews"] ?>
 			</div>
 			<div class="mainBox" style="float;left">
 				<?php
@@ -28,32 +28,32 @@
 						switch ($i)
 						{
 							case 0:
-							$sectionName = 'Vandaag';
+							$sectionName = ''.$lang["Ntoday"].'';
 							$sectionCutoffMax = time();
 							$sectionCutoffMin = time() - 86400;
 							break;
 							case 1:
-							$sectionName = 'Gisteren';
+							$sectionName = ''.$lang["Nyesterday"].'';
 							$sectionCutoffMax = time() - 86400;
 							$sectionCutoffMin = time() - 172800;
 							break;
 							case 2:
-							$sectionName = 'Deze week';
+							$sectionName = ''.$lang["Nthisweek"].'';
 							$sectionCutoffMax = time() - 172800;
 							$sectionCutoffMin = time() - 604800;
 							break;
 							case 3:
-							$sectionName = 'Vorige week';
+							$sectionName = ''.$lang["Nlastweek"].'';
 							$sectionCutoffMax = time() - 604800;
 							$sectionCutoffMin = time() - 1209600;
 							break;
 							case 4:
-							$sectionName = 'Deze maand';
+							$sectionName = ''.$lang["Nthismonth"].'';
 							$sectionCutoffMax = time() - 1209600;
 							$sectionCutoffMin = time() - 2592000;
 							break;
 							case 5:
-							$sectionName = 'vorige maand';
+							$sectionName = ''.$lang["Nlastmonth"].'';
 							$sectionCutoffMax = time() - 2592000;
 							$sectionCutoffMin = time() - 5184000;
 							break;
@@ -83,9 +83,9 @@
 			{
 			?>
 			<div class='box'>
-				<div class='title red'>Artikel is niet gevonden.</div>
+				<div class='title red'><?= $lang["Nnotfoundheader"] ?></div>
 				<div class='mainBox'>
-					Jammer genoeg is dit nieuws artikel niet gevonden!
+					<?= $lang["Nnotfoundtxt"] ?>
 				</div>
 			</div>
 			<?php
@@ -116,9 +116,9 @@
 				{
 				?>
 				<div class='box'>
-					<div class='title red'>Artikel is niet gevonden.</div>
+					<div class='title red'><?= $lang["Nnotfoundheader"] ?></div>
 					<div class='mainBox'>
-						Jammer genoeg is dit nieuws artikel niet gevonden!
+						<?= $lang["Nnotfoundtxt"] ?>
 					</div>
 				</div>
 				<?php
