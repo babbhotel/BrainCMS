@@ -8,7 +8,7 @@
 						if (User::userData('rank') > '3')
 						{
 							echo'<li>
-							<a href="index.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/dash">
 							<i class="fa fa-dashboard"></i> <span>Voorpagina</span>
 							</a>
 							</li>';
@@ -18,7 +18,7 @@
 						{
 							echo'	
 							<li>
-							<a href="news.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/news">
 							<i class="fa fa-newspaper-o"></i> <span>Nieuwsberichten</span>
 							</a>
 							</li>
@@ -28,18 +28,18 @@
 						{
 							echo'	
 							<li>
-							<a href="sollie.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/sollie">
 							<i class="fa fa-newspaper-o"></i> <span>Sollicitaties</span>
 							</a>
 							</li>
 							';
 						}
 
-						if (User::userData('rank') > '6')
+						if (User::userData('rank') > '7')
 						{
 							echo'	
 							<li>
-							<a href="zoekgebruiker.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/zoekgebruiker">
 							<i class="fa fa-user"></i> <span>Gebruikers</span>
 							</a>
 							</li>
@@ -50,32 +50,32 @@
 						{
 							echo'
 							<li>
-							<a href="rooms.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/rooms">
 							<i class="fa fa-home "></i> <span>Kamers in Horba</span>
 							</a>
 							</li>
 								<li>
-							<a href="wordfilter.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/wordfilter">
 							<i class="fa fa-filter"></i> <span>Woord Filter</span>
 							</a>
 							</li>
 							<li>
-							<a href="chatlogs.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/chatlogs">
 							<i class="fa fa-folder-o"></i> <span>Kamer Chatlogs</span>
 							</a>
 							</li>
 							<li>
-							<a href="chatlogs_console.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/chatlogs_console">
 							<i class="fa fa-desktop"></i> <span>Prive Chatlogs</span>
 							</a>
 							</li>
 							<li>
-							<a href="bans.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/bans">
 							<i class="fa fa-users"></i> <span>Banlijst</span>
 							</a>
 							</li>
 							<li>
-							<a href="userofteweek.php">
+							<a href="'.$config['hotelUrl'].'/adminpan/userofteweek">
 							<i class="fa fa-user"></i> <span>'.$config['hotelName'].' van de week</span>
 							</a>
 							</li>';

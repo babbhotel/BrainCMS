@@ -3,7 +3,7 @@
 	include_once "includes/header.php";
 	include_once "includes/navi.php";
 	admin::CheckRank(8);
-?>
+	?>
 <aside class="right-side">
 	<section class="content">
 		<div class="row">
@@ -27,7 +27,7 @@
 										<td style="width: 20%;">'.$news["functie"].'</td>
 										<td>'. date('d-m-Y', $news['date']).'</td>
 										<td>'.$news["ip"].'</td>
-										<td><a href=sollielook.php?look='.$news["id"].'><i style="padding-top: 4px; color:green;" class="fa fa-edit"></i></center></a></td>
+										<td><a href='.$config['hotelUrl'].'/adminpan/sollielook/'.$news["id"].'><i style="padding-top: 4px; color:green;" class="fa fa-edit"></i></center></a></td>
 										</tr>';
 									}
 								?>

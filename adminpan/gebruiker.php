@@ -2,7 +2,7 @@
 	include_once "includes/head.php";
 	include_once "includes/header.php";
 	include_once "includes/navi.php";
-	admin::CheckRank(3);
+	admin::CheckRank(7);
 ?>
 <aside class="right-side">
 	<section class="content">

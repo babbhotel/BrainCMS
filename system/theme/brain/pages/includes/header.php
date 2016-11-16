@@ -49,7 +49,7 @@
 						if (User::userData('rank') > '3')
 						{
 							echo'	
-							<div class="langbox"><a href="/adminpan/index.php"><img src="/system/theme/brain/style/images/menuicons/settings_icon.png" style="padding:7px;float:right;"> </div>
+							<div class="langbox"><a href="/adminpan/dash"><img src="/system/theme/brain/style/images/menuicons/settings_icon.png" style="padding:7px;float:right;"> </div>
 							';
 						}
 					?>

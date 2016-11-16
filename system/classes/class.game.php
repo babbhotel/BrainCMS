@@ -1,9 +1,11 @@
 <?php
-	
+	if(!defined('BRAIN_CMS')) 
+	{ 
+		die('Sorry but you cannot access this file!'); 
+	}
 	/* 
 		Functions list Class Game.
 		--------------- 
-		
 		sso();
 		usersOnline();
 		homeRoom();
@@ -15,7 +17,7 @@
 		{
 			global $version;
 			$timeNow = strtotime("now");
-			$sessionKey  = 'BrainStorm-0.4.5-'.substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 5)), 0, 25).'-SSO';
+			$sessionKey  = 'BrainStorm-0.5.0-'.substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 5)), 0, 25).'-SSO';
 			DB::Query("UPDATE users SET auth_ticket = '".DB::Escape($sessionKey)."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
 			DB::Query("UPDATE users SET last_online = '".DB::Escape($timeNow)."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
 		}
@@ -31,7 +33,7 @@
 				DB::Query("UPDATE users SET home_room = '".DB::Escape($_GET['room'])."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
 			}
 			else{
-				DB::Query("UPDATE users SET home_room = '".$hotel['homeRoom']."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
+				DB::Query("UPDATE users SET home_room = '".DB::Escape($hotel['homeRoom'])."' WHERE id = '".DB::Escape($_SESSION['id'])."'");
 			}
 		}
 	} 

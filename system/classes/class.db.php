@@ -1,5 +1,8 @@
 <?php
-	
+	if(!defined('BRAIN_CMS')) 
+	{ 
+		die('Sorry but you cannot access this file!'); 
+	}
 	/* 
 		Functions list Class DB.
 		--------------- 
@@ -33,7 +36,7 @@
 				echo "<body style ='background-color: #efefef;width: 50%;margin: 0 auto;'>
 				<div style='font-family: Arial,libra sans,sans-serif;text-align: center;font-size: 24px;background-color: #f38787;margin-top: 50px;border-radius: 5px;padding: 12px;box-shadow: 0 0 0 1px rgb(0, 0, 0);overflow:auto'>
 				<b>Database Error</b>: Could not connect to the database!<br/>
-				<div style='font-size: 15px;padding-top: 10px;'><b>Look at the config file:</b> ".$_SERVER['DOCUMENT_ROOT']."\system\main.conf.php</div><hr>
+				<div style='font-size: 15px;padding-top: 10px;'><b>Look at the config file:</b> ".$_SERVER['DOCUMENT_ROOT']."\system\config\brain-config.php</div><hr>
 				<div style='font-size: 15px;'><b>Database settings now: </b><br><br>
 				Host: <b>".$data['host']."</b><br>
 				Port: <b>".$data['port']."</b><br>

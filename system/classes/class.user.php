@@ -1,4 +1,8 @@
 <?php
+	if(!defined('BRAIN_CMS')) 
+	{ 
+		die('Sorry but you cannot access this file!'); 
+	}
 	/* 
 		Functions list Class User.
 		---------------
@@ -189,7 +193,7 @@
 																	'".$motto."', 
 																	'".strtotime("now")."', 
 																	'".DB::Escape($_POST['email'])."', 
-																	'".DB::Escape($_POST['habbo-avatar'])."',
+																	'".DB::Escape(filter($_POST['habbo-avatar']))."',
 																	'".checkCloudflare()."', 
 																	'".checkCloudflare()."', 
 																	'".$config['credits']."',

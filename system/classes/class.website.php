@@ -1,17 +1,17 @@
 <?php
-	
+	if(!defined('BRAIN_CMS')) 
+	{ 
+		die('Sorry but you cannot access this file!'); 
+	}
 	/* 
 		Functions list Class Website.
 		--------------- 
-		
 		userHome();	
 		staffApplication();
 		userOfTheWeak();
 	*/
-	
 	class Website 
 	{
-		
 		public static function userHome($key)
 		{
 			if (!isset($_GET['user']))
@@ -21,14 +21,11 @@
 			}
 			$userGet = DB::Escape($_GET['user']);
 			$usersSql = DB::Fetch(DB::Query("SELECT id,username,motto,credits,vip_points,activity_points,look,account_created,last_online FROM users WHERE username = '" . DB::Escape($userGet) . "' LIMIT 1"));
-			
-			
-			return DB::Escape($usersSql[$key]);
-			if ($usersSql->num_rows !== 1)
-			{
+			if($usersSql['credits'] == "") {
 				echo "Profiel bestaat niet.";
 				exit();
 			}
+			return DB::Escape($usersSql[$key]);
 		}
 		public static function staffApplication()
 		{
@@ -72,13 +69,12 @@
 		}
 		public static function userOfTheWeak()
 		{
-		global $lang;
-		$getUOTW = DB::Fetch(DB::Query("SELECT userid,text FROM uotw"));
-		$getUserData = DB::Fetch(DB::Query("SELECT id,look,username,motto FROM users WHERE id = '" . $getUOTW['userid'] . "'"));
-		
-		echo '<div class="userNew" style="height: 110px;  background: url(https://avatar-retro.com/habbo-imaging/avatarimage?figure='.$getUserData['look'].'&direction=2&head_direction=3&action=crr=667&gesture=sml);float: left;background-repeat: no-repeat;"></div>';
-		echo '<div style="">'.$lang["Hname"].'  <b>'.filter($getUserData['username']).'</b></div>';
-		echo '<div style="">'.$lang["Hmotto"].'  <b>'.filter($getUserData['motto']).'</b></div>';
-		echo '<div style=""><h4>'.$getUOTW['text'].'</h4></div>';		}
+			global $lang;
+			$getUOTW = DB::Fetch(DB::Query("SELECT userid,text FROM uotw"));
+			$getUserData = DB::Fetch(DB::Query("SELECT id,look,username,motto FROM users WHERE id = '" . DB::Escape($getUOTW['userid']) . "'"));
+			echo '<div class="userNew" style="height: 110px;  background: url(https://avatar-retro.com/habbo-imaging/avatarimage?figure='.$getUserData['look'].'&direction=2&head_direction=3&action=crr=667&gesture=sml);float: left;background-repeat: no-repeat;"></div>';
+			echo '<div style="">'.$lang["Hname"].'  <b>'.filter($getUserData['username']).'</b></div>';
+			echo '<div style="">'.$lang["Hmotto"].'  <b>'.filter($getUserData['motto']).'</b></div>';
+		echo '<div style=""><h4>'.filter($getUOTW['text']).'</h4></div>';		}
 	}
 ?>

@@ -2,7 +2,7 @@
 	include_once "includes/head.php";
 	include_once "includes/header.php";
 	include_once "includes/navi.php";
-		admin::CheckRank(3);
+	admin::CheckRank(3);
 ?>
 <aside class="right-side">
 	<section class="content">
@@ -16,43 +16,38 @@
 						<div class="panel-body">
 							<?php admin::DeleteBans(); ?>
 							<table class="table table-striped table-bordered table-condensed">
-							<b>	<strong><tr><td><b>ID</b></td><td><b>Verbannen Horba's</b></td><td><b>Ban type</b></td><td><b>Reden</b></td><td><b>Ban by</b></td><td><b>Banned op</b></td><td><b>Vervalt</b></td></tr></strong></b
+								<b>	<strong><tr><td><b>ID</b></td><td><b>Verbannen Horba's</b></td><td><b>Ban type</b></td><td><b>Reden</b></td><td><b>Ban by</b></td><td><b>Banned op</b></td><td><b>Vervalt</b></td></tr></strong></b
 								<tbody>
-									<?php
-										$sql = DB::Query("SELECT * FROM bans ORDER BY id DESC");
-										
-										while($news = $sql->fetch_assoc())
-										{
-									echo'';
-											echo'<tr>
-											<td>'.$news["id"].'</td>
-											<td style="width: 13%;">'.$news["value"].'</td>
-											<td style="width: 7%;">'.$news["bantype"].'</td>
-											<td style="width: 25%;">'.$news["reason"].'</td>
-											<td>'.$news["added_by"].'</td>
-											<td>'. gmdate('d-m-Y H:i', $news['added_date']).'</td>
-											<td>'. gmdate('d-m-Y H:i', $news['expire']).'</td>
+								<?php
+									$sql = DB::Query("SELECT * FROM bans ORDER BY id DESC");
+									
+									while($news = $sql->fetch_assoc())
+									{
+										echo'';
+										echo'<tr>
+										<td>'.$news["id"].'</td>
+										<td style="width: 13%;">'.$news["value"].'</td>
+										<td style="width: 7%;">'.$news["bantype"].'</td>
+										<td style="width: 25%;">'.$news["reason"].'</td>
+										<td>'.$news["added_by"].'</td>
+										<td>'. gmdate('d-m-Y H:i', $news['added_date']).'</td>
+										<td>'. gmdate('d-m-Y H:i', $news['expire']).'</td>
 										';
 										if (User::userData('rank') > '5')
-						{
-							echo'	
-								<td><a href=bans.php?delete='.$news["id"].'><i style="padding-top: 4px; color:red;" class="fa fa-trash"></i></center></a></td>
+										{
+											echo'	
+											<td><a href='.$config['hotelUrl'].'/adminpan/bans/delete/'.$news["id"].'><i style="padding-top: 4px; color:red;" class="fa fa-trash"></i></center></a></td>
 											</tr>
-							';
-						}
-										}			
-									?>
-								</tbody>
-							</table>
-						</div>
+											';
+										}
+									}			
+								?>
+							</tbody>
+						</table>
 					</div>
 				</div>
-				<script>
-					// Replace the <textarea id="editor1"> with a CKEditor
-					// instance, using default configuration.
-					CKEDITOR.replace( 'editor1' );
-				</script>
-				<?php
-					include_once "includes/footer.php";
-					include_once "includes/script.php";
-				?>				
+			</div>
+			<?php
+				include_once "includes/footer.php";
+				include_once "includes/script.php";
+			?>							

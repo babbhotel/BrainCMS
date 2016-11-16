@@ -1,4 +1,8 @@
 <?php
+	if(!defined('BRAIN_CMS')) 
+	{ 
+		die('Sorry but you cannot access this file!'); 
+	}
 	Class Admin
 	{
 		public static function error($errorName)
@@ -17,6 +21,43 @@
 				{
 					echo "<meta http-equiv='refresh' content='0; url=/index'>";
 					exit();
+				}
+			}
+		}
+		public static function staffPin()
+		{
+			global $config, $lang;
+			if (isset($_POST['loginPin']))
+			{
+				if (!empty($_POST['PINbox']))
+				{
+					$query = DB::Fetch(DB::Query("SELECT pin FROM users WHERE id = '" . DB::Escape($_SESSION['id']) . "'"));
+					if ($_POST['PINbox'] == $query['pin'])
+					{
+						$_SESSION['staffCheckHk'] = '1';
+						header('Location: '.$config['hotelUrl'].'/adminpan/dash');
+					}
+					else{
+						echo $lang["Ppinwrong"];
+					}
+				}
+				else{
+					echo $lang["Pnopin"];
+				}
+			}
+		}
+		Public static function staffCheck()
+		{
+			global $config,$hotel;
+			if($config['staffCheckHk'] == true)
+			{
+				if (user::userData('rank') > $config['staffCheckHkMinimumRank '])
+				{
+					if (empty($_SESSION['staffCheckHk'])) 
+					{ 
+						header('Location: '.$config['hotelUrl'].'/adminpan/pin');
+						exit;
+					}
 				}
 			}
 		}
@@ -42,7 +83,7 @@
 		public static function UpdateUserOfTheWeek()
 		{
 			if (isset($_POST['update'])) {
-				$getUserData = DB::Fetch(DB::Query("SELECT id,username FROM users WHERE username = '" . $_POST['naam'] . "'"));
+				$getUserData = DB::Fetch(DB::Query("SELECT id,username FROM users WHERE username = '" . DB::Escape($_POST['naam']) . "'"));
 				if ($updatesql = DB::Query("UPDATE uotw SET 
 				userid='".DB::Escape($getUserData['id'])."',
 				text='".DB::Escape($_POST['uftwtext'])."'
@@ -71,11 +112,12 @@
 		}
 		public static function searchUser()
 		{
+		global $config;
 			if(isset($_POST['zoek'])) {	
-				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.$_POST['user'].'"'));
+				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.DB::Escape($_POST['user']).'"'));
 				if ($searchUser == 1)
 				{
-					Admin::gelukt('Gebruiker '.$_POST['user'].' gevonden! Klik <a href ="gebruiker.php?user='.$_POST['user'].'">hier</a> om naar zijn account te gaan.');
+					Admin::gelukt('Gebruiker '.$_POST['user'].' gevonden! Klik <a href ="'.$config['hotelUrl'].'/adminpan/gebruiker/'.$_POST['user'].'">hier</a> om naar zijn account te gaan.');
 				}
 				else
 				{
@@ -85,11 +127,12 @@
 		}
 		public static function searchUserOfTheWeek()
 		{
+		global $config;
 			if(isset($_POST['zoek'])) {	
-				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.$_POST['user'].'"'));
+				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.DB::Escape($_POST['user']).'"'));
 				if ($searchUser == 1)
 				{
-					Admin::gelukt(''.$_POST['user'].' gevonden! Klik <a href ="giveuseroftheweek.php?user='.$_POST['user'].'">hier</a> om deze gebruiker Brain van de week te geven!');
+					Admin::gelukt(''.$_POST['user'].' gevonden! Klik <a href ="'.$config['hotelUrl'].'/adminpan/giveuseroftheweek/'.$_POST['user'].'">hier</a> om deze gebruiker Brain van de week te geven!');
 				}
 				else
 				{
@@ -138,7 +181,7 @@
 		}
 		public static function LookSollie($variable)
 		{
-			Global $db;
+			Global $db,$config;
 			if (isset($_GET['look'])) {
 				$user = DB::Escape($_GET['look']);
 				if ($sql1 = $sql1 = DB::Query("SELECT * FROM staffApplication WHERE id='".DB::Escape($_GET['look'])."' LIMIT 1")) {
@@ -147,7 +190,7 @@
 						$datenow = date('d-m-Y', $user['date']);
 						return $user[$variable];
 						} else {
-						echo "<script language='javascript' type='text/javascript'>window.location.href='/adminpan/sollie.php'</script>"; exit;
+						echo "<script language='javascript' type='text/javascript'>window.location.href='".$config['hotelUrl']."/adminpan/sollie'</script>"; exit;
 					}
 				}
 			}
@@ -169,8 +212,20 @@
 			Global $db;
 			if(isset($_POST['DeleteSollieNow'])) { 
 				$id = DB::Escape($_POST['DeleteSollieNow']);
-				if ($deletesql = $sql1 = DB::Query("DELETE FROM staffsollie WHERE id='$id'")) {
+				if ($deletesql = $sql1 = DB::Query("DELETE FROM staffApplication WHERE id='$id'")) {
 					Admin::gelukt('Sollicitatie verwijderd '.$id.'');
+					} else {
+					error();
+				}
+			}
+		}
+		public static function DeleteBans()
+		{
+			Global $db;
+			if(isset($_GET['delete'])) { 
+				$id = DB::Escape($_GET['delete']);
+				if ($deletesql = $sql1 = DB::Query("DELETE FROM bans WHERE id='$id'")) {
+					Admin::gelukt('De ban verwijderd '.$id.'');
 					} else {
 					error();
 				}
@@ -240,4 +295,4 @@
 			}
 		}
 	}
-?>		
+?>			

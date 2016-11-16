@@ -1,5 +1,8 @@
 <?php
-	
+	if(!defined('BRAIN_CMS')) 
+	{ 
+		die('Sorry but you cannot access this file!'); 
+	}
 	/* 
 		Functions list functions.
 		--------------- 
@@ -25,6 +28,7 @@
 		$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?behaviour[\x00-\x20]*\([^>]*+>#i', '$1>', $data);
 		$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:*[^>]*+>#iu', '$1>', $data);
 		$data = preg_replace('#</*\w+:\w[^>]*+>#i', '', $data);
+		$data = htmlspecialchars($data);
 		
 		do
 		{
@@ -40,7 +44,7 @@
 	{
 		$script = file_get_contents("http://brain.retroripper.com/version.txt");
 		$update = file_get_contents("http://brain.retroripper.com/update.txt");
-		$version = '0.4.5';
+		$version = '0.5.0';
 		if($version == $script) {
 			echo'<div style = "width: 100%;
 			background-color: green;

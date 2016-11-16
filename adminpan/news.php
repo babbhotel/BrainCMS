@@ -27,25 +27,22 @@
 									<input type="text" value="<?php echo $_SESSION['kort']; ?>" name="kort"class="form-control">
 								</div>
 							</div><br><br>
-							
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">Image</label>
 								<div class="col-sm-10">
 									<?php
 										echo '<select onChange="showimage()" class="form-control" name="topstory" style="    width: 100%;font-size: 14px;"
-										
 										';
-										if ($handle = opendir('../adminpan/img/newsimages'))
+										if ($handle = opendir(''.$_SERVER['DOCUMENT_ROOT'].'/adminpan/img/newsimages'))
 										{	
-									
 											while (false !== ($file = readdir($handle)))
 											{
-										echo'';
+												echo'';
 												if ($file == '.' || $file == '..')
 												{
 													continue;
 												}	
-												echo '<option name="topstory" data-image="../adminpan/img/newsimages/' . $file . '" value="../adminpan/img/newsimages/' . $file . '"';
+												echo '<option name="topstory" data-image="'.$config['hotelUrl'].'/adminpan/img/newsimages/' . $file . '" value="'.$config['hotelUrl'].'/adminpan/img/newsimages/' . $file . '"';
 												if (isset($_POST['topstory']) && $_POST['topstory'] == $file)
 												{
 													echo ' selected';
@@ -70,13 +67,13 @@
 										}
 									</style>
 									<div class="imagebox">
-										<img style="border-radius: 6px;"src="../adminpan/img/newsimages/choose.gif" name="topstory" border=0>
+										<img style="border-radius: 6px;"src="<?= $config['hotelUrl'];?>/adminpan/img/newsimages/choose.gif" name="topstory" border=0>
 									</div>
 									<br><br>
 								</div>
 							</div>
 							<br><br>
-							<script src="js/ckeditor/ckeditor.js"></script>
+							<script src="<?= $config['hotelUrl'];?>/adminpan/js/ckeditor/ckeditor.js"></script>
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">Nieuws bericht</label>
 								<div class="col-sm-10">
@@ -90,24 +87,21 @@
 					</section>
 				</div>
 			</form>
-			
-						</header>
-					<?php
-								if (User::userData('rank') > '6')
-								{
-								?>
-									<div class="col-md-12">
+		</header>
+		<?php
+			if (User::userData('rank') > '6')
+			{
+			?>
+			<div class="col-md-12">
 				<section class="panel">
 					<header class="panel-heading">
 						Alle nieuws berichten<br>
-					
-								<div class="panel-body">
+						<div class="panel-body">
 							<?php admin::DeleteNews(); ?>
 							<table class="table table-striped table-bordered table-condensed">
 								<tbody>
 									<?php
 										$sql = DB::Query("SELECT * FROM cms_news ORDER BY id DESC");
-										
 										while($news = $sql->fetch_assoc())
 										{
 											echo'<tr>
@@ -116,30 +110,29 @@
 											<td>'.$news["shortstory"].'</td>
 											<td>'.$news["author"].'</td>
 											<td>'. date('d-m-Y', $news['date']).'</td>
-											<td><center><a href="editnews.php?news='.$news["id"].'"><i  style="padding-top: 5px; color:green;" class="fa fa-edit"></i></a></td>
-											<td><a href=news.php?delete='.$news["id"].'><i style="padding-top: 4px; color:red;" class="fa fa-trash"></i></center></a></td>
+											<td><center><a href="'.$config['hotelUrl'].'/adminpan/news/edit/'.$news["id"].'"><i  style="padding-top: 5px; color:green;" class="fa fa-edit"></i></a></td>
+											<td><a href='.$config['hotelUrl'].'/adminpan/news/delete/'.$news["id"].'><i style="padding-top: 4px; color:red;" class="fa fa-trash"></i></center></a></td>
 											</tr>';
 										}
 									?>
 								</tbody>
 							</table>
 						</div>
-							<?php
-								}
-								else{
-								?>
-							
-								<?php
-								}
-							?>
-					</div>
+						<?php
+						}
+						else{
+						?>
+						<?php
+						}
+					?>
 				</div>
-				<script>
-					// Replace the <textarea id="editor1"> with a CKEditor
-					// instance, using default configuration.
-					CKEDITOR.replace( 'editor1' );
-				</script>
-				<?php
-					include_once "includes/footer.php";
-					include_once "includes/script.php";
-				?>				
+			</div>
+			<script>
+				// Replace the <textarea id="editor1"> with a CKEditor
+				// instance, using default configuration.
+				CKEDITOR.replace( 'editor1' );
+			</script>
+			<?php
+				include_once "includes/footer.php";
+				include_once "includes/script.php";
+			?>							

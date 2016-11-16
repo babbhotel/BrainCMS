@@ -1,15 +1,19 @@
 <?php
+	if(!defined('BRAIN_CMS')) 
+	{ 
+		die('Sorry but you cannot access this file!'); 
+	}
 	/* 
 		Functions list Class Html.
 		--------------- 
 		checkBan();
 		page();
+		pageHK();
 		error();
 		errorSucces();
 	*/
 	class Html 
 	{
-	
 		private static function checkBan($ip, $username = null)
 		{
 			if (DB::NumRowsQuery("SELECT bantype,expire FROM bans WHERE bantype = 'ip' && value = '".DB::Escape($ip)."'") === 1)
@@ -20,7 +24,7 @@
 					if (strtotime(gmdate($rowIp['expire'])) <= strtotime('now'))
 					{
 						return true;
-						}
+					}
 					else
 					{
 						return false;
@@ -53,7 +57,6 @@
 		public static function page()
 		{
 			global $emu, $config, $lang, $hotel, $version;
-			
 			if (loggedIn())
 			{
 				$user = User::userData('username');
@@ -79,11 +82,6 @@
 					$page = DB::Escape($_GET['url']);	
 					if($page)
 					{ 
-						if ($config['showErrors'] == true){
-							ini_set('display_errors', 1);
-							ini_set('display_startup_errors', 1);
-							error_reporting(E_ALL);
-						}
 						if (!$config['maintenance'] == true){
 							$fileExists = $_SERVER['DOCUMENT_ROOT'] . '/system/theme/'.$config['skin'].'/pages/'.$page.".php";
 							if(file_exists(filter($fileExists)))
@@ -118,12 +116,20 @@
 					case "register":
 					header('Location: '.$config['hotelUrl'].'/me');
 					break;
+					default:
+					//Nothing
+					break;
 				}
 			}
 			if(!loggedIn()){ 
 				switch($page)
 				{
 					case "me":
+					case "settingspassword":
+					case "settingsemail":
+					case "settingshotel":
+					case "sollicitaties":
+					case "stats":
 					case "game":
 					case "pin":
 					case "password":
@@ -139,6 +145,45 @@
 				}
 			}
 		}
+		public static function pageHK()
+		{
+			global $emu, $config, $lang, $hotel, $version;
+			if(isset($_GET['url']))
+			{
+				$pageHK = DB::Escape($_GET['url']);	
+				if($pageHK)
+				{ 
+					$fileExists = $_SERVER['DOCUMENT_ROOT'] . '/adminpan/'.$pageHK.".php";
+					if(file_exists(filter($fileExists)))
+					{
+						include("".$_SERVER['DOCUMENT_ROOT']."/adminpan/".$pageHK.".php");
+					} 
+					else 
+					{
+						include("".$_SERVER['DOCUMENT_ROOT']."/adminpan/404.php"); 
+					}
+				} 
+				else 
+				{
+					include("".$_SERVER['DOCUMENT_ROOT']."/adminpan/dash.php");
+				}
+			} 
+			else 
+			{
+				include("".$_SERVER['DOCUMENT_ROOT']."/adminpan/dash.php");
+				header('Location: '.$config['hotelUrl'].'/adminpan/dash');
+			}
+			
+			switch($pageHK)
+			{
+				case $pageHK:
+				admin::CheckRank(3);
+				break;
+				default:
+				//Nothing
+				break;
+			}
+		} 
 		public static function error($errorName)
 		{
 			echo '<div class="error" style="display: block;">'.$errorName.'</div>';

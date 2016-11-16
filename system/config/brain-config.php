@@ -1,23 +1,15 @@
 <?php
-
+	if(!defined('BRAIN_CMS')) 
+	{ 
+		die('Sorry but you cannot access this file!'); 
+	}
+	
 	/* Database Setting */
 	$db['host'] = '127.0.0.1';
 	$db['port'] = '3306';
 	$db['user'] = "root";
-	$db['pass'] = '******';
+	$db['pass'] = '*******';
 	$db['db'] = "hotel";
-
-	/* Website Setting */
-	$config['hotelUrl'] = "http://127.0.0.1";
-	$config['skin'] = "brain";
-	$config['lang'] = "en";
-	$config['hotelName'] = "Brain";
-	$config['startMotto'] = "Welkom in Brain!";
-	$config['favicon'] = "http://127.0.0.1/system/theme/brain/style/images/favicon/favicon.ico";
-	$config['maintenance'] = false;
-	$config['showErrors'] = true;
-	$config['groupBadgeURL'] = "http://127.0.0.1/swf/habbo-imaging/badge.php?badge=";
-	$config['badgeURL'] = "http://127.0.0.1/swf/c_images/album1584/"; 
 
 	/* Client Setting */
 	$hotel['emuHost'] = "127.0.0.1";
@@ -35,6 +27,19 @@
 	$hotel['figuredata'] = "http://127.0.0.1/swf/gamedata/figuredata.xml";
 	$hotel['swfFolder'] = "http://127.0.0.1/swf/gordon/PRODUCTION-201602082203-712976078";
 	$hotel['swfFolderSwf'] = "http://127.0.0.1/swf/gordon/PRODUCTION-201602082203-712976078/habbo.swf?v=2";
+	
+	/* Website Setting */
+	$config['hotelUrl'] = "http://127.0.0.1";
+	$config['skin'] = "brain";
+	$config['lang'] = "en";
+	$config['hotelName'] = "Brain";
+	$config['startMotto'] = "Welkom in Brain!";
+	$config['favicon'] = "http://127.0.0.1/system/theme/brain/style/images/favicon/favicon.ico";
+	$config['maintenance'] = false;
+	$config['staffCheckHk'] = true;
+	$config['staffCheckHkMinimumRank '] = 3;
+	$config['groupBadgeURL'] = "http://127.0.0.1/swf/habbo-imaging/badge.php?badge=";
+	$config['badgeURL'] = "http://127.0.0.1/swf/c_images/album1584/"; 
 	
 	/* Social settings */
 	$config['facebook'] = 'https://www.facebook.com/Habbo/';

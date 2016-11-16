@@ -5,26 +5,26 @@
 
         <!-- jQuery 2.0.2 -->
    
-        <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="<?= $config['hotelUrl'];?>/adminpan/js/jquery.min.js" type="text/javascript"></script>
 
         <!-- jQuery UI 1.10.3 -->
-        <script src="js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+        <script src="<?= $config['hotelUrl'];?>/adminpan/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
         <!-- Bootstrap -->
-        <script src="js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="<?= $config['hotelUrl'];?>/adminpan/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- daterangepicker -->
-        <script src="js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+        <script src="<?= $config['hotelUrl'];?>/adminpan/js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
 
-        <script src="js/plugins/chart.js" type="text/javascript"></script>
+        <script src="<?= $config['hotelUrl'];?>/adminpan/js/plugins/chart.js" type="text/javascript"></script>
 
-        <script src="js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+        <script src="<?= $config['hotelUrl'];?>/adminpan/js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
         <!-- calendar -->
-        <script src="js/plugins/fullcalendar/fullcalendar.js" type="text/javascript"></script>
+        <script src="<?= $config['hotelUrl'];?>/adminpan/js/plugins/fullcalendar/fullcalendar.js" type="text/javascript"></script>
 
         <!-- Director App -->
-        <script src="js/Director/app.js" type="text/javascript"></script>
+        <script src="<?= $config['hotelUrl'];?>/adminpan/js/Director/app.js" type="text/javascript"></script>
 
         <!-- Director dashboard demo (This is only for demo purposes) -->
-        <script src="js/Director/dashboard.js" type="text/javascript"></script>
+        <script src="<?= $config['hotelUrl'];?>/adminpan/js/Director/dashboard.js" type="text/javascript"></script>
 
         <!-- Director for demo purposes -->
 

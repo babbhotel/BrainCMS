@@ -1,4 +1,5 @@
 <?php
+	admin::staffCheck();
 	admin::CheckRank(3);
 ?>
 <header style="    padding-top: 20px;"class="header">

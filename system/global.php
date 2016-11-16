@@ -1,4 +1,8 @@
 <?php
+	if(!defined('BRAIN_CMS')) 
+	{ 
+		die('Sorry but you cannot access this file!'); 
+	}
 	session_start();
 	ob_start();
 	require_once $_SERVER['DOCUMENT_ROOT'].'/system/config/brain-config.php';
