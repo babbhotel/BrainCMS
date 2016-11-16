@@ -24,11 +24,26 @@
 	{
 		public static function checkUser($password, $passwordDb)
 		{
-			return (password_verify($password, $passwordDb));
+			global $config;
+			if($config['passwordHash'] == md5)
+			{
+				if(md5($password) == $passwordDb)
+				return true;
+			}
+			else if ($config['passwordHash'] == bcrypt){
+				return (password_verify($password, $passwordDb));
+			}
 		}
 		public static function hashed($password)
-		{
-			return password_hash($password, PASSWORD_BCRYPT);
+		{	
+			global $config;
+			if($config['passwordHash'] == md5)
+			{
+				return md5($password);
+			}
+			else if ($config['passwordHash'] == bcrypt){
+				return password_hash($password, PASSWORD_BCRYPT);
+			}	
 		}
 		public static function validName($username)
 		{
@@ -157,9 +172,9 @@
 									{
 										if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 										{
-											if (!Self::userTaken(DB::Escape($_POST['username'])))
+											if (!self::userTaken(DB::Escape($_POST['username'])))
 											{
-												if (!Self::emailTaken(DB::Escape($_POST['email'])))
+												if (!self::emailTaken(DB::Escape($_POST['email'])))
 												{
 													if (strlen($_POST['password']) > 5)
 													{
@@ -336,7 +351,7 @@
 				{
 					if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 					{
-						if (!Self::emailTaken($_POST['email']))
+						if (!self::emailTaken($_POST['email']))
 						{
 							$user = DB::Query("UPDATE users SET mail = '". DB::Escape($_POST['email'])."' WHERE id = '". DB::Escape($_SESSION['id'])."'");
 							return Html::errorSucces($lang["Eemailchanges"]);

@@ -107,7 +107,7 @@
 						</div>
 						<div class="mainBox newsBox" style="float;left">
 						<div class="boxHeader"></div>
-						'.filter(html_entity_decode($news['longstory'])).'
+						'.html_entity_decode($news['longstory']).'
 						</div>
 						</div>';
 					}

@@ -8,7 +8,7 @@
 	$db['host'] = '127.0.0.1';
 	$db['port'] = '3306';
 	$db['user'] = "root";
-	$db['pass'] = '*******';
+	$db['pass'] = '****';
 	$db['db'] = "hotel";
 
 	/* Client Setting */
@@ -28,7 +28,7 @@
 	$hotel['swfFolder'] = "http://127.0.0.1/swf/gordon/PRODUCTION-201602082203-712976078";
 	$hotel['swfFolderSwf'] = "http://127.0.0.1/swf/gordon/PRODUCTION-201602082203-712976078/habbo.swf?v=2";
 	
-	/* Website Setting */
+		/* Website Setting */
 	$config['hotelUrl'] = "http://127.0.0.1";
 	$config['skin'] = "brain";
 	$config['lang'] = "en";
@@ -38,6 +38,8 @@
 	$config['maintenance'] = false;
 	$config['staffCheckHk'] = true;
 	$config['staffCheckHkMinimumRank '] = 3;
+	$config['passwordHash'] = "bcrypt"; // If your old CMS whas RevCMS use md5 otherwise use bcrypt
+	
 	$config['groupBadgeURL'] = "http://127.0.0.1/swf/habbo-imaging/badge.php?badge=";
 	$config['badgeURL'] = "http://127.0.0.1/swf/c_images/album1584/"; 
 	

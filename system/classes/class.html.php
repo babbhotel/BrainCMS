@@ -57,6 +57,16 @@
 		public static function page()
 		{
 			global $emu, $config, $lang, $hotel, $version;
+			
+			if (defined('PHP_VERSION') && PHP_VERSION >= 5.6) 
+			{
+				true;
+			} 
+			else 
+			{
+				echo 'PHP version is lower then PHP 5.6 your PHP version is '.PHP_VERSION.' you need PHP 5.6!';
+				exit;
+			}
 			if (loggedIn())
 			{
 				$user = User::userData('username');
@@ -64,11 +74,6 @@
 			else
 			{
 				$user = null;
-			}
-			if (self::checkBan(checkCloudflare(), $user))
-			{
-				include("system/theme/".$config['skin']."/pages/banned.php");
-				exit();
 			}
 			if (self::checkBan(checkCloudflare(), $user))
 			{

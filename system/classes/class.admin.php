@@ -3,6 +3,29 @@
 	{ 
 		die('Sorry but you cannot access this file!'); 
 	}
+	/* 
+		Functions list Class Admin.
+		--------------- 
+		error();
+		gelukt();
+		CheckRank();
+		staffpin();
+		staffCheck();
+		UpdateUser();
+		UpdateUserOfTheWeek();
+		UpdateNews();
+		searchUser();
+		searchUserOfTheWeek();
+		EditUser();
+		EditUserOfTheWeek();
+		EditNews();
+		LookSollie();
+		DeleteNews();
+		DeleteSollie();
+		DeleteBans();
+		PostNews();
+	*/
+	
 	Class Admin
 	{
 		public static function error($errorName)
