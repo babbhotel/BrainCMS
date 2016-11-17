@@ -27,7 +27,7 @@
 						$online = DB::Escape($member['online']);
 						if($online == 1){ $OnlineStatus = "online"; } else { $OnlineStatus = "offline"; }
 						echo '
-						<a href="/home/'.$username.'"><div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 275px;margin-bottom: 0px;margin-left: 5px;margin-right: 5px;">
+						<a href="/home/'.$username.'"><div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 275px;margin-bottom: 5px;margin-left: 5px;margin-right: 5px;">
 						<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure='.$look.'&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
 						<b  style="font-size: 16px;">' .$username . ' </b> <span class="staff-'.$OnlineStatus.'">0</span> 
 						<img src="'.$config['badgeURL'].''.$Ranks['badgeid'].'.gif" style="margin-right:5px;" align="right"> 

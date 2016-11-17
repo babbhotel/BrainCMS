@@ -12,6 +12,7 @@
 	//Index------------------------------------------------------------------------------------------
 	$lang["Iusername"] = "Gebruikersnaam";
 	$lang["Ipassword"] = "Wachtwoord";
+	$lang["Ilogin"] = "Inloggen";
 	$lang["Iregister"] = "Registreer";
 	$lang["Islogan1"] = "Hey, welkom op ".$config['hotelName']."!";
 	$lang["Islogan2"] = "Welkom op ".$config['hotelName'].", Vergeet niet je vrienden uit te nodigen!";
@@ -322,4 +323,9 @@
 	
 	//Hotel settings--------------------------------------------------------------------------------------
 	$lang["Hchanges"] = "Je email adres is gewijzigd.";
+	
+	//Maintenance--------------------------------------------------------------------------------------
+	$lang["Mtitle"] = "".$config['hotelName']." is in onderhoud";
+	$lang["Mstafflogin"] = "Medewerkers login";
+	$lang["Mnologin"] = "Sorry maar je bent niet bevoegd om in te loggen!";
 	?>

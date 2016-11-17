@@ -113,7 +113,7 @@
 			global $config,$hotel;
 			if($hotel['staffCheckClient'] == true)
 			{
-				if (self::userData('rank') > $hotel['staffCheckClientMinimumRank '])
+				if (self::userData('rank') >= $hotel['staffCheckClientMinimumRank '])
 				{
 					if (empty($_SESSION['staffCheck'])) 
 					{ 
@@ -136,11 +136,23 @@
 						{
 							if (DB::NumRowsQuery("SELECT username FROM users WHERE username = '".DB::Escape($_POST['username'])."'") == 1)
 							{
-								$getInfo = DB::Fetch(DB::Query("SELECT id, password FROM users WHERE username = '".DB::Escape($_POST['username'])."'"));
+								$getInfo = DB::Fetch(DB::Query("SELECT id, password, rank FROM users WHERE username = '".DB::Escape($_POST['username'])."'"));
 								if (self::checkUser($_POST['password'], $getInfo['password']))
-								{
+								{	
 									$_SESSION['id'] = $getInfo['id'];
-									header('Location: '.$config['hotelUrl'].'/me');
+									if (!$config['maintenance'] == true)
+									{
+										header('Location: '.$config['hotelUrl'].'/me');
+									}
+									else
+									{	
+										if ($getInfo['rank'] >= $config['maintenancekMinimumRankLogin'])
+										{
+											$_SESSION['adminlogin'] = true;
+											header('Location: '.$config['hotelUrl'].'/me');	
+										}
+										return html::error($lang["Mnologin"]);
+									}
 								}
 								return html::error($lang["Lpasswordwrong"]);
 							}
@@ -176,7 +188,7 @@
 											{
 												if (!self::emailTaken(DB::Escape($_POST['email'])))
 												{
-													if (strlen($_POST['password']) > 5)
+													if (strlen($_POST['password']) >= 6)
 													{
 														if ($_POST['password'] == $_POST['password_repeat'])
 														{	
@@ -202,7 +214,7 @@
 																	(username, password, rank, motto, account_created, mail, look, ip_last, ip_reg, credits, activity_points, vip_points)
 																	VALUES
 																	(
-																	'".DB::Escape($_POST['username'])."', 
+																	'".DB::Escape(filter($_POST['username']))."', 
 																	'".self::hashed($_POST['password'])."', 
 																	'1', 
 																	'".$motto."', 
@@ -302,7 +314,7 @@
 						$getInfo = DB::Fetch(DB::Query("SELECT id, password FROM users WHERE id = '". DB::Escape($_SESSION['id'])."'"));
 						if (self::checkUser($_POST['oldpassword'], $getInfo['password']))
 						{
-							if (strlen($_POST['newpassword']) > 5)
+							if (strlen($_POST['newpassword']) >= 6)
 							{
 								if($sql = DB::Query("
 								UPDATE 
@@ -393,4 +405,4 @@
 			}
 		}
 	}
-?>										
+?>																										

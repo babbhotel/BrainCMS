@@ -38,11 +38,12 @@
 		}
 		public static function CheckRank($rank)
 		{
-			$getRank = DB::Fetch(DB::Query("SELECT * FROM users WHERE id = '".$_SESSION['id']."' LIMIT 1"));
+		global $config;
+			$getRank = DB::Fetch(DB::Query("SELECT rank FROM users WHERE id = '".$_SESSION['id']."' LIMIT 1"));
 			{
-				if ($getRank['rank'] < $rank)
+				if ($getRank['rank'] <= $rank)
 				{
-					echo "<meta http-equiv='refresh' content='0; url=/index'>";
+					header('Location: '.$config['hotelUrl'].'/index');	
 					exit();
 				}
 			}

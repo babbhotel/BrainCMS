@@ -56,7 +56,7 @@
 					{
 						while($news = DB::Fetch($sql))
 						{
-							echo"<img src=\"/swf/c_images/album1584/".$news["badge_id"].".GIF\">";
+							echo"<img src=\"".$config['badgeURL']."".$news["badge_id"].".GIF\">";
 						}
 					}
 					else
@@ -81,8 +81,8 @@
 								$id = (DB::Escape(Website::userHome('id')) == $news['user_two_id'] ? $news['user_one_id'] : $news['user_two_id']);
 								$getUserData = DB::Fetch(DB::Query("SELECT * FROM users WHERE id = '".$id."'"));
 								echo'
-								- <a href="/home/'.$getUserData['username'].'"> <img style="float: right;" src="https://avatar-retro.com/habbo-imaging/avatarimage?figure='.$getUserData['look'].'&direction=3&head_direction=3&action=wav&gesture=sml&size=s&headonly=0"> 
-								<b>'.$getUserData['username'].'</b></a><br>'.filter($getUserData['motto']).'<br><br><br><hr>  
+								- <a href="/home/'.$getUserData['username'].'"> <img style="float: right;" src="https://avatar-retro.com/habbo-imaging/avatarimage?figure='.filter($getUserData['look']).'&direction=3&head_direction=3&action=wav&gesture=sml&size=s&headonly=0"> 
+								<b>'.filter($getUserData['username']).'</b></a><br>'.filter($getUserData['motto']).'<br><br><br><hr>  
 								';
 							}
 						}

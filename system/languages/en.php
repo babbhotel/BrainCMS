@@ -11,6 +11,7 @@
 	//Index------------------------------------------------------------------------------------------
 	$lang["Iusername"] = "Username";
 	$lang["Ipassword"] = "Password";
+	$lang["Ilogin"] = "Login";
 	$lang["Iregister"] = "Register";
 	$lang["Islogan1"] = "Hello, welcome on ".$config['hotelName']."!";
 	$lang["Islogan2"] = "Welcome on ".$config['hotelName'].", don't forget to invite friends!";
@@ -315,4 +316,9 @@
 	
 	//Hotel settings--------------------------------------------------------------------------------------
 	$lang["Hchanges"] = "Hotel settings are changed!";
+	
+	//Maintenance--------------------------------------------------------------------------------------
+	$lang["Mtitle"] = "".$config['hotelName']." is under maintenance";
+	$lang["Mstafflogin"] = "Staff login";
+	$lang["Mnologin"] = "Sorry but you are not authorized to login";
 ?>

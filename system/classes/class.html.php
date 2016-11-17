@@ -64,7 +64,7 @@
 			} 
 			else 
 			{
-				echo 'PHP version is lower then PHP 5.6 your PHP version is '.PHP_VERSION.' you need PHP 5.6!';
+				echo 'PHP version is lower then PHP 5.6 your PHP version is '.PHP_VERSION.'';
 				exit;
 			}
 			if (loggedIn())
@@ -87,7 +87,7 @@
 					$page = DB::Escape($_GET['url']);	
 					if($page)
 					{ 
-						if (!$config['maintenance'] == true){
+						if (!$config['maintenance'] == true || !$_SESSION['adminlogin'] == ''){
 							$fileExists = $_SERVER['DOCUMENT_ROOT'] . '/system/theme/'.$config['skin'].'/pages/'.$page.".php";
 							if(file_exists(filter($fileExists)))
 							{
@@ -100,7 +100,14 @@
 						}
 						else
 						{
-							include("system/theme/".$config['skin']."/pages/maintenance.php"); 
+							if ($page == adminlogin)
+							{
+								include("system/maintenance/adminlogin.php"); 
+							}
+							else
+							{
+								include("system/maintenance/index.php"); 
+							}
 						}
 					} 
 					else 
@@ -125,8 +132,8 @@
 					//Nothing
 					break;
 				}
-			}
-			if(!loggedIn()){ 
+				}
+				if(!loggedIn()){ 
 				switch($page)
 				{
 					case "me":
@@ -146,6 +153,9 @@
 					case "online":
 					case "home/":
 					header('Location: '.$config['hotelUrl'].'/index');
+					break;
+					default:
+					//Nothing
 					break;
 				}
 			}

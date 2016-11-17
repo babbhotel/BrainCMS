@@ -40,15 +40,15 @@
 					<p><label><b><?= $lang["Npeoplearguing"] ?></b><br>
 					<textarea name="quarrel" size="400" rows="5" cols="50" style="width: 100%;"> </textarea></p>
 					<p><label><b><?= $lang["Nyoutrust"] ?></b><br>
-						<textarea name="serious" size="400" rows="5" cols="50" style="width: 100%;"> </textarea></p>
-						<p><label><b><?= $lang["Nimprovehotel"] ?></b><br>
-						<textarea name="improve" size="400" rows="5" cols="50" style="width: 100%;"> </textarea></p>
-						</p><label><b><?= $lang["Nmicrophone"] ?></b><br>
-						<select style="width: 100%;" name="microphone" class="form-control">
-							<option name="microphone" value="1"><?= $lang["Nyes"] ?></option>
-							<option name="microphone" value="2"><?= $lang["Nnoe"] ?></option>
-						</select></p>
-						<input type="submit" value="<?= $lang["Nsubmit"] ?>" name="addsollie" class="submit" style="float:right" >
+					<textarea name="serious" size="400" rows="5" cols="50" style="width: 100%;"> </textarea></p>
+					<p><label><b><?= $lang["Nimprovehotel"] ?></b><br>
+					<textarea name="improve" size="400" rows="5" cols="50" style="width: 100%;"> </textarea></p>
+					</p><label><b><?= $lang["Nmicrophone"] ?></b><br>
+					<select style="width: 100%;" name="microphone" class="form-control">
+						<option name="microphone" value="1"><?= $lang["Nyes"] ?></option>
+						<option name="microphone" value="2"><?= $lang["Nnoe"] ?></option>
+					</select></p>
+					<input type="submit" value="<?= $lang["Nsubmit"] ?>" name="addsollie" class="submit" style="float:right" >
 					</form>
 					</div>
 					</div></div>
@@ -58,10 +58,10 @@
 								<?= $lang["Nstaffapply"] ?>
 							</div>
 							<?= $lang["NText"] ?>
-					<?php
-						include_once 'includes/footer.php';
-					?>
-					</div>
+							<?php
+								include_once 'includes/footer.php';
+							?>
+						</div>
 					</div>
 					</body>
-				</html>															
+					</html>																				
