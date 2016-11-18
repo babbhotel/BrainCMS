@@ -13,7 +13,7 @@
 					while($belcr_row = mysqli_fetch_assoc($belcr_get)){
 					?>
 					<div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 300px;margin-bottom: 10px;margin-left: 5px;margin-right: 5px;">
-						<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= filter($belcr_row['look']) ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
+						<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= $belcr_row['look'] ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
 						<b  style="font-size: 16px;"><?= $belcr_row['username'] ?> </b>
 						<a href="/home/<?= $belcr_row['username'] ?>" class="tooltip"> <img src="/system/theme/brain/style/images/icons/diamondje.png" align="right">
 						</a>
@@ -33,7 +33,7 @@
 						while($belcr_row = mysqli_fetch_assoc($belcr_get)){
 						?>
 						<div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 300px;margin-bottom: 10px;margin-left: 5px;margin-right: 5px;">
-							<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= filter($belcr_row['look']) ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
+							<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= $belcr_row['look'] ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
 							<b  style="font-size: 16px;"><?= $belcr_row['username'] ?> </b>
 							<a href="/home/<?= $belcr_row['username'] ?>" class="tooltip"> <img src="/system/theme/brain/style/images/icons/ducket.png?v=1" align="right">
 							</a>
@@ -53,7 +53,7 @@
 							while($belcr_row = mysqli_fetch_assoc($belcr_get)){
 							?>
 							<div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 300px;margin-bottom: 10px;margin-left: 5px;margin-right: 5px;">
-								<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= filter($belcr_row['look']) ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
+								<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= $belcr_row['look'] ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
 								<b  style="font-size: 16px;"><?= $belcr_row['username'] ?> </b>
 								<a href="/home/<?= $belcr_row['username'] ?>" class="tooltip"> <img src="/system/theme/brain/style/images/icons/credit.gif" align="right">
 								</a>

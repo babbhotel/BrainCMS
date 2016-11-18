@@ -214,7 +214,7 @@
 																	(username, password, rank, motto, account_created, mail, look, ip_last, ip_reg, credits, activity_points, vip_points)
 																	VALUES
 																	(
-																	'".DB::Escape(filter($_POST['username']))."', 
+																	'".DB::Escape(filer($_POST['username']))."', 
 																	'".self::hashed($_POST['password'])."', 
 																	'1', 
 																	'".$motto."', 

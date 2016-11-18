@@ -67,15 +67,7 @@
 				echo 'PHP version is lower then PHP 5.6 your PHP version is '.PHP_VERSION.'';
 				exit;
 			}
-			if (loggedIn())
-			{
-				$user = User::userData('username');
-			}
-			else
-			{
-				$user = null;
-			}
-			if (self::checkBan(checkCloudflare(), $user))
+			if (self::checkBan(checkCloudflare(), User::userData('username')))
 			{
 				include("system/theme/".$config['skin']."/pages/banned.php");
 				exit();
@@ -87,7 +79,7 @@
 					$page = DB::Escape($_GET['url']);	
 					if($page)
 					{ 
-						if (!$config['maintenance'] == true || !$_SESSION['adminlogin'] == ''){
+						if (!$config['maintenance'] == true || isset($_SESSION['adminlogin'])	){
 							$fileExists = $_SERVER['DOCUMENT_ROOT'] . '/system/theme/'.$config['skin'].'/pages/'.$page.".php";
 							if(file_exists(filter($fileExists)))
 							{
@@ -100,7 +92,7 @@
 						}
 						else
 						{
-							if ($page == adminlogin)
+							if ($page == 'adminlogin')
 							{
 								include("system/maintenance/adminlogin.php"); 
 							}
