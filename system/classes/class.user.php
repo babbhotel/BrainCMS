@@ -22,6 +22,11 @@
 	*/
 	class User 
 	{
+		
+				public static function newsLike()
+		{
+			
+		}
 		public static function checkUser($password, $passwordDb)
 		{
 			global $config;

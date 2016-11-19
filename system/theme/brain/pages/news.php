@@ -76,6 +76,27 @@
 				
 			</div>
 		</div>
+		<style>
+		.buttonlike {
+    background: #1d0fda !important;
+
+}
+		.buttonlike:hover {
+    background: #150e75 !important;
+	transition: all .2s ease-in;
+
+}
+</style>
+		<div class='box'>
+			<div class='title green'><?= $lang["NlikeTitle"] ?></div>
+			<div class='mainBox'>
+			<?= Website::newsLike() ?>
+				<b style="font-size:15px; "><?= Website::newsLikeCount() ?> <?= $lang["Nuserslikenews"] ?></b> <img style="float:right;" src="/system/theme/brain/style/images/account/image_969.png">
+				<form method="post">
+				<input type="submit" class="buttonlike" value="<?= $lang["Nuserslikenewsbutton"] ?>" name="likenews" style="margin-top: 10px;">
+				</form>
+			</div>
+		</div>
 	</div>
 	<div style="margin-left: 10px;" class="columleft">
 		<?php

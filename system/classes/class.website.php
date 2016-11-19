@@ -9,6 +9,8 @@
 		userHome();	
 		staffApplication();
 		userOfTheWeak();
+		newsLike();
+		newsLikeCount();
 	*/
 	class Website 
 	{
@@ -20,7 +22,7 @@
 				exit();
 			}
 			$userGet = DB::Escape($_GET['user']);
-			$usersSql = DB::Fetch(DB::Query("SELECT id,username,motto,credits,vip_points,activity_points,look,account_created,last_online FROM users WHERE username = '" . DB::Escape($userGet) . "' LIMIT 1"));
+			$usersSql = DB::Fetch(DB::Query("SELECT id,username,motto,credits,vip_points,activity_points,look,account_created,last_online FROM users WHERE username = '" . $userGet . "' LIMIT 1"));
 			if($usersSql['credits'] == "") {
 				echo "Profiel bestaat niet.";
 				exit();
@@ -75,6 +77,42 @@
 			echo '<div class="userNew" style="height: 110px;  background: url(https://avatar-retro.com/habbo-imaging/avatarimage?figure='.$getUserData['look'].'&direction=2&head_direction=3&action=crr=667&gesture=sml);float: left;background-repeat: no-repeat;"></div>';
 			echo '<div style="">'.$lang["Hname"].'  <b>'.filter($getUserData['username']).'</b></div>';
 			echo '<div style="">'.$lang["Hmotto"].'  <b>'.filter($getUserData['motto']).'</b></div>';
-		echo '<div style=""><h4>'.filter($getUOTW['text']).'</h4></div>';		}
+			echo '<div style=""><h4>'.filter($getUOTW['text']).'</h4></div>';		
+		}
+		public static function newsLike()
+		{
+			global $lang;
+			if (isset($_POST['likenews']))
+			{
+				$newsLikeUser = DB::Fetch(DB::Query("SELECT userid, newsid FROM cms_news_like WHERE userid = '".DB::Escape(User::userData('id'))."' AND newsid = '".DB::Escape(filter($_GET['id']))."'"));
+				if($newsLikeUser['userid'] == DB::Escape(User::userData('id')) && $newsLikeUser['newsid'] == DB::Escape(filter($_GET['id']))) {
+					return html::error($lang["LoneTime"]);
+					} else {
+					$sql = DB::Query("SELECT id,title,longstory FROM cms_news WHERE id = ".DB::Escape(filter($_GET['id']))."");
+					if (!DB::NumRows($sql) == 0)
+					{
+						DB::Query("
+						INSERT INTO
+						cms_news_like
+						(userid, newsid)
+						VALUES
+						(
+						'".DB::Escape(User::userData('id'))."', 
+						'".DB::Escape(filter($_GET['id']))."' 
+						)
+						");
+						return html::errorSucces($lang["LnewsLike"]);
+					}
+					else{
+						return html::error($lang["LnoNews"]);
+					}
+				}
+			}
+		}
+		public static function newsLikeCount()
+		{
+			$query = DB::NumRows(DB::Query("SELECT * FROM cms_news_like WHERE newsid = '" . DB::Escape(filter($_GET['id'])) . "'"));
+			return filter($query);
+		}
 	}
 ?>

@@ -163,6 +163,9 @@
 	$lang["Nlastmonth"] = "vorige maand";
 	$lang["Nnotfoundheader"] = "Artikel is niet gevonden.";
 	$lang["Nnotfoundtxt"] = "Jammer genoeg is dit nieuws artikel niet gevonden!";
+	$lang["NlikeTitle"] = "Nieuws vind ik leuk";
+	$lang["Nuserslikenews"] = "Gebruikers vinden dit nieuws leuk!";
+	$lang["Nuserslikenewsbutton"] = "Vind ik leuk";
 	
 	//Adtips---------------------------------------------------------------------------------------------
 	$lang["Aads"] = "Adverteren";
@@ -324,8 +327,14 @@
 	//Hotel settings--------------------------------------------------------------------------------------
 	$lang["Hchanges"] = "Je email adres is gewijzigd.";
 	
-	//Maintenance--------------------------------------------------------------------------------------
+	//Maintenance-----------------------------------------------------------------------------------------
 	$lang["Mtitle"] = "".$config['hotelName']." is in onderhoud";
 	$lang["Mstafflogin"] = "Medewerkers login";
 	$lang["Mnologin"] = "Sorry maar je bent niet bevoegd om in te loggen!";
+	
+	//Like news-------------------------------------------------------------------------------------------
+	$lang["LoneTime"] = "Je kan dit nieuw maar 1 keer leuk vinden!";
+	$lang["LnewsLike"] = "Je vind dit bericht leuk!";
+	$lang["LnoNews"] = "Dit nieuws bericht bestaat niet!";
+
 	?>

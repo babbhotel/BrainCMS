@@ -8,7 +8,7 @@
 	$db['host'] = '127.0.0.1';
 	$db['port'] = '3306';
 	$db['user'] = "root";
-	$db['pass'] = '****';
+	$db['pass'] = '*****';
 	$db['db'] = "hotel";
 
 	/* Client Setting */
@@ -31,7 +31,7 @@
 	/* Website Setting */
 	$config['hotelUrl'] = "http://127.0.0.1";
 	$config['skin'] = "brain";
-	$config['lang'] = "en";
+	$config['lang'] = "nl";
 	$config['hotelName'] = "Brain";
 	$config['startMotto'] = "Welkom in Brain!";
 	$config['favicon'] = "http://127.0.0.1/system/theme/brain/style/images/favicon/favicon.ico";

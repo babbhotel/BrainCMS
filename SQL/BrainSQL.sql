@@ -57,6 +57,20 @@ INSERT INTO `teams` VALUES ('4', 'Event Team', 'EVENT');
 INSERT INTO `teams` VALUES ('5', 'Pixelaar', 'PIXEL');
 INSERT INTO `teams` VALUES ('6', 'Gok Team', 'GOK');
 
--------------------------------
+-- ----------------------------
+
 ALTER TABLE users ADD pin VARCHAR(4);
 ALTER TABLE users ADD teamrank int(1) DEFAULT 0;
+
+-- ----------------------------
+-- Table structure for `cms_news_like`
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_news_like`;
+CREATE TABLE `cms_news_like` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(255) DEFAULT NULL,
+  `newsid` int(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------

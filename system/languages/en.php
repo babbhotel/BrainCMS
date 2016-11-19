@@ -159,6 +159,9 @@
 	$lang["Nlastmonth"] = "Last month";
 	$lang["Nnotfoundheader"] = "Article is not found";
 	$lang["Nnotfoundtxt"] = "Unfortunately, this news item could not be found!";
+	$lang["NlikeTitle"] = "News like";
+	$lang["Nuserslikenews"] = "Users like this news!";
+	$lang["Nuserslikenewsbutton"] = "I like this!";
 	
 	//Adtips---------------------------------------------------------------------------------------------
 	$lang["Aads"] = "Advertise";
@@ -321,4 +324,9 @@
 	$lang["Mtitle"] = "".$config['hotelName']." is under maintenance";
 	$lang["Mstafflogin"] = "Staff login";
 	$lang["Mnologin"] = "Sorry but you are not authorized to login";
+	
+	//Like news-------------------------------------------------------------------------------------------
+	$lang["LoneTime"] = "You can like this only 1 time!";
+	$lang["LnewsLike"] = "You like this news!";
+	$lang["LnoNews"] = "This news does not exist!";
 ?>

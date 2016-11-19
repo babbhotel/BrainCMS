@@ -211,5 +211,5 @@
 					</div>
 				</body>
 			</html>
-			<script src="http://code.jquery.com/jquery-latest.min.js?v=4" type="text/javascript"></script>
+			<script src="https://code.jquery.com/jquery-latest.min.js?v=4" type="text/javascript"></script>
 		<script src="/system/theme/brain/style/js/jquery.avatargenerate.js?v=13" type="text/javascript"></script>		

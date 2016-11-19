@@ -157,6 +157,9 @@
 	$lang["Nlastmonth"] = "Mes Pasado";
 	$lang["Nnotfoundheader"] = "Este artículo no se ha encontrado";
 	$lang["Nnotfoundtxt"] = "Desafortunadamente, esta noticia no se ha encontrado.!";
+	$lang["NlikeTitle"] = "Noticias como";
+	$lang["Nuserslikenews"] = "A los usuarios les gusta esta noticia!";
+	$lang["Nuserslikenewsbutton"] = "Me gusta esto!";
 	
 	//Adtips---------------------------------------------------------------------------------------------
 	$lang["Aads"] = "Publicidad";
@@ -288,4 +291,9 @@ Aquí tienes a todos los miembros que estén conectados o no.	</P>
 	$lang["Mtitle"] = "".$config['hotelName']." se encuentra en mantenimiento";
 	$lang["Mstafflogin"] = "Acceso staff";
 	$lang["Mnologin"] = "Lo siento pero no estás autorizado a entrar";
+
+	//Like news-------------------------------------------------------------------------------------------
+	$lang["LoneTime"] = "Te puede gustar esto sólo una vez!";
+	$lang["LnewsLike"] = "Te gusta esta noticia!";
+	$lang["LnoNews"] = "Esta noticia no existe!";
 ?>
