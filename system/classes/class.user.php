@@ -22,33 +22,29 @@
 	*/
 	class User 
 	{
-		
-				public static function newsLike()
+		public static function checkUser($password, $passwordDb, $username)
 		{
-			
-		}
-		public static function checkUser($password, $passwordDb)
-		{
-			global $config;
-			if($config['passwordHash'] == md5)
+			if (substr($passwordDb, 0, 1) == "$") 
 			{
-				if(md5($password) == $passwordDb)
-				return true;
+				if (password_verify($password, $passwordDb))
+				{
+					return true;
+				}
+				return false;
 			}
-			else if ($config['passwordHash'] == bcrypt){
-				return (password_verify($password, $passwordDb));
+			else 
+			{
+				if (md5($password) == $passwordDb) 
+				{
+					$updateUserHash = DB::Query("UPDATE users SET password = '".self::hashed($password)."' WHERE username = '".filter(DB::Escape($username))."'");		
+					return true;
+				}
+				return false;
 			}
 		}
 		public static function hashed($password)
 		{	
-			global $config;
-			if($config['passwordHash'] == md5)
-			{
-				return md5($password);
-			}
-			else if ($config['passwordHash'] == bcrypt){
-				return password_hash($password, PASSWORD_BCRYPT);
-			}	
+			return password_hash($password, PASSWORD_BCRYPT);
 		}
 		public static function validName($username)
 		{
@@ -141,8 +137,8 @@
 						{
 							if (DB::NumRowsQuery("SELECT username FROM users WHERE username = '".DB::Escape($_POST['username'])."'") == 1)
 							{
-								$getInfo = DB::Fetch(DB::Query("SELECT id, password, rank FROM users WHERE username = '".DB::Escape($_POST['username'])."'"));
-								if (self::checkUser($_POST['password'], $getInfo['password']))
+								$getInfo = DB::Fetch(DB::Query("SELECT id, password, username, rank FROM users WHERE username = '".DB::Escape($_POST['username'])."'"));
+								if (self::checkUser($_POST['password'], $getInfo['password'],$getInfo['username']))
 								{	
 									$_SESSION['id'] = $getInfo['id'];
 									if (!$config['maintenance'] == true)
@@ -242,7 +238,7 @@
 																}
 																else
 																{
-																	return html::error($lang["Rnorobot"]); 
+																	return html::error($lang["Rrobot"]); 
 																}
 															}
 															else
@@ -316,8 +312,8 @@
 					if (isset($_POST['newpassword']) && !empty($_POST['newpassword']))
 					{
 						$passwordOld = DB::Escape($_POST['oldpassword']);
-						$getInfo = DB::Fetch(DB::Query("SELECT id, password FROM users WHERE id = '". DB::Escape($_SESSION['id'])."'"));
-						if (self::checkUser($_POST['oldpassword'], $getInfo['password']))
+						$getInfo = DB::Fetch(DB::Query("SELECT id, password, username FROM users WHERE id = '". DB::Escape($_SESSION['id'])."'"));
+						if (self::checkUser($_POST['oldpassword'], $getInfo['password'], $getInfo['username']))
 						{
 							if (strlen($_POST['newpassword']) >= 6)
 							{

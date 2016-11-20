@@ -6,17 +6,17 @@
 	
 	/* Database Setting */
 	$db['host'] = '127.0.0.1';
-	$db['port'] = '3306';
+	$db['port'] = '5543';
 	$db['user'] = "root";
 	$db['pass'] = '*****';
-	$db['db'] = "hotel";
+	$db['db'] = "horba";
 
 	/* Client Setting */
 	$hotel['emuHost'] = "127.0.0.1";
 	$hotel['emuPort'] = "30000";  
 	$hotel['staffCheckClient'] = true;
 	$hotel['staffCheckClientMinimumRank '] = 3;
-	$hotel['homeRoom'] = 0;
+	$hotel['homeRoom'] = '0';
 	$hotel['external_Variables'] = "http://127.0.0.1/swf/gamedata/external_variables.txt";
 	$hotel['external_Variables_Override'] = "http://127.0.0.1/swf/gamedata/override/external_override_variables.txt";
 	$hotel['external_Texts'] = "http://127.0.0.1/swf/gamedata/nl_external_flash_texts.txt";
@@ -39,10 +39,9 @@
 	$config['maintenancekMinimumRankLogin'] = 3;
 	$config['staffCheckHk'] = true;
 	$config['staffCheckHkMinimumRank '] = 3;
-	$config['passwordHash'] = "bcrypt"; // If your old CMS whas RevCMS use md5 otherwise use bcrypt
 	
 	$config['groupBadgeURL'] = "http://127.0.0.1/swf/habbo-imaging/badge.php?badge=";
-	$config['badgeURL'] = "http://127.0.0.1/swf/c_images/album1584/"; 
+	$config['badgeURL'] = "hhttp://127.0.0.1/swf/c_images/album1584/"; 
 	
 	/* Social settings */
 	$config['facebook'] = 'https://www.facebook.com/Habbo/';
@@ -57,7 +56,7 @@
 	
 	/* Google recaptcha Site Key  
 	   Go to this website to create a recaptcha Site Key: https://www.google.com/recaptcha/intro/index.html	*/
-	$config['recaptchaSiteKey'] = "6LdSSykTAAAAAJtY8DuXw9Cu9F0ZJ7J3tu0QpUUk";
-	$config['recaptchaSiteKeyEnable'] = true;	
+	$config['recaptchaSiteKey'] = "6LdzewwUAAAAABkJ3vCDca9fgqmLGDaWAHqMRtdsdfFEs2";
+	$config['recaptchaSiteKeyEnable'] = true;
 	
 ?>
