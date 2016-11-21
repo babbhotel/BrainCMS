@@ -329,4 +329,9 @@
 	$lang["LoneTime"] = "You can like this only 1 time!";
 	$lang["LnewsLike"] = "You like this news!";
 	$lang["LnoNews"] = "This news does not exist!";
+	
+	//Change username-------------------------------------------------------------------------------------
+	$lang["Cusernameshort"] = "Your name must contain at least 3 characters and no more than 13 characters!";
+	$lang["Cusernameused"] = "Username is already used!";
+	$lang["Cchangeno"] = "You can not change your name anymore!"
 ?>

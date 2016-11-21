@@ -120,12 +120,19 @@
 					case "register":
 					header('Location: '.$config['hotelUrl'].'/me');
 					break;
+					case "changename";
+					if (User::userData('fbenable') >= 1)
+					{
+						header('Location: '.$config['hotelUrl'].'/me');	
+						exit();
+					}
+					break;
 					default:
 					//Nothing
 					break;
 				}
-				}
-				if(!loggedIn()){ 
+			}
+			if(!loggedIn()){ 
 				switch($page)
 				{
 					case "me":
@@ -144,6 +151,7 @@
 					case "advertentie_tips":
 					case "online":
 					case "home/":
+					case "changename":
 					header('Location: '.$config['hotelUrl'].'/index');
 					break;
 					default:

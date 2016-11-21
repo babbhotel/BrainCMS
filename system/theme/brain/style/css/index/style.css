@@ -148,6 +148,32 @@ header > #main > .right > #login-container-box > form > button {
 	margin-left: 345px;
 	cursor: pointer;
 	}
+	#main > #info-container-box > #registerbuttonfb {
+    border-radius: 4px;
+    background: #3BA800;
+    background: -moz-linear-gradient(#3BA800 50%, #2C7E00 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(50%,#3BA800), color-stop(100%,#2C7E00));
+    background: -webkit-linear-gradient(#3BA800 50%, #2C7E00 100%);
+    background: -o-linear-gradient(#3BA800 50%, #2C7E00 100%);
+    background: -ms-linear-gradient(#3BA800 50%, #2C7E00 100%);
+    background: linear-gradient(to bottom, #0053a8 0%,#004ba8 50%,#00217e 51%,#00537e 100%);
+    border: 5px solid rgb(0, 68, 126);
+    height: 70px;
+    width: 250px;
+    color: white;
+    text-shadow: 0px -1px 0px black;
+    font-family: 'Ubuntu';
+    font-weight: bold;
+    line-height: 70px;
+    font-size: 26px;
+    text-align: center;
+    box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.5);
+    display: block;
+    text-decoration: none;
+    margin-top: 20px;
+    margin-left: 345px;
+    cursor: pointer;
+}
 	
 	#main > #registerbutton1 {
 	border-radius: 4px;

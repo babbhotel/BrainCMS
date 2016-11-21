@@ -296,4 +296,9 @@ Aquí tienes a todos los miembros que estén conectados o no.	</P>
 	$lang["LoneTime"] = "Te puede gustar esto sólo una vez!";
 	$lang["LnewsLike"] = "Te gusta esta noticia!";
 	$lang["LnoNews"] = "Esta noticia no existe!";
+	
+	//Change username-------------------------------------------------------------------------------------
+	$lang["Cusernameshort"] = "Tu usuario tiene que tener mas de 3 tres letras y menos de 13!";
+	$lang["Cusernameused"] = "Este nombre ya está en uso!";
+	$lang["Cchangeno"] = "Ya no puedes cambiar tu nombre!"
 ?>

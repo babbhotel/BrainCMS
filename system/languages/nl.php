@@ -336,5 +336,9 @@
 	$lang["LoneTime"] = "Je kan dit nieuw maar 1 keer leuk vinden!";
 	$lang["LnewsLike"] = "Je vind dit bericht leuk!";
 	$lang["LnoNews"] = "Dit nieuws bericht bestaat niet!";
-
+	
+	//Change username-------------------------------------------------------------------------------------
+	$lang["Cusernameshort"] = "Je naam moet minimaal uit 3 karakters bestaan en niet langer dan 13 karakters!";
+	$lang["Cusernameused"] = "Gebruikersnaam is al gebruik!";
+	$lang["Cchangeno"] = "Je kunt je naam niet meer veranderen!";
 	?>

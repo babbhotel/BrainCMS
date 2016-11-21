@@ -61,6 +61,9 @@ INSERT INTO `teams` VALUES ('6', 'Gok Team', 'GOK');
 
 ALTER TABLE users ADD pin VARCHAR(4);
 ALTER TABLE users ADD teamrank int(1) DEFAULT 0;
+ALTER TABLE users ADD fbid varchar(255) DEFAULT NULL;
+ALTER TABLE users ADD fbenable  enum('0','1','2') DEFAULT 2;
+
 
 -- ----------------------------
 -- Table structure for `cms_news_like`

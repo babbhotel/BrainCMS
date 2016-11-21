@@ -58,7 +58,7 @@
 		{
 			if (loggedIn())
 			{
-				$query = DB::Fetch(DB::Query("SELECT id,username,mail,motto,auth_ticket,credits,vip_points,activity_points,look,rank,online FROM users WHERE id = '" . DB::Escape($_SESSION['id']) . "'"));
+				$query = DB::Fetch(DB::Query("SELECT id,username,mail,motto,auth_ticket,credits,vip_points,activity_points,look,rank,online,fbenable FROM users WHERE id = '" . DB::Escape($_SESSION['id']) . "'"));
 				return filter($query[$key]);
 			}
 			return false;
@@ -114,7 +114,7 @@
 			global $config,$hotel;
 			if($hotel['staffCheckClient'] == true)
 			{
-				if (self::userData('rank') >= $hotel['staffCheckClientMinimumRank '])
+				if (self::userData('rank') >= $hotel['staffCheckClientMinimumRank'])
 				{
 					if (empty($_SESSION['staffCheck'])) 
 					{ 
@@ -403,6 +403,36 @@
 			if (isset($_POST['hotelsettings']))
 			{
 				return Html::errorSucces($lang["Hchanges"]);
+			}
+		}
+		Public static function editUsername()
+		{
+			global $lang;
+			if (isset($_POST['editusername']))
+			{
+				if(!User::userData('fbenable') == 1)
+				{
+					if(!self::userTaken(DB::Escape($_POST['username'])))
+					{
+						if(self::validName($_POST['username']))
+						{
+							$updateUsername = DB::Query("UPDATE users SET username = '". DB::Escape(filter($_POST['username']))."', fbenable = '1' WHERE id = '". DB::Escape(filter($_SESSION['id']))."'");	
+							header('Location: '.$config['hotelUrl'].'/me');
+						}
+						else
+						{
+							return Html::error($lang["Cusernameshort"]);
+						}
+					}
+					else
+					{
+						return html::error($lang["Cusernameused"]);
+					}
+				}
+				else
+				{
+					return html::error($lang["Cchangeno"]);
+				}
 			}
 		}
 	}
