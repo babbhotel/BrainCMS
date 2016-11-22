@@ -127,6 +127,15 @@
 						exit();
 					}
 					break;
+					case "game":
+					case "client":
+					case "hotel":
+					if (User::userData('fbenable') == 0)
+					{
+						header('Location: '.$config['hotelUrl'].'/changename');	
+						exit();
+					}
+					break;
 					default:
 					//Nothing
 					break;
@@ -142,6 +151,8 @@
 					case "sollicitaties":
 					case "stats":
 					case "game":
+					case "client":
+					case "hotel":
 					case "pin":
 					case "password":
 					case "community":
