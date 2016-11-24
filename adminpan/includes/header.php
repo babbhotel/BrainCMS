@@ -1,6 +1,5 @@
 <?php
-	admin::staffCheck();
-	admin::CheckRank(3);
+	staffCheckHk();
 ?>
 <header style="    padding-top: 20px;"class="header">
 	<a href="/admin/index.php" class="logo">

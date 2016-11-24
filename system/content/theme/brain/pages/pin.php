@@ -1,14 +1,14 @@
 <body style="background: #3498db;">
 	<html>
 		<head>
-			<link rel="stylesheet" href="..	/system/content/theme/brain/style/css/pin.css?v=<?= $config['hash'] ?>" type="text/css">
+			<link rel="stylesheet" href="/system/content/theme/brain/style/css/pin.css?v=<?= $config['hash'] ?>" type="text/css">
 		</head>
 		<body >
-			<div class="error" style="display: block;"><?php staffPinHk(); ?></div>
+			<div class="error" style="display: block;"><?php staffPin(); ?></div>
 
 			
 			<div id="PINcode"></div>
-			<script src="../system/content/theme/brain/style/js/jquery.min.js" type="text/javascript"></script>
+			<script src="system/content/theme/brain/style/js/jquery.min.js" type="text/javascript"></script>
 			
 			<form name='PINform' id='PINform' method="post">
 				<input action="post" method="post" id='PINbox' type='password' value='' name='PINbox' />

@@ -6,7 +6,7 @@
 	
 	/* Database Setting */
 	$db['host'] = '127.0.0.1';
-	$db['port'] = '5543';
+	$db['port'] = '3306';
 	$db['user'] = "root";
 	$db['pass'] = '*****';
 	$db['db'] = "brain";
@@ -39,12 +39,12 @@
 	$config['maintenancekMinimumRankLogin'] = 3;
 	$config['staffCheckHk'] = true;
 	$config['staffCheckHkMinimumRank '] = 3;
-	$config['facebookLogin'] = true;
-	$config['facebookAPPID'] = '334162590dfsaf292528';
-	$config['facebookAPPSecret'] = 'ce2504ff5aa3ff7a6a2fadsfsadfd984cd8836';
+	$config['facebookLogin'] = false;
+	$config['facebookAPPID'] = '3341625902sadasd92528';
+	$config['facebookAPPSecret'] = 'ce2504ff5aa3ff7a6a2fa6asdd984cd8836';
 	
 	$config['groupBadgeURL'] = "http://127.0.0.1/swf/habbo-imaging/badge.php?badge=";
-	$config['badgeURL'] = "hhttp://127.0.0.1/swf/c_images/album1584/"; 
+	$config['badgeURL'] = "http://127.0.0.1/swf/c_images/album1584/"; 
 	
 	/* Social settings */
 	$config['facebook'] = 'https://www.facebook.com/Habbo/';
@@ -56,10 +56,11 @@
 	$config['credits']	= "10000";
 	$config['duckets']	= "20000";
 	$config['diamonds']	= "10";
+	$config['registerEnable'] = true;
 	
 	/* Google recaptcha Site Key  
 	   Go to this website to create a recaptcha Site Key: https://www.google.com/recaptcha/intro/index.html	*/
-	$config['recaptchaSiteKey'] = "6LdzewwUAAAAABsdafsdfkJ3vCDca9qmLGDaWAHqMRtFEs2";
+	$config['recaptchaSiteKey'] = "6LdzewwUAAAAABkJ3vCDca9qmLasdasdGDaWAHqMRtFEs2";
 	$config['recaptchaSiteKeyEnable'] = true;
 	
 ?>
