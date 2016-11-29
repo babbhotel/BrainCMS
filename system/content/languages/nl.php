@@ -166,6 +166,11 @@
 	$lang["NlikeTitle"] = "Nieuws vind ik leuk";
 	$lang["Nuserslikenews"] = "Gebruikers vinden dit nieuws leuk!";
 	$lang["Nuserslikenewsbutton"] = "Vind ik leuk";
+	$lang["Nnewscommands"] = "Nieuws reacties";
+	$lang["Npostcommand"] = "Plaats reactie";
+	$lang["Nnocommands"] = "Er zijn nog geen nieuws reacties";
+	$lang["Ncommandbutton"] = "Plaats je reactie";
+	
 	
 	//Adtips---------------------------------------------------------------------------------------------
 	$lang["Aads"] = "Adverteren";
@@ -338,6 +343,12 @@
 	$lang["LoneTime"] = "Je kan dit nieuw maar 1 keer leuk vinden!";
 	$lang["LnewsLike"] = "Je vind dit bericht leuk!";
 	$lang["LnoNews"] = "Dit nieuws bericht bestaat niet!";
+	
+	//Commands news----------------------------------------------------------------------------------------
+	$lang["CnoNews"] = "Dit nieuws bericht bestaat niet!";
+	$lang["Ccommandshort"] = "Reactie moet meer dan 3 tekens hebben!";
+	$lang["Ccommandempty"] = "Je reactie is leeg!";
+	$lang["Ccommandmax"] = "Je mag niet meer dan 3 reacties plaatsen!";
 	
 	//Change username-------------------------------------------------------------------------------------
 	$lang["Cusernameshort"] = "Je naam moet minimaal uit 3 karakters bestaan en niet langer dan 13 karakters!";

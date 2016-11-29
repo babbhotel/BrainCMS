@@ -42,7 +42,7 @@
 			Client.addVariable("use.sso.ticket", "1"); 
 			Client.addVariable("sso.ticket", "<?= User::userData('auth_ticket') ?>");
 			Client.addVariable("processlog.enabled", "0");
-			Client.addVariable("client.starting", "<?= $config['hotelName'] ?> is aan het laden...");
+			Client.addVariable("client.starting", "<?= $config['hotelName'] ?> is loading...");
 			Client.addVariable("flash.client.url", "<?= $hotel['swfFolder'] ?>/"); 
 			Client.addVariable("flash.client.origin", "popup");
 			Client.addVariable("nux.lobbies.enabled", "true");

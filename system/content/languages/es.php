@@ -160,6 +160,10 @@
 	$lang["NlikeTitle"] = "Noticias como";
 	$lang["Nuserslikenews"] = "A los usuarios les gusta esta noticia!";
 	$lang["Nuserslikenewsbutton"] = "Me gusta esto!";
+	$lang["Nnewscommands"] = "Comandos de noticias";
+	$lang["Npostcommand"] = "Publicar comando";
+	$lang["Nnocommands"] = "No hay comentarios de noticias todavía...";
+	$lang["Ncommandbutton"] = "Publica tu comando";	
 	
 	//Adtips---------------------------------------------------------------------------------------------
 	$lang["Aads"] = "Publicidad";
@@ -298,6 +302,12 @@ Aquí tienes a todos los miembros que estén conectados o no.	</P>
 	$lang["LoneTime"] = "Te puede gustar esto sólo una vez!";
 	$lang["LnewsLike"] = "Te gusta esta noticia!";
 	$lang["LnoNews"] = "Esta noticia no existe!";
+	
+	//Commands news----------------------------------------------------------------------------------------
+	$lang["CnoNews"] = "Esta noticia no existe!";
+	$lang["Ccommandshort"] = "¡El comando debe tener más de 3 caracteres!";
+	$lang["Ccommandempty"] = "Su comentario está vacío!";
+	$lang["Ccommandmax"] = "¡No puedes publicar más de 3 comentarios!";
 	
 	//Change username-------------------------------------------------------------------------------------
 	$lang["Cusernameshort"] = "Tu usuario tiene que tener mas de 3 tres letras y menos de 13!";

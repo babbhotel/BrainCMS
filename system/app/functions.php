@@ -10,12 +10,12 @@
 		DB::Escape();
 		loggedIn();
 		checkCloudflare();
-		hiddenField();
 	*/
 	
 	// Filter data
 	function filter($data) 
 	{
+	
 		$data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
 		$data = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
 		$data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
@@ -28,6 +28,8 @@
 		$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?behaviour[\x00-\x20]*\([^>]*+>#i', '$1>', $data);
 		$data = preg_replace('#(<[^>]+?)style[\x00-\x20]*=[\x00-\x20]*[`\'"]*.*?s[\x00-\x20]*c[\x00-\x20]*r[\x00-\x20]*i[\x00-\x20]*p[\x00-\x20]*t[\x00-\x20]*:*[^>]*+>#iu', '$1>', $data);
 		$data = preg_replace('#</*\w+:\w[^>]*+>#i', '', $data);
+
+		
 		$data = htmlspecialchars($data);
 		$data = filter_var($data);
 		
@@ -45,7 +47,7 @@
 	{
 		$script = file_get_contents("http://brain.retroripper.com/version.txt");
 		$update = file_get_contents("http://brain.retroripper.com/update.txt");
-		$version = '0.7.5';
+		$version = '0.8.0';
 		if($version == $script) {
 			echo'<div style = "width: 100%;
 			background-color: green;
@@ -97,12 +99,5 @@
 		{
 			return $_SERVER['REMOTE_ADDR'];
 		}
-	}
-	
-	// HiddenField
-	function hiddenField()
-	{
-		$hidCode = md5(date("d-m-Y-l"));
-		return $hidCode;
 	}
 ?>

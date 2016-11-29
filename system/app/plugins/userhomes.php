@@ -15,6 +15,6 @@
 			echo "Profiel bestaat niet.";
 			exit();
 		}
-		return DB::Escape($usersSql[$key]);
+		return filter(DB::Escape($usersSql[$key]));
 	}
 ?>

@@ -111,11 +111,12 @@
 				}
 			}
 		}
+		
 		public static function searchUserOfTheWeek()
 		{
 		global $config;
 			if(isset($_POST['zoek'])) {	
-				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.filter(DB::Escape($_POST['user']).'"')));
+				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.filter(DB::Escape($_POST['user'])).'"'));
 				if ($searchUser == 1)
 				{
 					Admin::gelukt(''.$_POST['user'].' gevonden! Klik <a href ="'.$config['hotelUrl'].'/adminpan/giveuseroftheweek/'.$_POST['user'].'">hier</a> om deze gebruiker Brain van de week te geven!');
@@ -126,6 +127,7 @@
 				}
 			}
 		}
+
 		public static function EditUser($variable)
 		{
 			if (isset($_GET['user'])) {

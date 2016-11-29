@@ -162,6 +162,10 @@
 	$lang["NlikeTitle"] = "News like";
 	$lang["Nuserslikenews"] = "Users like this news!";
 	$lang["Nuserslikenewsbutton"] = "I like this!";
+	$lang["Nnewscommands"] = "News commands";
+	$lang["Npostcommand"] = "Post command";
+	$lang["Nnocommands"] = "No news comments yet";
+	$lang["Ncommandbutton"] = "Post your command";
 	
 	//Adtips---------------------------------------------------------------------------------------------
 	$lang["Aads"] = "Advertise";
@@ -322,7 +326,7 @@
 	//Hotel settings--------------------------------------------------------------------------------------
 	$lang["Hchanges"] = "Hotel settings are changed!";
 	
-	//Maintenance--------------------------------------------------------------------------------------
+	//Maintenance-----------------------------------------------------------------------------------------
 	$lang["Mtitle"] = "".$config['hotelName']." is under maintenance";
 	$lang["Mstafflogin"] = "Staff login";
 	$lang["Mnologin"] = "Sorry but you are not authorized to login";
@@ -331,6 +335,12 @@
 	$lang["LoneTime"] = "You can like this only 1 time!";
 	$lang["LnewsLike"] = "You like this news!";
 	$lang["LnoNews"] = "This news does not exist!";
+	
+	//Commands news----------------------------------------------------------------------------------------
+	$lang["CnoNews"] = "This news does not exist!";
+	$lang["Ccommandshort"] = "Command must have more than 3 characters!";
+	$lang["Ccommandempty"] = "Your comment is empty!";
+	$lang["Ccommandmax"] = "You can not post more than 3 comments!";
 	
 	//Change username-------------------------------------------------------------------------------------
 	$lang["Cusernameshort"] = "Your name must contain at least 3 characters and no more than 13 characters!";

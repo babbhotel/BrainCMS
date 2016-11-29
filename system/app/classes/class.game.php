@@ -29,12 +29,7 @@
 		public static function homeRoom()
 		{
 			global $hotel;
-			if (isset($_GET['room'])) {
-				DB::Fetch(DB::Query("UPDATE users SET home_room = '".filter(DB::Escape($_GET['room']))."' WHERE id = '".filter(DB::Escape($_SESSION['id']))."'"));
-			}
-			else{
-				DB::Fetch(DB::Query("UPDATE users SET home_room = '".$hotel['homeRoom']."' WHERE id = '".filter(DB::Escape($_SESSION['id']))."'"));
-			}
+			DB::Fetch(DB::Query("UPDATE users SET home_room = '".$hotel['homeRoom']."' WHERE id = '".filter(User::userData('id'))."'"));
 		}
 	} 
 ?>

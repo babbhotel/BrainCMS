@@ -77,40 +77,40 @@
 			{
 				if(isset($_GET['url']))
 				{
-					$page = DB::Escape($_GET['url']);	
+					$page = filter($_GET['url']);	
 					if($page)
 					{ 
 						if (!$config['maintenance'] == true || isset($_SESSION['adminlogin'])	){
-							$fileExists = $_SERVER['DOCUMENT_ROOT'] . '/system/content/theme/'.$config['skin'].'/pages/'.$page.".php";
-							if(file_exists(filter($fileExists)))
+							$fileExists = A . G . H . S .'/pages/'.$page.".php";
+							if(file_exists($fileExists))
 							{
-								include("system/content/theme/".$config['skin']."/pages/".$page.".php");
+								include A . G . H . S .'/pages/'.$page.'.php';
 							} 
 							else 
 							{
-								include("system/content/theme/".$config['skin']."/pages/404.php"); 
+								include A . G . H . S .'/pages/404.php'; 
 							}
 						}
 						else
 						{
 							if ($page == 'adminlogin')
 							{
-								include("system/content/maintenance/adminlogin.php"); 
+								include A . G . I . 'adminlogin.php'; 
 							}
 							else
 							{
-								include("system/content/maintenance/index.php"); 
+								include A . G . I . 'index.php'; 
 							}
 						}
 					} 
 					else 
 					{
-						include("system/content/theme/".$config['skin']."/pages/index.php");
+						include A . G . H . S . '/pages/index.php';
 					}
 				} 
 				else 
 				{
-					include("system/content/theme/".$config['skin']."/pages/index.php");
+					include A . G . H . S . '/pages/index.php';
 					header('Location: '.$config['hotelUrl'].'/index');
 				}
 			}
@@ -180,24 +180,24 @@
 				$pageHK = DB::Escape($_GET['url']);	
 				if($pageHK)
 				{ 
-					$fileExists = $_SERVER['DOCUMENT_ROOT'] . '/adminpan/'.$pageHK.".php";
+					$fileExists = J . $pageHK.".php";
 					if(file_exists(filter($fileExists)))
 					{
-						include("".$_SERVER['DOCUMENT_ROOT']."/adminpan/".$pageHK.".php");
+						include J .$pageHK.".php";
 					} 
 					else 
 					{
-						include("".$_SERVER['DOCUMENT_ROOT']."/adminpan/404.php"); 
+						include J . "/404.php"; 
 					}
 				} 
 				else 
 				{
-					include("".$_SERVER['DOCUMENT_ROOT']."/adminpan/dash.php");
+					include J . "/dash.php";
 				}
 			} 
 			else 
 			{
-				include("".$_SERVER['DOCUMENT_ROOT']."/adminpan/dash.php");
+				include J . "dash.php";
 				header('Location: '.$config['hotelUrl'].'/adminpan/dash');
 			}
 			
@@ -221,7 +221,7 @@
 		}
 		public static function loadPlugins()
 		{
-			$pluginDir = $_SERVER['DOCUMENT_ROOT']."/system/app/plugins/";
+			$pluginDir = A . B . K;
 			foreach (glob($pluginDir."*.php") as $filename) {
 				require_once $pluginDir."".basename($filename)."";
 			}

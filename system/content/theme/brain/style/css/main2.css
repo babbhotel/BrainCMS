@@ -896,7 +896,7 @@ fieldset[disabled] .btn-danger.focus {
 	border-color: #ff291c;
 }
 .groupboxbg {
-    background: url('/system/theme/brain/style/images/userbg/userplate.png') no-repeat;
+    background: url('../../style/images/userbg/userplate.png') no-repeat;
     background-color: #d4d2d2;
     background-position: -70px -119px;
     border-radius: 3px;

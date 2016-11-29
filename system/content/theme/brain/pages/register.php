@@ -38,7 +38,6 @@
 				<div class="panel panel-success" style="width: 56%;float: left;padding: 8px;">
 					<form method="post" class="form-horizontal">
 						<fieldset>
-							<input type="hidden" name="hiddenField_register" required="" value="<?= hiddenField(); ?>"></input>
 							<legend><?php echo $lang['Rregister']; ?></legend>
 							<?php User::Register(); ?>
 							<div class="form-group">

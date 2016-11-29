@@ -39,9 +39,9 @@
 	$config['maintenancekMinimumRankLogin'] = 3;
 	$config['staffCheckHk'] = true;
 	$config['staffCheckHkMinimumRank '] = 3;
-	$config['facebookLogin'] = false;
-	$config['facebookAPPID'] = '3341625902sadasd92528';
-	$config['facebookAPPSecret'] = 'ce2504ff5aa3ff7a6a2fa6asdd984cd8836';
+	$config['facebookLogin'] = true;
+	$config['facebookAPPID'] = '334162590sdf292528';
+	$config['facebookAPPSecret'] = 'ce250ds4ff5aa3ff7a6a2fa6d984cd8836';
 	
 	$config['groupBadgeURL'] = "http://127.0.0.1/swf/habbo-imaging/badge.php?badge=";
 	$config['badgeURL'] = "http://127.0.0.1/swf/c_images/album1584/"; 
@@ -51,16 +51,16 @@
 	$config['facebookEnable'] = true;
 	$config['twitter'] = 'https://twitter.com/Habbo';
 	$config['twitterEnable'] = true;
+	$config['registerEnable'] = true;
 	
 	/* Register Setting */
 	$config['credits']	= "10000";
 	$config['duckets']	= "20000";
 	$config['diamonds']	= "10";
-	$config['registerEnable'] = true;
 	
 	/* Google recaptcha Site Key  
 	   Go to this website to create a recaptcha Site Key: https://www.google.com/recaptcha/intro/index.html	*/
-	$config['recaptchaSiteKey'] = "6LdzewwUAAAAABkJ3vCDca9qmLasdasdGDaWAHqMRtFEs2";
-	$config['recaptchaSiteKeyEnable'] = true;
+	$config['recaptchaSiteKey'] = "6LdzewwUAAAAABkJ3vCDca9qmLGDaWsdfAHqMRtFEs2";
+	$config['recaptchaSiteKeyEnable'] = false;
 	
 ?>

@@ -63,8 +63,7 @@
 		}
 		public static function emailTaken($email)
 		{
-			$sqlEmailTaken = DB::Query("SELECT*FROM users WHERE mail = '" . filter(DB::Escape($email) . "' LIMIT 1"));
-			if ($sqlEmailTaken->num_rows > 0)
+			if (DB::NumRowsQuery("SELECT*FROM users WHERE mail = '" . filter(DB::Escape($email)) . "' LIMIT 1") > 0)
 			{
 				return true;
 			}
@@ -75,8 +74,7 @@
 		}
 		public static function userTaken($username)
 		{
-			$sqlUserTaken = DB::Query("SELECT*FROM users WHERE username = '" . filter(DB::Escape($username) . "' LIMIT 1"));
-			if ($sqlUserTaken->num_rows > 0)
+			if (DB::NumRowsQuery("SELECT*FROM users WHERE username = '" . filter(DB::Escape($username)) . "' LIMIT 1") > 0)
 			{
 				return true;
 			}
@@ -90,41 +88,37 @@
 			global $config,$lang;
 			if (isset($_POST['login']))
 			{
-				if ($_POST['hiddenField_login'] == hiddenField())
+				if (!empty($_POST['username']))
 				{
-					if (!empty($_POST['username']))
+					if (!empty($_POST['password']))
 					{
-						if (!empty($_POST['password']))
+						if (DB::NumRowsQuery("SELECT username FROM users WHERE username = '".filter(DB::Escape($_POST['username'])."'")) == 1)
 						{
-							if (DB::NumRowsQuery("SELECT username FROM users WHERE username = '".filter(DB::Escape($_POST['username'])."'")) == 1)
-							{
-								$getInfo = DB::Fetch(DB::Query("SELECT id, password, username, rank FROM users WHERE username = '".filter(DB::Escape($_POST['username'])."'")));
-								if (self::checkUser($_POST['password'], $getInfo['password'],$getInfo['username']))
-								{	
-									$_SESSION['id'] = filter($getInfo['id']);
-									if (!$config['maintenance'] == true)
-									{
-										header('Location: '.$config['hotelUrl'].'/me');
-									}
-									else
-									{	
-										if ($getInfo['rank'] >= $config['maintenancekMinimumRankLogin'])
-										{
-											$_SESSION['adminlogin'] = true;
-											header('Location: '.$config['hotelUrl'].'/me');	
-										}
-										return html::error($lang["Mnologin"]);
-									}
+							$getInfo = DB::Fetch(DB::Query("SELECT id, password, username, rank FROM users WHERE username = '".filter(DB::Escape($_POST['username'])."'")));
+							if (self::checkUser($_POST['password'], $getInfo['password'],$getInfo['username']))
+							{	
+								$_SESSION['id'] = filter($getInfo['id']);
+								if (!$config['maintenance'] == true)
+								{
+									header('Location: '.$config['hotelUrl'].'/me');
 								}
-								return html::error($lang["Lpasswordwrong"]);
+								else
+								{	
+									if ($getInfo['rank'] >= $config['maintenancekMinimumRankLogin'])
+									{
+										$_SESSION['adminlogin'] = true;
+										header('Location: '.$config['hotelUrl'].'/me');	
+									}
+									return html::error($lang["Mnologin"]);
+								}
 							}
-							return html::error($lang["Lnotexistuser"]);
+							return html::error($lang["Lpasswordwrong"]);
 						}
-						return html::error($lang["Lnopassword"]);
+						return html::error($lang["Lnotexistuser"]);
 					}
-					return html::error($lang["Lnousername"]);
+					return html::error($lang["Lnopassword"]);
 				}
-				return html::error($lang["Lwrong"]);
+				return html::error($lang["Lnousername"]);
 			}
 		}
 		public static function register()
@@ -135,113 +129,106 @@
 			{
 				if ($config['registerEnable'] == true)
 				{
-					if ($_POST['hiddenField_register'] == hiddenField())
+					if (!empty($_POST['username']))
 					{
-						if (!empty($_POST['username']))
+						if (self::validName($_POST['username']))
 						{
-							if (self::validName($_POST['username']))
+							if (!empty($_POST['password']))
 							{
-								if (!empty($_POST['password']))
+								if (!empty($_POST['password_repeat']))
 								{
-									if (!empty($_POST['password_repeat']))
+									if (!empty($_POST['email']))
 									{
-										if (!empty($_POST['email']))
+										if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 										{
-											if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+											if (!self::userTaken(DB::Escape($_POST['username'])))
 											{
-												if (!self::userTaken(DB::Escape($_POST['username'])))
+												if (!self::emailTaken(DB::Escape($_POST['email'])))
 												{
-													if (!self::emailTaken(DB::Escape($_POST['email'])))
+													if (strlen($_POST['password']) >= 6)
 													{
-														if (strlen($_POST['password']) >= 6)
-														{
-															if ($_POST['password'] == $_POST['password_repeat'])
-															{	
-																if (DB::NumRowsQuery("SELECT ip_reg FROM users WHERE ip_reg = '".checkCloudflare()."'") < 4)
+														if ($_POST['password'] == $_POST['password_repeat'])
+														{	
+															if (DB::NumRowsQuery("SELECT ip_reg FROM users WHERE ip_reg = '".checkCloudflare()."'") < 4)
+															{
+																if(!$config['recaptchaSiteKeyEnable'] == true)
 																{
-																	if(!$config['recaptchaSiteKeyEnable'] == true)
+																	$_POST['g-recaptcha-response'] = true;
+																}
+																if ($_POST['g-recaptcha-response'])
+																{
+																	if ($_POST['motto'] !== $config['startMotto'])
 																	{
-																		$_POST['g-recaptcha-response'] = true;
-																	}
-																	if ($_POST['g-recaptcha-response'])
-																	{
-																		if ($_POST['motto'] !== $config['startMotto'])
-																		{
-																			$motto = filter(DB::Escape($_POST['motto']));
-																		}
-																		else
-																		{
-																			$motto = $config['startMotto'];
-																		}
-																		DB::Fetch(DB::Query("
-																		INSERT INTO
-																		users
-																		(username, password, rank, motto, account_created, mail, look, ip_last, ip_reg, credits, activity_points, vip_points)
-																		VALUES
-																		(
-																		'".DB::Escape(filter($_POST['username']))."', 
-																		'".self::hashed($_POST['password'])."', 
-																		'1', 
-																		'".$motto."', 
-																		'".strtotime("now")."', 
-																		'".DB::Escape(filter($_POST['email']))."', 
-																		'".DB::Escape(filter($_POST['habbo-avatar']))."',
-																		'".checkCloudflare()."', 
-																		'".checkCloudflare()."', 
-																		'".$config['credits']."',
-																		'".$config['duckets']."',
-																		'".$config['diamonds']."'
-																		)
-																		"));
-																		$userInfo = DB::Fetch(DB::Query("SELECT * FROM `users` WHERE username='".filter(DB::Escape($_POST['username']))."' && mail = '".filter(DB::Escape($_POST['email']))."' LIMIT 1"));
-																		
-																			$_SESSION['id'] = filter(DB::Escape($userInfo['id']));
-																			header('Location: '.$config['hotelUrl'].'/me');
-																		
+																		$motto = filter(DB::Escape($_POST['motto']));
 																	}
 																	else
 																	{
-																		return html::error($lang["Rrobot"]); 
+																		$motto = $config['startMotto'];
 																	}
+																	DB::Fetch(DB::Query("
+																	INSERT INTO
+																	users
+																	(username, password, rank, motto, account_created, mail, look, ip_last, ip_reg, credits, activity_points, vip_points)
+																	VALUES
+																	(
+																	'".DB::Escape(filter($_POST['username']))."', 
+																	'".self::hashed($_POST['password'])."', 
+																	'1', 
+																	'".$motto."', 
+																	'".strtotime("now")."', 
+																	'".DB::Escape(filter($_POST['email']))."', 
+																	'".DB::Escape(filter($_POST['habbo-avatar']))."',
+																	'".checkCloudflare()."', 
+																	'".checkCloudflare()."', 
+																	'".$config['credits']."',
+																	'".$config['duckets']."',
+																	'".$config['diamonds']."'
+																	)
+																	"));
+																	$userInfo = DB::Fetch(DB::Query("SELECT * FROM `users` WHERE username='".filter(DB::Escape($_POST['username']))."' && mail = '".filter(DB::Escape($_POST['email']))."' LIMIT 1"));
+																	
+																	$_SESSION['id'] = filter(DB::Escape($userInfo['id']));
+																	header('Location: '.$config['hotelUrl'].'/me');
+																	
 																}
 																else
 																{
-																	return html::error($lang["Rmaxaccounts"]); 
+																	return html::error($lang["Rrobot"]); 
 																}
 															}
 															else
 															{
-																return html::error($lang["Rpasswordswrong"]);
+																return html::error($lang["Rmaxaccounts"]); 
 															}
 														}
 														else
 														{
-															return html::error($lang["Rpasswordshort"]); 
+															return html::error($lang["Rpasswordswrong"]);
 														}
 													}
 													else
 													{
-														return html::error($lang["Remailexists"]);
+														return html::error($lang["Rpasswordshort"]); 
 													}
 												}
 												else
 												{
-													return html::error($lang["Rusernameused"]);
+													return html::error($lang["Remailexists"]);
 												}
 											}
 											else
 											{
-												return html::error($lang["Remailnotallowed"]);
+												return html::error($lang["Rusernameused"]);
 											}
 										}
 										else
 										{
-											return html::error($lang["Remailempty"]);
+											return html::error($lang["Remailnotallowed"]);
 										}
 									}
 									else
 									{
-										return html::error($lang["Rpasswordsempty"]); 
+										return html::error($lang["Remailempty"]);
 									}
 								}
 								else
@@ -251,17 +238,17 @@
 							}
 							else
 							{
-								return html::error($lang["Rusernameshort"]);
+								return html::error($lang["Rpasswordsempty"]); 
 							}
 						}
 						else
 						{
-							return html::error($lang["Rusrnameempty"]);
+							return html::error($lang["Rusernameshort"]);
 						}
 					}
 					else
 					{
-						return html::error($lang["Rwrong"]);
+						return html::error($lang["Rusrnameempty"]);
 					}
 				}
 				else
@@ -279,28 +266,20 @@
 				{
 					if (isset($_POST['newpassword']) && !empty($_POST['newpassword']))
 					{
-						$passwordOld = DB::Escape($_POST['oldpassword']);
 						$getInfo = DB::Fetch(DB::Query("SELECT id, password, username FROM users WHERE id = '". filter(DB::Escape($_SESSION['id'])."'")));
 						if (self::checkUser(filter($_POST['oldpassword']), $getInfo['password'], filter($getInfo['username'])))
 						{
 							if (strlen($_POST['newpassword']) >= 6)
 							{
-								if($sql = DB::Query("
+								$sql = DB::Fetch(DB::Query("
 								UPDATE 
 								users 
 								SET password = 
 								'".DB::Escape(self::hashed($_POST['newpassword']))."' 
 								WHERE id = 
 								'".filter(DB::Escape($_SESSION['id']))."'"
-								)
-								)
-								{
-									return Html::errorSucces($lang["Ppasswordchanges"]);
-								}
-								else
-								{
-									return Html::error($lang["Pnotwork"]);
-								}
+								));
+								return Html::errorSucces($lang["Ppasswordchanges"]);
 							}
 							else
 							{
@@ -335,6 +314,7 @@
 						if (!self::emailTaken($_POST['email']))
 						{
 							$user = DB::Fetch(DB::Query("UPDATE users SET mail = '". filter(DB::Escape($_POST['email']))."' WHERE id = '". filter(DB::Escape($_SESSION['id']))."'"));
+							
 							return Html::errorSucces($lang["Eemailchanges"]);
 						}
 						else

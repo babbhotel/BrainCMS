@@ -50,7 +50,7 @@
 				<?= $lang["Hbagesof"] ?> <?= userHome('username'); ?>
 			</div>
 			<div class="mainBox" style="float;left">
-								<?php
+				<?php
 					$getUSerBadges = DB::Query("SELECT * FROM `user_badges` WHERE (`user_id` = '".filter(DB::Escape(userHome('id')))."')");
 					if (!DB::NumRows($getUSerBadges) == 0)
 					{

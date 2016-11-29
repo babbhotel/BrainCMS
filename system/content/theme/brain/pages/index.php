@@ -39,7 +39,6 @@
 								<div class="login">
 									<form method="post">
 											<div class="pfeil"> 	</div>
-											<input type="hidden" name="hiddenField_login" required="" value="<?= hiddenField(); ?>"></input>
 											<input type="text" id="username" name="username" placeholder="<?php echo $lang['Iusername']; ?>">
 											<input type="password" id="password" name="password" placeholder="<?php echo $lang['Ipassword']; ?>">
 												<button type="submit" class="submit" name="login"><img src="/system/content/theme/brain/style/images/login/go.gif">

@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<link rel="stylesheet" href="<?= $config['hotelUrl']?>/system/maintenance/css/style.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="<?= $config['hotelUrl']?>/system/content/maintenance/css/style.css" type="text/css" media="all" />
 	</head>
 	<body>
 		<div id="gradient" />

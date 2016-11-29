@@ -38,8 +38,36 @@
 				$functieName = "Pixelaar";
 				break;
 			}
-			$AddSollie = DB::Fetch(DB::Query("INSERT INTO staffApplication (username, realname, skype, age, functie, onlinetime,knowing,quarrel,serious,improve,microphone,ip,date) VALUES ('".User::userData('username')."', '" .$realname. "', '".$skype."', '".$age."' ,'".filter($functieName)."','".$onlinetime."','".$knowing."','".$quarrel."','".$serious."','".$improve."' ,'".$microphone."'  ,'".checkCloudflare()."','". time() ."')"));
-			;
+			$AddSollie = DB::Fetch(DB::Query("
+			INSERT INTO staffApplication (
+			username, 
+			realname, 
+			skype, 
+			age, 
+			functie, 
+			onlinetime, 
+			knowing, 
+			quarrel, 
+			serious, 
+			improve, 
+			microphone, 
+			ip, 
+			date
+			) VALUES (
+			'".User::userData('username')."', 
+			'".filter(DB::Escape($realname)). "', 
+			'".filter(DB::Escape($skype))."', 
+			'".filter(DB::Escape($age))."' , 
+			'".filter(DB::Escape($functieName))."', 
+			'".filter(DB::Escape($onlinetime))."', 
+			'".filter(DB::Escape($knowing))."', 
+			'".filter(DB::Escape($quarrel))."', 
+			'".filter(DB::Escape($serious))."', 
+			'".filter(DB::Escape($improve))."', 
+			'".filter(DB::Escape($microphone))."', 
+			'".checkCloudflare()."', 
+			'". time() ."
+			')"));
 			echo'<b><font color="green"> '.$lang["Ssend"].'</b></font>';												
 		}
 	}
