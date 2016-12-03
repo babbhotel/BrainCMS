@@ -252,6 +252,7 @@ Aquí tienes a todos los miembros que estén conectados o no.	</P>
 	
 	//Staffapplysend
 	$lang["Ssend"] = "Tu solicitud ha sido enviada";
+	$lang["Ssenderror"] = "Llene todos los campos!";
 	
 	//Pin-------------------------------------------------------------------------------------------------
 	$lang["Ppinwrong"] = "¡Pin incorrecto!";

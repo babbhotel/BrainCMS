@@ -17,10 +17,16 @@
 	{
 		private static function checkBan($ip, $username = null)
 		{
-			if (DB::NumRowsQuery("SELECT bantype,expire FROM bans WHERE bantype = 'ip' && value = '".filter(DB::Escape($ip))."'") === 1)
+		global $dbh;
+			$ipBan = $dbh->prepare("SELECT bantype,expire FROM bans WHERE bantype = 'ip' && value = :ip");
+			$ipBan->bindParam(':ip', $ip);
+			$ipBan->execute();
+			if ($ipBan->RowCount() === 1)
 			{
-				$queryIp = DB::Query("SELECT bantype,expire FROM bans WHERE bantype = 'ip' && value = '".filter(DB::Escape($ip))."'");
-				while ($rowIp = DB::Fetch($queryIp))
+				$queryIp = $dbh->prepare("SELECT bantype,expire FROM bans WHERE bantype = 'ip' && value = :ip");
+				$queryIp->bindParam(':ip', $ip);
+				$queryIp->execute();
+				while ($rowIp = $queryIp->fetch())
 				{
 					if (strtotime(gmdate($rowIp['expire'])) <= strtotime('now'))
 					{
@@ -34,10 +40,15 @@
 			}
 			else if ($username !== null)
 			{
-				if (DB::NumRowsQuery("SELECT bantype,expire FROM bans WHERE bantype = 'user' && value = '".filter(DB::Escape($username))."'") === 1)
+				$userBan = $dbh->prepare("SELECT bantype,expire FROM bans WHERE bantype = 'user' && value = :username");
+				$userBan->bindParam(':username', $username);
+				$userBan->execute();
+				if ($userBan->RowCount() === 1)
 				{
-					$queryUser = DB::Query("SELECT bantype,expire FROM bans WHERE bantype = 'user' && value = '".filter(DB::Escape($username))."'");
-					while ($rowUser = DB::Fetch($queryUser))
+					$userBan = $dbh->prepare("SELECT bantype,expire FROM bans WHERE bantype = 'user' && value = :username");
+					$userBan->bindParam(':username', $username);
+					$userBan->execute();
+					while ($rowUser = $userBan->fetch())
 					{
 						if (strtotime(gmdate($rowUser['expire'])) <= strtotime('now'))
 						{
@@ -57,8 +68,7 @@
 		}
 		public static function page()
 		{
-			global $emu, $config, $lang, $hotel, $version;
-			
+			global $dbh, $emu, $config, $lang, $hotel, $version;
 			if (defined('PHP_VERSION') && PHP_VERSION >= 5.6) 
 			{
 				true;
@@ -70,7 +80,7 @@
 			}
 			if (self::checkBan(checkCloudflare(), User::userData('username')))
 			{
-				include("system/theme/".$config['skin']."/pages/banned.php");
+				include A . G . H . S .'/pages/banned.php';
 				exit();
 			}
 			else
@@ -174,10 +184,10 @@
 		}
 		public static function pageHK()
 		{
-			global $emu, $config, $lang, $hotel, $version;
+			global $dbh, $config, $lang, $hotel, $version;
 			if(isset($_GET['url']))
 			{
-				$pageHK = DB::Escape($_GET['url']);	
+				$pageHK = $_GET['url'];	
 				if($pageHK)
 				{ 
 					$fileExists = J . $pageHK.".php";
@@ -200,7 +210,6 @@
 				include J . "dash.php";
 				header('Location: '.$config['hotelUrl'].'/adminpan/dash');
 			}
-			
 			switch($pageHK)
 			{
 				case $pageHK:

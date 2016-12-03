@@ -24,15 +24,14 @@
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">Klein Verhaal</label>
 								<div class="col-sm-10">
-									<input type="text" value="<?php echo $_SESSION['kort']; ?>" name="kort"class="form-control">
+									<input type="text" value="<?php echo $_SESSION['slogan']; ?>" name="slogan"class="form-control">
 								</div>
 							</div><br><br>
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">Image</label>
 								<div class="col-sm-10">
 									<?php
-										echo '<select onChange="showimage()" class="form-control" name="topstory" style="    width: 100%;font-size: 14px;"
-										';
+										echo '<select onChange="showimage()" class="form-control" name="topstory" style="    width: 100%;font-size: 14px;"';
 										if ($handle = opendir(''.$_SERVER['DOCUMENT_ROOT'].'/adminpan/img/newsimages'))
 										{	
 											while (false !== ($file = readdir($handle)))
@@ -101,8 +100,13 @@
 							<table class="table table-striped table-bordered table-condensed">
 								<tbody>
 									<?php
-										$sql = DB::Query("SELECT * FROM cms_news ORDER BY id DESC");
-										while($news = $sql->fetch_assoc())
+									
+									
+									
+									$getArticles = $dbh->prepare("SELECT * FROM cms_news ORDER BY id DESC");
+									$getArticles->execute();
+										
+										while($news = $getArticles->fetch())
 										{
 											echo'<tr>
 											<td>'.$news["id"].'</td>
@@ -115,6 +119,10 @@
 											</tr>';
 										}
 									?>
+									
+									
+									
+									
 								</tbody>
 							</table>
 						</div>

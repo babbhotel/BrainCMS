@@ -23,7 +23,7 @@
 					</div>
 				</div>
 				<div class="userbuttonbox">
-					<a href="/game" onclick="window.open('/game','new','toolbar=0,scrollbars=0,location=1,statusbar=1,menubar=0,resizable=1,width=1270,height=700');return false;"><div class="userbutton">
+					<a href="/client" onclick="window.open('/client','new','toolbar=0,scrollbars=0,location=1,statusbar=1,menubar=0,resizable=1,width=1270,height=700');return false;"><div class="userbutton">
 						<?= $lang["Mgoto"] ?>
 					</div></a>
 				</div>
@@ -52,8 +52,9 @@
 			</div>
 			<div class="mainBox" style="float;left">
 				<?php
-					$sqlGetUsersByRankDev = DB::Query("SELECT username,look FROM users ORDER BY ID DESC LIMIT 5");
-					while ($getUsersDev = DB::Fetch($sqlGetUsersByRankDev))
+					$sqlGetUsersByRankDev = $dbh->prepare("SELECT username,look FROM users ORDER BY ID DESC LIMIT 5");
+					$sqlGetUsersByRankDev->execute();
+					while ($getUsersDev = $sqlGetUsersByRankDev->fetch())
 					{
 					?>
 					<div class="userNewBox">
@@ -73,8 +74,9 @@
 				</div>
 				<div class="mainBox" style="float;left">
 					<?php
-						$getem = DB::Query("SELECT *,COUNT(*) AS count FROM groups,group_memberships WHERE groups.id = group_memberships.group_id GROUP BY group_memberships.group_id ORDER BY count DESC LIMIT 5");
-						while ($row = DB::Fetch($getem))
+						$getem = $dbh->prepare("SELECT *,COUNT(*) AS count FROM groups,group_memberships WHERE groups.id = group_memberships.group_id GROUP BY group_memberships.group_id ORDER BY count DESC LIMIT 5");
+						$getem->execute();
+						while ($row = $getem->fetch())
 						{
 						?>
 						<div class="groupboxbg">
@@ -119,8 +121,9 @@
 		<div class="columright">
 			<div class="boxnews">
 				<?php
-					$sql = DB::Query("SELECT id,title,image,shortstory FROM cms_news ORDER BY id DESC LIMIT 1");
-					while ($news = DB::Fetch($sql))
+					$sql = $dbh->prepare("SELECT id,title,image,shortstory FROM cms_news ORDER BY id DESC LIMIT 1");
+					$sql->execute();
+					while ($news = $sql->fetch())
 					{
 						echo'
 						<div class="newsFirstImage" style="background-image: url('.filter($news["image"]).');">
@@ -179,4 +182,4 @@
 	</div>
 </div>
 </body>
-</html>				
+</html>										

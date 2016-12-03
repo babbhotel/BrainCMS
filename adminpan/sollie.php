@@ -16,11 +16,19 @@
 						<div class="panel-body">
 							<table class="table table-striped table-bordered table-condensed">
 								<b>	<strong><tr><td><b>Gebruiker</b></td><td><b>Leeftijd</b></td><td><b>Functie</b></td><td><b>Datum</b></td><td><b>ip</b></td><td><b>Bekijk</b></td></tr></strong></b
+								
 								<tbody>
 								<?php
-									$sql = DB::Query("SELECT * FROM staffApplication ORDER BY id DESC");
-									while($news = $sql->fetch_assoc())
-									{
+								
+								
+								
+								
+									$getArticles = $dbh->prepare("SELECT * FROM staffApplication ORDER BY id DESC");
+									$getArticles->execute();
+										
+										while($news = $getArticles->fetch())
+										{
+									
 										echo'<tr>
 										<td style="width: 20%;">'.$news["username"].'</td>
 										<td style="width: 10%;">'.$news["age"].'</td>

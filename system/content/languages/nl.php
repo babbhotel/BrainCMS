@@ -171,7 +171,6 @@
 	$lang["Nnocommands"] = "Er zijn nog geen nieuws reacties";
 	$lang["Ncommandbutton"] = "Plaats je reactie";
 	
-	
 	//Adtips---------------------------------------------------------------------------------------------
 	$lang["Aads"] = "Adverteren";
 	$lang["Abringadsheader"] = "Dat brengt ons te adverteren?";	
@@ -293,6 +292,7 @@
 	
 	//Staffapplysend--------------------------------------------------------------------------------------
 	$lang["Ssend"] = "Jouw sollicitatie is verzonden!";
+	$lang["Ssenderror"] = "Vul al de velden in!";
 	
 	//Pin-------------------------------------------------------------------------------------------------
 	$lang["Ppinwrong"] = "Je ingevulde PIN klopt niet!";
@@ -332,7 +332,7 @@
 	$lang["Enoemail"] = "Er is geen email ingevuld!";
 	
 	//Hotel settings--------------------------------------------------------------------------------------
-	$lang["Hchanges"] = "Je email adres is gewijzigd.";
+	$lang["Hchanges"] = "Hotel instellingen zijn gewijzigd.";
 	
 	//Maintenance-----------------------------------------------------------------------------------------
 	$lang["Mtitle"] = "".$config['hotelName']." is in onderhoud";

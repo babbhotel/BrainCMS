@@ -5,28 +5,38 @@
 	}
 	function newsLike()
 	{
-		global $lang;
+		global $dbh,$lang;
 		if (isset($_POST['likenews']))
 		{
-			$newsLikeUser = DB::Fetch(DB::Query("SELECT userid, newsid FROM cms_news_like WHERE userid = '".DB::Escape(User::userData('id'))."' AND newsid = '".DB::Escape(filter($_GET['id']))."'"));
-			if($newsLikeUser['userid'] == DB::Escape(User::userData('id')) && $newsLikeUser['newsid'] == DB::Escape(filter($_GET['id']))) {
+			
+			$newsLikeUser = $dbh->prepare("SELECT userid, newsid FROM cms_news_like WHERE userid = :id AND newsid = :newsid");
+			$newsLikeUser->bindParam(':id', $_SESSION['id']);
+			$newsLikeUser->bindParam(':newsid', $_GET['id']);
+			$newsLikeUser->execute();
+			$newsLike = $newsLikeUser->fetch();
+			if($newsLike['userid'] == $_SESSION['id'] && $newsLike['newsid'] == $_GET['id']) {
 				return html::error($lang["LoneTime"]);
 			} 
 			else 
 			{
-				$sql = DB::Query("SELECT id,title,longstory FROM cms_news WHERE id = ".DB::Escape(filter($_GET['id']))."");
-				if (!DB::NumRows($sql) == 0)
+				$sql = $dbh->prepare("SELECT id,title,longstory FROM cms_news WHERE id = :id");
+				$sql->bindParam(':id', $_GET['id']);
+				$sql->execute();
+				if (!$sql->RowCount() == 0)
 				{
-					DB::Fetch(DB::Query("
+					$sql = $dbh->prepare("
 					INSERT INTO
 					cms_news_like
 					(userid, newsid)
 					VALUES
 					(
-					'".DB::Escape(User::userData('id'))."', 
-					'".DB::Escape(filter($_GET['id']))."' 
+					:userid, 
+					:id 
 					)
-					"));
+					");
+					$sql->bindParam(':id', $_GET['id']);
+					$sql->bindParam(':userid', $_SESSION['id']);
+					$sql->execute();
 					return html::errorSucces($lang["LnewsLike"]);
 				}
 				else{
@@ -37,8 +47,10 @@
 	}
 	function newsLikeCount()
 	{
-		$query = DB::NumRows(DB::Query("SELECT * FROM cms_news_like WHERE newsid = '" . DB::Escape(filter($_GET['id'])) . "'"));
-		return filter($query);
+		global $dbh;
+		$sql = $dbh->prepare("SELECT * FROM cms_news_like WHERE newsid = :id");
+		$sql->bindParam(':id', $_GET['id']);
+		$sql->execute();
+		return filter($sql->RowCount());
 	}
-	
 ?>

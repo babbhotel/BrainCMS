@@ -4,40 +4,43 @@
 		die('Sorry but you cannot access this file!'); 
 	}
 	function staffPin()
+	{
+		global $dbh,$config, $lang;
+		if (isset($_POST['loginPin']))
 		{
-			global $config, $lang;
-			if (isset($_POST['loginPin']))
+			if (!empty($_POST['PINbox']))
 			{
-				if (!empty($_POST['PINbox']))
+				$stmt = $dbh->prepare("SELECT pin FROM users WHERE id = :id");
+				$stmt->bindParam(':id', $_SESSION['id']);
+				$stmt->execute();
+				$pin = $stmt->fetch();
+				if ($_POST['PINbox'] == $pin['pin'])
 				{
-					$query = DB::Fetch(DB::Query("SELECT pin FROM users WHERE id = '" . filter(DB::Escape($_SESSION['id'])) . "'"));
-					if ($_POST['PINbox'] == $query['pin'])
-					{
-						$_SESSION['staffCheck'] = '1';
-						header('Location: '.$config['hotelUrl'].'/game');
-					}
-					else{
-						echo $lang["Ppinwrong"];
-					}
+					$_SESSION['staffCheck'] = '1';
+					header('Location: '.$config['hotelUrl'].'/client');
 				}
 				else{
-					echo $lang["Pnopin"];
+					echo $lang["Ppinwrong"];
 				}
 			}
+			else{
+				echo $lang["Pnopin"];
+			}
 		}
-		function staffCheck()
+	}
+	function staffCheck()
+	{
+		global $config,$hotel;
+		if($hotel['staffCheckClient'] == true)
 		{
-			global $config,$hotel;
-			if($hotel['staffCheckClient'] == true)
+			if (User::userData('rank') >= $hotel['staffCheckClientMinimumRank'])
 			{
-				if (User::userData('rank') >= $hotel['staffCheckClientMinimumRank'])
-				{
-					if (empty($_SESSION['staffCheck'])) 
-					{ 
-						header('Location: '.$config['hotelUrl'].'/pin');
-						exit;
-					}
+				if (empty($_SESSION['staffCheck'])) 
+				{ 
+					header('Location: '.$config['hotelUrl'].'/pin');
+					exit;
 				}
 			}
 		}
+	}
 ?>

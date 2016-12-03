@@ -7,7 +7,7 @@
 		Functions list functions.
 		--------------- 
 		
-		DB::Escape();
+		filter();
 		loggedIn();
 		checkCloudflare();
 	*/
@@ -16,7 +16,7 @@
 	function filter($data) 
 	{
 	
-		$data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
+	$data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
 		$data = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
 		$data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
 		$data = html_entity_decode($data, ENT_COMPAT, 'UTF-8');
@@ -47,7 +47,7 @@
 	{
 		$script = file_get_contents("http://brain.retroripper.com/version.txt");
 		$update = file_get_contents("http://brain.retroripper.com/update.txt");
-		$version = '0.8.0';
+		$version = '1.0.0';
 		if($version == $script) {
 			echo'<div style = "width: 100%;
 			background-color: green;

@@ -74,8 +74,24 @@
 									<a href="/community"><?= $lang["Ncommunity"] ?></a>
 									<a href="/sollicitaties"><?= $lang["Nstaffapply"] ?></a>
 									<a href="<?php
-										$getLastNewsId = DB::Fetch(DB::Query("SELECT id FROM cms_news ORDER BY ID DESC LIMIT 1"));
-										echo "/news/".$getLastNewsId['id']."";
+										
+										
+										
+										$getLastNewsId = $dbh->prepare("SELECT id FROM cms_news ORDER BY ID DESC LIMIT 1");
+										$getLastNewsId->execute();
+										$row = $getLastNewsId->fetch();
+										echo "/news/".$row['id']."";
+										
+										
+									
+										
+										
+										
+										
+										
+										
+										
+										
 										?>">
 									<?= $lang["Nnews"] ?></a>
 									<a href="/advertentie_tips"><?= $lang["Nadvertisementtips"] ?></a>
@@ -93,4 +109,4 @@
 							<a href="<?= $config['hotelUrl'] ?>/logout"><li class="logout"><?= $lang["NsignOut"] ?></li></a>
 						</ul>
 					</div>
-				</nav>																		
+				</nav>																						

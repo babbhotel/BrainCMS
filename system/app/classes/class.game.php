@@ -10,26 +10,32 @@
 		usersOnline();
 		homeRoom();
 	*/
-	
 	class Game 
 	{
 		public static function sso()
 		{
-			global $version;
+			global $dbh;
 			$timeNow = strtotime("now");
-			$sessionKey  = 'Brain-0.7.5-'.substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 5)), 0, 25).'-SSO';
-			DB::Fetch(DB::Query("UPDATE users SET auth_ticket = '".filter(DB::Escape($sessionKey))."' WHERE id = '".filter(DB::Escape($_SESSION['id'])."'")));
-			DB::Fetch(DB::Query("UPDATE users SET last_online = '".filter(DB::Escape($timeNow))."' WHERE id = '".filter(DB::Escape($_SESSION['id'])."'")));
+			$sessionKey  = 'Brain-1.0.0-'.substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 5)), 0, 25).'-SSO';
+			$stmt = $dbh->prepare("UPDATE users SET auth_ticket = :timenow , last_online = :timenow WHERE id = :id");
+			$stmt->bindParam(':timenow', $timeNow);
+			$stmt->bindParam(':id', $_SESSION['id']);
+			$stmt->execute();
 		}
 		Public static function usersOnline()
 		{
-			$userCount =  DB::NumRows(DB::Query("SELECT * FROM users WHERE online = '1'"));
-			return $userCount;
+			global $dbh;
+			$userCount = $dbh->prepare("SELECT * FROM users WHERE online = '1'");
+			$userCount->execute();
+			return $userCount->RowCount();
 		}
 		public static function homeRoom()
 		{
-			global $hotel;
-			DB::Fetch(DB::Query("UPDATE users SET home_room = '".$hotel['homeRoom']."' WHERE id = '".filter(User::userData('id'))."'"));
+			global $dbh, $hotel;
+			$stmt = $dbh->prepare("UPDATE users SET home_room = :homeroom WHERE id = :id");
+			$stmt->bindParam(':homeroom', $hotel['homeRoom']);
+			$stmt->bindParam(':id', $_SESSION['id']);
+			$stmt->execute();
 		}
 	} 
 ?>

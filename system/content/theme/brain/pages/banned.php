@@ -32,7 +32,7 @@
 			<div style="width: 100%;" class="columleft">
 				<div class="box">
 					<div class="title red">
-					<?= $lang["Bhotelblack"] ?>
+						<?= $lang["Bhotelblack"] ?>
 					</div>
 					<div class="mainBox" style="float;left">
 						<?php 
@@ -44,8 +44,10 @@
 							{
 								$user = null;
 							}
-							$banQuery = DB::Query("SELECT * FROM bans WHERE (bantype = 'user' && value = '".filter(DB::Escape($user))."') OR (bantype = 'ip' && value = '".checkCloudFlare()."')");
-							while($banInfo = DB::Fetch($banQuery))
+							$banQuery = $dbh->prepare("SELECT * FROM bans WHERE (bantype = 'user' && value = :user) OR (bantype = 'ip' && value = '".checkCloudFlare()."')");
+							$banQuery->bindParam(':user', $user); 
+							$banQuery->execute(); 
+							while($banInfo = $banQuery->fetch())
 							{
 							?>
 							<img src='http://i.imgur.com/Rug0VxW.gif' align='right'>
@@ -66,4 +68,4 @@
 					<span style="cursor:pointer;text-decoration:underline;" class='lireSuite' onclick="document.location.href='#'">Gids voor ouders</span>
 				</div>
 			</body>
-		</html>						
+		</html>										

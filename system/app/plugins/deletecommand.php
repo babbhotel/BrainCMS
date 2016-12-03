@@ -5,13 +5,19 @@
 	}
 	function deleteCommand()
 	{
-		global $lang;
+		global $dbh,$lang;
 		if (isset($_POST['deletecommand']))
 		{
-			$getCommandUserId = DB::Fetch(DB::Query("SELECT userid FROM cms_news_message WHERE userid = ".User::userData('id').""));
-			if (User::userData('id') == filter(DB::Escape($getCommandUserId['userid'])) ||  User::userData('rank') >= 3)
+			$getCommandUserId = $dbh->prepare("SELECT userid FROM cms_news_message WHERE userid = :id");
+			$getCommandUserId->bindParam(':id', $_SESSION['id']);
+			$getCommandUserId->execute();
+			$getCommandUserId2 = $getCommandUserId->fetch();
+			if (User::userData('id') == $getCommandUserId2['userid'] ||  User::userData('rank') >= 3)
 			{
-				$sql1 = DB::Query("DELETE FROM cms_news_message WHERE hash='".filter(DB::Escape($_POST['hashid']))."'AND newsid = '".filter(DB::Escape($_GET['id']))."'");
+				$deleteCommand = $dbh->prepare("DELETE FROM cms_news_message WHERE hash= :hash AND newsid = :newsid");
+				$deleteCommand->bindParam(':hash', $_POST['hashid']);
+				$deleteCommand->bindParam(':newsid', $_GET['id']);
+				$deleteCommand->execute();
 				return Html::errorSucces("Nieuws reactie verwijderd");
 			}
 			else

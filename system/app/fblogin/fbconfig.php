@@ -1,5 +1,5 @@
 <?php
-		ini_set('display_errors', 1);
+	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 	define('BRAIN_CMS', 1);
@@ -45,41 +45,58 @@
 		/* ---- header location after session ----*/
 		if ($config['facebookLogin'] == true)
 		{
-			if (DB::NumRowsQuery("SELECT fbid FROM users WHERE fbid = '".$_SESSION['FBID']."'") == 0)
+			$fbLogin = $dbh->prepare("SELECT fbid FROM users WHERE fbid = ".$_SESSION['FBID']."");
+			$fbLogin->execute();
+			if ($fbLogin->RowCount() == 0)
 			{
-				DB::Fetch(DB::Query("
+				$ffbid = "FB_".$_SESSION['FBID']."";
+				$fbLoginCreat = $dbh->prepare("
 				INSERT INTO
 				users
 				(username, rank, look, motto, account_created, mail, ip_last, ip_reg, credits, activity_points, vip_points, fbid, fbenable)
 				VALUES
 				(
-				'FB_".DB::Escape(filter($_SESSION['FBID']))."',  
+				:ffbid,  
 				'1',
 				'hr-3163-1035.hd-3092-2.ch-215-63.lg-3320-1189-62.sh-3089-1408.ca-3219-110.wa-2001-0',
-				'".$config['startMotto']."', 
+				:motto, 
 				'".strtotime("now")."', 
-				'".DB::Escape(filter($_SESSION['EMAIL']))."', 
+				:email, 
 				'".checkCloudflare()."', 
 				'".checkCloudflare()."', 
-				'".$config['credits']."',
-				'".$config['duckets']."',
-				'".$config['diamonds']."',
-				'".DB::Escape(filter($_SESSION['FBID']))."',
+				:credits,
+				:duckets,
+				:diamonds,
+				:fbid,
 				'0'
 				)
-				"));
-				$newUser = DB::Query("SELECT * FROM `users` WHERE username='FB_".DB::Escape(filter($_SESSION['FBID']))."' && mail = '".filter(DB::Escape($_SESSION['EMAIL']))."' LIMIT 1");
-				while ($User = DB::Fetch($newUser))
+				");
+				$fbLoginCreat->bindParam(':fbid', $_SESSION['FBID']);
+				$fbLoginCreat->bindParam(':ffbid', $ffbid);
+				$fbLoginCreat->bindParam(':motto', $config['startMotto']);
+				$fbLoginCreat->bindParam(':email', $_SESSION['EMAIL']);
+				$fbLoginCreat->bindParam(':credits', $config['credits']);
+				$fbLoginCreat->bindParam(':duckets', $config['duckets']);
+				$fbLoginCreat->bindParam(':diamonds', $config['diamonds']);
+				$fbLoginCreat->execute();
+				$newUser = $dbh->prepare("SELECT * FROM `users` WHERE username=:ffbid && mail = :email LIMIT 1");
+				$newUser->bindParam(':ffbid', $ffbid);
+				$newUser->bindParam(':email', $_SESSION['EMAIL']);
+				$newUser->execute();
+				while ($User = $newUser->fetch())
 				{
-					$_SESSION['id'] = filter(DB::Escape($User['id']));
+					$_SESSION['id'] = $User['id'];
 					header('Location: '.$config['hotelUrl'].'/changename');
 				}
 			}
-			else{
-				$loadUser = DB::Query("SELECT * FROM `users` WHERE fbid='".DB::Escape(filter($_SESSION['FBID']))."' LIMIT 1");
-				while ($User = DB::Fetch($loadUser))
+			else
+			{
+				$loadUser = $dbh->prepare("SELECT * FROM `users` WHERE fbid=:fbid LIMIT 1");
+				$loadUser->bindParam(':fbid', $_SESSION['FBID']);
+				$loadUser->execute();
+				while ($User = $loadUser->fetch())
 				{
-					$_SESSION['id'] = filter(DB::Escape($User['id']));
+					$_SESSION['id'] = $User['id'];
 					header('Location: '.$config['hotelUrl'].'/me');
 				}
 			}

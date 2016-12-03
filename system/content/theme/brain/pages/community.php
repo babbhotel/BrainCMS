@@ -11,8 +11,9 @@
 			<div class="mainBox" style="float;left">
 				<div class="boxHeader"></div>
 				<?php
-					$sqlGetUsersByRankDev = DB::Query("SELECT username,look FROM users ORDER BY RAND() LIMIT 15");
-					while ($getUsersDev = DB::Fetch($sqlGetUsersByRankDev))
+					$sqlGetUsersByRankDev = $dbh->prepare("SELECT username,look FROM users ORDER BY ID DESC LIMIT 5");
+					$sqlGetUsersByRankDev->execute();
+					while ($getUsersDev = $sqlGetUsersByRankDev->fetch())
 					{
 					?>
 					<div class="userNewBox">
@@ -30,8 +31,9 @@
 		<div class="columright">
 			<div class="boxnews">
 				<?php
-					$sql = DB::Query("SELECT id,title,image,shortstory FROM cms_news ORDER BY id DESC LIMIT 1");
-					while($news = DB::Fetch($sql))
+					$sql = $dbh->prepare("SELECT id,title,image,shortstory FROM cms_news ORDER BY id DESC LIMIT 1");
+					$sql->execute();
+					while ($news = $sql->fetch())
 					{
 						echo'
 						<div class="newsFirstImage" style="background-image: url('.filter($news["image"]).');">

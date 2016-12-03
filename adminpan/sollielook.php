@@ -47,11 +47,11 @@
 								if (User::userData('rank') > '8')
 								{
 								?>
-								<form action="" method="POST">
-									<button style="width: 200px;
+								
+									<a href = "<?php echo''.$config['hotelUrl'].'/adminpan/sollielook/delete/'.admin::LookSollie("id").'' ?>"><button style="width: 200px;
 									float: left;
 									margin-right: 14px;" value="<?php echo admin::LookSollie("id"); ?>" name="DeleteSollieNow" type="submit" class="btn btn-danger">Verwijder sollicitatie</button>
-								</form></div>
+								</a></div>
 								<?php
 								}
 								else{

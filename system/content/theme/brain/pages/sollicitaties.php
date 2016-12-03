@@ -29,14 +29,14 @@
 		                <option name="functie" value="1">Junior Moderator</option> 					
 						<option name="functie" value="2">Eventteam</option> 
 						<option name="functie" value="3">Spamteam</option> 
-						<option name="functie" value="4">Bouwteam</option> 
-						<option name="functie" value="5">Proef DJ</option>
+						<option name="functie" value="4">Builders</option> 
+						<option name="functie" value="5">Trail DJ</option>
 						<option name="functie" value="6">Pixelaar</option>
 					</select>	</p>
 					<p><label><b><?= $lang["Nonlineweak"] ?></b><br>
 					<input type="number" name="onlinetime" size="400" placeholder="10" id="amount" style="width: 100%;"></p>
 					<p><label><b><?= $lang["Nyourexperience"] ?></b><br>
-					<textarea name="knowing" size="400" rows="5" cols="50" style="width: 100%;"> </textarea></p>
+					<textarea name="experience" size="400" rows="5" cols="50" style="width: 100%;"> </textarea></p>
 					<p><label><b><?= $lang["Npeoplearguing"] ?></b><br>
 					<textarea name="quarrel" size="400" rows="5" cols="50" style="width: 100%;"> </textarea></p>
 					<p><label><b><?= $lang["Nyoutrust"] ?></b><br>

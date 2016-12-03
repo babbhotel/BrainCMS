@@ -10,7 +10,7 @@
 	$db['user'] = "root";
 	$db['pass'] = '*****';
 	$db['db'] = "brain";
-
+	
 	/* Client Setting */
 	$hotel['emuHost'] = "127.0.0.1";
 	$hotel['emuPort'] = "30000";  
@@ -38,10 +38,10 @@
 	$config['maintenance'] = false;
 	$config['maintenancekMinimumRankLogin'] = 3;
 	$config['staffCheckHk'] = true;
-	$config['staffCheckHkMinimumRank '] = 3;
+	$config['staffCheckHkMinimumRank'] = 3;
 	$config['facebookLogin'] = true;
-	$config['facebookAPPID'] = '334162590sdf292528';
-	$config['facebookAPPSecret'] = 'ce250ds4ff5aa3ff7a6a2fa6d984cd8836';
+	$config['facebookAPPID'] = '33416259029sdf2528';
+	$config['facebookAPPSecret'] = 'ce2504ff5aa3ff7a6a2fa6d984cdsdadfd8836';
 	
 	$config['groupBadgeURL'] = "http://127.0.0.1/swf/habbo-imaging/badge.php?badge=";
 	$config['badgeURL'] = "http://127.0.0.1/swf/c_images/album1584/"; 
@@ -60,7 +60,7 @@
 	
 	/* Google recaptcha Site Key  
 	   Go to this website to create a recaptcha Site Key: https://www.google.com/recaptcha/intro/index.html	*/
-	$config['recaptchaSiteKey'] = "6LdzewwUAAAAABkJ3vCDca9qmLGDaWsdfAHqMRtFEs2";
+	$config['recaptchaSiteKey'] = "6LdzewwUAAdsfaAAABkJ3vCDca9qmLGDaWAHqMRtFEs2";
 	$config['recaptchaSiteKeyEnable'] = false;
 	
 ?>

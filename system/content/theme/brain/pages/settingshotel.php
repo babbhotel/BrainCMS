@@ -23,7 +23,10 @@
 				<div style="
 				padding-top: 50px;"class='mainBox'>
 					<?php User::editHotelSettings(); 
-						$stats = DB::Fetch(DB::Query("SELECT * FROM users WHERE id = '". filter(DB::Escape($_SESSION['id'])."'")));
+						$getUser = $dbh->prepare("SELECT * FROM users WHERE id = :id");
+						$getUser->bindParam(':id', $_SESSION['id']);
+						$getUser->execute();
+						$stats = $getUser->fetch();
 					?>
 					<div class="oddeven"> 
 						<div id="lft"><?= $lang["Sallowfrends"] ?>
@@ -39,7 +42,7 @@
 								<label for="false"> 
 									<img src="/system/content/theme/brain/style/images/account/image_969_1.png"> 
 								</label> 
-								</div> 
+							</div> 
 						</div> 
 						<div class="c">
 						</div> </div> 

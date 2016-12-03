@@ -3,7 +3,7 @@
 	include_once "includes/header.php";
 	include_once "includes/navi.php";
 	$_SESSION['title'] = '';
-	$_SESSION['kort'] = '';
+	$_SESSION['slogan'] = '';
 	$_SESSION['news'] ='';
 ?>
 <aside class="right-side">

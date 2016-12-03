@@ -19,9 +19,9 @@
 								<b>	<strong><tr><td><b>ID</b></td><td><b>Verbannen Horba's</b></td><td><b>Ban type</b></td><td><b>Reden</b></td><td><b>Ban by</b></td><td><b>Banned op</b></td><td><b>Vervalt</b></td></tr></strong></b
 								<tbody>
 								<?php
-									$sql = DB::Query("SELECT * FROM bans ORDER BY id DESC");
-									
-									while($news = $sql->fetch_assoc())
+									$getArticles = $dbh->prepare("SELECT * FROM bans ORDER BY id DESC");
+									$getArticles->execute();
+									while($news = $getArticles->fetch())
 									{
 										echo'';
 										echo'<tr>
@@ -50,4 +50,4 @@
 			<?php
 				include_once "includes/footer.php";
 				include_once "includes/script.php";
-			?>							
+			?>										

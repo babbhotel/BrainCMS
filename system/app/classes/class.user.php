@@ -22,6 +22,7 @@
 	{
 		public static function checkUser($password, $passwordDb, $username)
 		{
+		global $dbh;
 			if (substr($passwordDb, 0, 1) == "$") 
 			{
 				if (password_verify($password, $passwordDb))
@@ -33,8 +34,11 @@
 			else 
 			{
 				if (md5($password) == $passwordDb) 
-				{
-					$updateUserHash = DB::Fetch(DB::Query("UPDATE users SET password = '".self::hashed($password)."' WHERE username = '".filter(DB::Escape($username))."'"));		
+				{	
+					$stmt = $dbh->prepare("UPDATE users SET password = :password WHERE username = :username");
+					$stmt->bindParam(':username', $username); 
+					$stmt->bindParam(':password', $password); 
+					$stmt->execute(); 
 					return true;
 				}
 				return false;
@@ -54,16 +58,23 @@
 		}
 		public static function userData($key)
 		{
+			global $dbh;
 			if (loggedIn())
 			{
-				$query = DB::Fetch(DB::Query("SELECT id,username,mail,motto,auth_ticket,credits,vip_points,activity_points,look,rank,online,fbenable FROM users WHERE id = '" . filter(DB::Escape($_SESSION['id'])) . "'"));
-				return filter($query[$key]);
+				$stmt = $dbh->prepare("SELECT * FROM users WHERE id = :id");
+				$stmt->bindParam(':id', $_SESSION['id']);
+				$stmt->execute();
+				$row = $stmt->fetch();
+				return $row[$key];
 			}
-			return false;
 		}
 		public static function emailTaken($email)
 		{
-			if (DB::NumRowsQuery("SELECT*FROM users WHERE mail = '" . filter(DB::Escape($email)) . "' LIMIT 1") > 0)
+			global $dbh;
+			$stmt = $dbh->prepare("SELECT*FROM users WHERE mail = :email LIMIT 1");
+			$stmt->bindParam(':email', $email);
+			$stmt->execute();
+			if ($stmt->RowCount() > 0)
 			{
 				return true;
 			}
@@ -74,7 +85,11 @@
 		}
 		public static function userTaken($username)
 		{
-			if (DB::NumRowsQuery("SELECT*FROM users WHERE username = '" . filter(DB::Escape($username)) . "' LIMIT 1") > 0)
+			global $dbh;
+			$stmt = $dbh->prepare("SELECT*FROM users WHERE username = :username LIMIT 1");
+			$stmt->bindParam(':username', $username);
+			$stmt->execute();
+			if ($stmt->RowCount() > 0)
 			{
 				return true;
 			}
@@ -85,26 +100,29 @@
 		}
 		public static function login()
 		{
-			global $config,$lang;
+			global $dbh,$config,$lang;
 			if (isset($_POST['login']))
 			{
 				if (!empty($_POST['username']))
 				{
 					if (!empty($_POST['password']))
 					{
-						if (DB::NumRowsQuery("SELECT username FROM users WHERE username = '".filter(DB::Escape($_POST['username'])."'")) == 1)
+						$stmt = $dbh->prepare("SELECT id, password, username, rank FROM users WHERE username = :username");
+						$stmt->bindParam(':username', $_POST['username']); 
+						$stmt->execute();
+						if ($stmt->RowCount() == 1)
 						{
-							$getInfo = DB::Fetch(DB::Query("SELECT id, password, username, rank FROM users WHERE username = '".filter(DB::Escape($_POST['username'])."'")));
-							if (self::checkUser($_POST['password'], $getInfo['password'],$getInfo['username']))
+							$row = $stmt->fetch();
+							if (self::checkUser($_POST['password'], $row['password'],$row['username']))
 							{	
-								$_SESSION['id'] = filter($getInfo['id']);
+								$_SESSION['id'] = $row['id'];
 								if (!$config['maintenance'] == true)
 								{
 									header('Location: '.$config['hotelUrl'].'/me');
 								}
 								else
 								{	
-									if ($getInfo['rank'] >= $config['maintenancekMinimumRankLogin'])
+									if ($row['rank'] >= $config['maintenancekMinimumRankLogin'])
 									{
 										$_SESSION['adminlogin'] = true;
 										header('Location: '.$config['hotelUrl'].'/me');	
@@ -123,8 +141,7 @@
 		}
 		public static function register()
 		{
-			global $config, $lang;
-			
+			global $config, $lang, $dbh;
 			if (isset($_POST['register']))
 			{
 				if ($config['registerEnable'] == true)
@@ -141,15 +158,17 @@
 									{
 										if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 										{
-											if (!self::userTaken(DB::Escape($_POST['username'])))
+											if (!self::userTaken($_POST['username']))
 											{
-												if (!self::emailTaken(DB::Escape($_POST['email'])))
+												if (!self::emailTaken($_POST['email']))
 												{
 													if (strlen($_POST['password']) >= 6)
 													{
 														if ($_POST['password'] == $_POST['password_repeat'])
 														{	
-															if (DB::NumRowsQuery("SELECT ip_reg FROM users WHERE ip_reg = '".checkCloudflare()."'") < 4)
+															$stmt = $dbh->prepare("SELECT ip_reg FROM users WHERE ip_reg = '".checkCloudflare()."'");
+															$stmt->execute();
+															if ($stmt->RowCount() < 4)
 															{
 																if(!$config['recaptchaSiteKeyEnable'] == true)
 																{
@@ -159,37 +178,48 @@
 																{
 																	if ($_POST['motto'] !== $config['startMotto'])
 																	{
-																		$motto = filter(DB::Escape($_POST['motto']));
+																		$motto = $_POST['motto'];
 																	}
 																	else
 																	{
 																		$motto = $config['startMotto'];
 																	}
-																	DB::Fetch(DB::Query("
+																	$password = self::hashed($_POST['password']);
+																	$stmt = $dbh->prepare("
 																	INSERT INTO
 																	users
 																	(username, password, rank, motto, account_created, mail, look, ip_last, ip_reg, credits, activity_points, vip_points)
 																	VALUES
 																	(
-																	'".DB::Escape(filter($_POST['username']))."', 
-																	'".self::hashed($_POST['password'])."', 
+																	:username, 
+																	:password, 
 																	'1', 
-																	'".$motto."', 
+																	:motto, 
 																	'".strtotime("now")."', 
-																	'".DB::Escape(filter($_POST['email']))."', 
-																	'".DB::Escape(filter($_POST['habbo-avatar']))."',
+																	:email, 
+																	:avatar,
 																	'".checkCloudflare()."', 
 																	'".checkCloudflare()."', 
-																	'".$config['credits']."',
-																	'".$config['duckets']."',
-																	'".$config['diamonds']."'
-																	)
-																	"));
-																	$userInfo = DB::Fetch(DB::Query("SELECT * FROM `users` WHERE username='".filter(DB::Escape($_POST['username']))."' && mail = '".filter(DB::Escape($_POST['email']))."' LIMIT 1"));
-																	
-																	$_SESSION['id'] = filter(DB::Escape($userInfo['id']));
+																	:credits,
+																	:duckets,
+																	:diamonds
+																	)");
+																	$stmt->bindParam(':username', $_POST['username']);
+																	$stmt->bindParam(':password', $password);
+																	$stmt->bindParam(':motto', $motto);
+																	$stmt->bindParam(':email', $_POST['email']);
+																	$stmt->bindParam(':avatar', $_POST['habbo-avatar']);
+																	$stmt->bindParam(':credits', $config['credits']);
+																	$stmt->bindParam(':duckets', $config['duckets']);
+																	$stmt->bindParam(':diamonds', $config['diamonds']);
+																	$stmt->execute();
+																	$getUser = $dbh->prepare("SELECT id FROM users WHERE username = :username && mail = :email");
+																	$getUser->bindParam(':username', $_POST['username']);
+																	$getUser->bindParam(':email', $_POST['email']);
+																	$getUser->execute();
+																	$getUserData = $getUser->fetch();
+																	$_SESSION['id'] = $getUserData['id'];
 																	header('Location: '.$config['hotelUrl'].'/me');
-																	
 																}
 																else
 																{
@@ -259,26 +289,33 @@
 		}
 		Public static function editPassword()
 		{
-			global $lang;
+			global $dbh,$lang;
 			if (isset($_POST['password']))
 			{
 				if (isset($_POST['oldpassword']) && !empty($_POST['oldpassword']))
 				{
 					if (isset($_POST['newpassword']) && !empty($_POST['newpassword']))
 					{
-						$getInfo = DB::Fetch(DB::Query("SELECT id, password, username FROM users WHERE id = '". filter(DB::Escape($_SESSION['id'])."'")));
+						$stmt = $dbh->prepare("SELECT id, password, username FROM users WHERE id = :id");
+						$stmt->bindParam(':id', $_SESSION['id']);
+						$stmt->execute();
+						$getInfo = $stmt->fetch();
 						if (self::checkUser(filter($_POST['oldpassword']), $getInfo['password'], filter($getInfo['username'])))
 						{
 							if (strlen($_POST['newpassword']) >= 6)
 							{
-								$sql = DB::Fetch(DB::Query("
+								$newPassword = self::hashed($_POST['newpassword']);
+								$stmt = $dbh->prepare("
 								UPDATE 
 								users 
 								SET password = 
-								'".DB::Escape(self::hashed($_POST['newpassword']))."' 
+								:newpassword 
 								WHERE id = 
-								'".filter(DB::Escape($_SESSION['id']))."'"
-								));
+								:id
+								");
+								$stmt->bindParam(':newpassword', $newPassword); 
+								$stmt->bindParam(':id', $_SESSION['id']); 
+								$stmt->execute(); 
 								return Html::errorSucces($lang["Ppasswordchanges"]);
 							}
 							else
@@ -304,7 +341,7 @@
 		}
 		Public static function editEmail()
 		{
-			global $lang;
+			global $lang,$dbh;
 			if (isset($_POST['account']))
 			{
 				if (isset($_POST['email']) && !empty($_POST['email']))
@@ -313,8 +350,17 @@
 					{
 						if (!self::emailTaken($_POST['email']))
 						{
-							$user = DB::Fetch(DB::Query("UPDATE users SET mail = '". filter(DB::Escape($_POST['email']))."' WHERE id = '". filter(DB::Escape($_SESSION['id']))."'"));
-							
+							$stmt = $dbh->prepare("
+							UPDATE 
+							users 
+							SET mail = 
+							:newmail
+							WHERE id = 
+							:id
+							");
+							$stmt->bindParam(':newmail', $_POST['email']); 
+							$stmt->bindParam(':id', $_SESSION['id']); 
+							$stmt->execute(); 
 							return Html::errorSucces($lang["Eemailchanges"]);
 						}
 						else
@@ -335,18 +381,48 @@
 		}
 		Public static function editHotelSettings()
 		{
-			global $lang;
+			global $lang,$dbh;
 			if (isset($_POST['hinstellingenv']))
 			{
-				$user = DB::Fetch(DB::Query("UPDATE users SET ignore_invites = '". filter(DB::Escape($_POST['hinstellingenv']))."' WHERE id = '". filter(DB::Escape($_SESSION['id'])."'")));
+				$stmt = $dbh->prepare("
+				UPDATE 
+				users 
+				SET ignore_invites = 
+				:hinstellingenv
+				WHERE id = 
+				:id
+				");
+				$stmt->bindParam(':hinstellingenv', $_POST['hinstellingenv']); 
+				$stmt->bindParam(':id', $_SESSION['id']); 
+				$stmt->execute(); 
 			}
 			if (isset($_POST['hinstellingenl']))
 			{
-				$user = DB::Fetch(DB::Query("UPDATE users SET allow_mimic = '". filter(DB::Escape($_POST['hinstellingenl']))."' WHERE id = '". filter(DB::Escape($_SESSION['id'])."'")));
+				$stmt = $dbh->prepare("
+				UPDATE 
+				users 
+				SET allow_mimic = 
+				:hinstellingenl
+				WHERE id = 
+				:id
+				");
+				$stmt->bindParam(':hinstellingenl', $_POST['hinstellingenl']); 
+				$stmt->bindParam(':id', $_SESSION['id']); 
+				$stmt->execute(); 
 			}
 			if (isset($_POST['hinstellingeno']))
 			{
-				$user = DB::Fetch(DB::Query("UPDATE users SET hide_online = '". filter(DB::Escape($_POST['hinstellingeno']))."' WHERE id = '". filter(DB::Escape($_SESSION['id'])."'")));	
+				$stmt = $dbh->prepare("
+				UPDATE 
+				users 
+				SET allow_mimic = 
+				:hinstellingeno
+				WHERE id = 
+				:id
+				");
+				$stmt->bindParam(':hinstellingeno', $_POST['hinstellingeno']); 
+				$stmt->bindParam(':id', $_SESSION['id']); 
+				$stmt->execute(); 
 			}
 			if (isset($_POST['hotelsettings']))
 			{
@@ -355,16 +431,19 @@
 		}
 		Public static function editUsername()
 		{
-			global $lang;
+			global $lang,$dbh;
 			if (isset($_POST['editusername']))
 			{
 				if(!User::userData('fbenable') == 1)
 				{
-					if(!self::userTaken(DB::Escape($_POST['username'])))
+					if(!self::userTaken($_POST['username']))
 					{
 						if(self::validName($_POST['username']))
 						{
-							$updateUsername = DB::Fetch(DB::Query("UPDATE users SET username = '". DB::Escape(filter($_POST['username']))."', fbenable = '1' WHERE id = '". DB::Escape(filter($_SESSION['id']))."'"));	
+							$stmt = $dbh->prepare("UPDATE users SET username = :username, fbenable = '1' WHERE id = :id");
+							$stmt->bindParam(':username', $_POST['username']); 
+							$stmt->bindParam(':id', $_SESSION['id']); 
+							$stmt->execute(); 
 							header('Location: '.$config['hotelUrl'].'/me');
 						}
 						else
@@ -384,4 +463,4 @@
 			}
 		}
 	}
-?>																										
+?>			

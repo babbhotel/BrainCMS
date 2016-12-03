@@ -9,8 +9,11 @@
 				<?= $lang["Smostdia"] ?>
 			</div>
 			<div class="mainBox" style="float;left">
-				<?php $belcr_get= DB::Query("SELECT vip_points,username,look from users WHERE rank < 5 ORDER BY `vip_points` DESC  LIMIT 6");
-					while ($belcr_row = DB::Fetch($belcr_get)){
+				<?php 
+					$belcr_get = $dbh->prepare("SELECT vip_points,username,look from users WHERE rank < 5 ORDER BY `vip_points` DESC  LIMIT 6");
+					$belcr_get->execute();
+					while ($belcr_row = $belcr_get->fetch())
+					{
 					?>
 					<div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 300px;margin-bottom: 10px;margin-left: 5px;margin-right: 5px;">
 						<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= filter($belcr_row['look']) ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
@@ -29,8 +32,11 @@
 					<?= $lang["Smostduck"] ?>
 				</div>
 				<div class="mainBox" style="float;left">
-					<?php $belcr_get= DB::Query("SELECT activity_points,username,look from users WHERE rank < 5 ORDER BY `activity_points` DESC  LIMIT 6");
-						while ($belcr_row = DB::Fetch($belcr_get)){
+					<?php 
+						$belcr_get = $dbh->prepare("SELECT activity_points,username,look from users WHERE rank < 5 ORDER BY `activity_points` DESC  LIMIT 6");
+						$belcr_get->execute();
+						while ($belcr_row = $belcr_get->fetch())
+						{
 						?>
 						<div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 300px;margin-bottom: 10px;margin-left: 5px;margin-right: 5px;">
 							<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= filter($belcr_row['look']) ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
@@ -49,8 +55,11 @@
 						<?= $lang["Smostcred"] ?>
 					</div>
 					<div class="mainBox" style="float;left">
-						<?php $belcr_get= DB::Query("SELECT credits,username,look from users WHERE rank < 5 ORDER BY `credits` DESC  LIMIT 6");
-							while ($belcr_row = DB::Fetch($belcr_get)){
+						<?php 
+							$belcr_get = $dbh->prepare("SELECT credits,username,look from users WHERE rank < 5 ORDER BY `credits` DESC  LIMIT 6");
+							$belcr_get->execute();
+							while ($belcr_row = $belcr_get->fetch())
+							{
 							?>
 							<div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 300px;margin-bottom: 10px;margin-left: 5px;margin-right: 5px;">
 								<div id="column" style="border: 2px dotted rgba(0, 0, 0, 0.2);margin-top: -10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=<?= filter($belcr_row['look']) ?>&head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
@@ -70,4 +79,4 @@
 				</div>
 			</div>
 		</body>
-	</html>				
+	</html>												

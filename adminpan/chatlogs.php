@@ -2,7 +2,7 @@
 	include_once "includes/head.php";
 	include_once "includes/header.php";
 	include_once "includes/navi.php";
-		admin::CheckRank(3);
+	admin::CheckRank(3);
 ?>
 <aside class="right-side">
 	<section class="content">
@@ -14,37 +14,30 @@
 						<form name="mygallery" action="" method="POST">
 						</header>
 						<div class="panel-body">
-						
 							<table class="table table-striped table-bordered table-condensed">
-							<b>	<strong><tr><td><b>ID</b></td><td><b>Gebruiker</b></td><td><b>Kamer</b></td><td><b>Bericht</b></td><td><b>Datum</b></td></tr></strong></b
+								<b>	<strong><tr><td><b>ID</b></td><td><b>Gebruiker</b></td><td><b>Kamer</b></td><td><b>Bericht</b></td><td><b>Datum</b></td></tr></strong></b
 								<tbody>
-									<?php
-										$sql = DB::Query("SELECT * FROM chatlogs ORDER BY id DESC  LIMIT 1000");
-										
-										while($news = $sql->fetch_assoc())
-										{
-									echo'';
-											echo'<tr>
-											<td>'.$news["id"].'</td>
-											<td style="width: 13%;">'.$news["user_id"].'</td>
-											<td style="width: 7%;">'.$news["room_id"].'</td>
-											<td style="width: 25%;">'.$news["message"].'</td>
-											<td>'. gmdate('d-m-Y, H:i ', $news['timestamp']).'</td>
-										
+								<?php
+									$getArticles = $dbh->prepare("SELECT * FROM chatlogs ORDER BY id DESC  LIMIT 1000");
+									$getArticles->execute();
+									while($news = $getArticles->fetch())
+									{
+										echo'';
+										echo'<tr>
+										<td>'.$news["id"].'</td>
+										<td style="width: 13%;">'.$news["user_id"].'</td>
+										<td style="width: 7%;">'.$news["room_id"].'</td>
+										<td style="width: 25%;">'.$news["message"].'</td>
+										<td>'. gmdate('d-m-Y, H:i ', $news['timestamp']).'</td>
 										';
-										}
-									?>
-								</tbody>
-							</table>
-						</div>
+									}
+								?>
+							</tbody>
+						</table>
 					</div>
 				</div>
-				<script>
-					// Replace the <textarea id="editor1"> with a CKEditor
-					// instance, using default configuration.
-					CKEDITOR.replace( 'editor1' );
-				</script>
-				<?php
-					include_once "includes/footer.php";
-					include_once "includes/script.php";
-				?>				
+			</div>
+			<?php
+				include_once "includes/footer.php";
+				include_once "includes/script.php";
+			?>							

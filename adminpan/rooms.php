@@ -7,7 +7,6 @@
 <aside class="right-side">
 	<section class="content">
 		<div class="row">
-			
 			<div class="col-md-12">
 				<section class="panel">
 					<header class="panel-heading">
@@ -17,37 +16,28 @@
 						<div class="panel-body">
 							<table class="table table-striped table-bordered table-condensed">
 								<tbody>
-								<strong><tr><td style="width: 5%;"><b>ID</b></td><td><b>Kamer naam</b></td><td><b>Kamer eigenaar</b></td><td><b>Kamer status</b></td><td><b>Model</b><!--</td><td style="width: 5%;"><b>Bewerken</b></td></tr></strong>-->
-									<?php
-										
-										$sql = DB::Query("SELECT * FROM rooms ORDER BY id DESC");
-										
-										while($news = $sql->fetch_assoc())
-										{
-									echo'';
-											echo'<tr>
-											<td>'.$news["id"].'</td>
-											<td style="width: 13%;">'.$news["caption"].'</td>
-											<td>'.$news["owner"].'</td>
-											<td style="width: 25%;">'.$news["state"].'</td>
-											<td>'.$news["model_name"].'</td>
-
-										
-											<!--<td><a href=editrooms.php?edit='.$news["id"].'><i style="padding-top: 4px; color:green;" class="fa fa-edit"></i></center></a></td>-->
-											</tr>';
-										}
-									?>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<script>
-					// Replace the <textarea id="editor1"> with a CKEditor
-					// instance, using default configuration.
-					CKEDITOR.replace( 'editor1' );
-				</script>
-				<?php
-					include_once "includes/footer.php";
-					include_once "includes/script.php";
-				?>				
+									<strong><tr><td style="width: 5%;"><b>ID</b></td><td><b>Kamer naam</b></td><td><b>Kamer eigenaar</b></td><td><b>Kamer status</b></td><td><b>Model</b><!--</td><td style="width: 5%;"><b>Bewerken</b></td></tr></strong>-->
+										<?php
+											$getArticles = $dbh->prepare("SELECT * FROM rooms ORDER BY id DESC");
+											$getArticles->execute();
+											while($news = $getArticles->fetch())
+											{
+												echo'';
+												echo'<tr>
+												<td>'.$news["id"].'</td>
+												<td style="width: 13%;">'.$news["caption"].'</td>
+												<td>'.$news["owner"].'</td>
+												<td style="width: 25%;">'.$news["state"].'</td>
+												<td>'.$news["model_name"].'</td>
+												</tr>';
+											}
+										?>
+									</tbody>
+									</table>
+									</div>
+								</div>
+							</div>
+							<?php
+								include_once "includes/footer.php";
+								include_once "includes/script.php";
+							?>																									

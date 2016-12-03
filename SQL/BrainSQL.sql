@@ -11,7 +11,7 @@ CREATE TABLE `staffapplication` (
   `age` text,
   `functie` text,
   `onlinetime` text,
-  `knowing` text,
+  `experience` text,
   `quarrel` text,
   `serious` text,
   `improve` text,

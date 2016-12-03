@@ -51,12 +51,15 @@
 			</div>
 			<div class="mainBox" style="float;left">
 				<?php
-					$getUSerBadges = DB::Query("SELECT * FROM `user_badges` WHERE (`user_id` = '".filter(DB::Escape(userHome('id')))."')");
-					if (!DB::NumRows($getUSerBadges) == 0)
+					$userId = userHome('id');
+					$stmt = $dbh->prepare("SELECT*FROM user_badges WHERE user_id = :userid");
+					$stmt->bindParam(':userid', $userId);
+					$stmt->execute();
+					if (!$stmt->RowCount() == 0)
 					{
-						while($badge = DB::Fetch($getUSerBadges))
+						while($badge = $stmt->fetch())
 						{
-							echo"<img src=\"".$config['badgeURL']."".$badge["badge_id"].".GIF\">";
+							echo"<img src=\"".$config['badgeURL']."".filter($badge["badge_id"]).".GIF\">";
 						}
 					}
 					else
@@ -73,13 +76,19 @@
 			<div class="mainBox" style="float;left">
 				<div style="width: 450px; height: 400px; overflow-y: scroll;">
 					<?php
-						$sql = DB::Query("SELECT * FROM `messenger_friendships` WHERE (`user_one_id`='".filter(DB::Escape(userHome('id')))."') OR (`user_two_id`='".DB::Escape(userHome('id'))."') ORDER BY RAND()");
-						if (!DB::NumRows($sql) == 0)
+						$userId = userHome('id');
+						$sql = $dbh->prepare("SELECT * FROM messenger_friendships WHERE user_one_id=:userid OR user_two_id=:userid ORDER BY RAND()");
+						$sql->bindParam(':userid', $userId);
+						$sql->execute();
+						if (!$sql->RowCount() == 0)
 						{
-							while($news = DB::Fetch($sql))
+							while($news = $sql->fetch())
 							{
-								$id = (filter(userHome('id')) == $news['user_two_id'] ? $news['user_one_id'] : $news['user_two_id']);
-								$getUserData = DB::Fetch(DB::Query("SELECT * FROM users WHERE id = '".filter(DB::Escape($id."'"))));
+								$id = (userHome('id') == $news['user_two_id'] ? $news['user_one_id'] : $news['user_two_id']);
+								$getUser = $dbh->prepare("SELECT * FROM users WHERE id = :id");
+								$getUser->bindParam(':id', $id);
+								$getUser->execute();
+								$getUserData = $getUser->fetch();
 								echo'
 								- <a href="/home/'.filter($getUserData['username']).'"> <img style="float: right;" src="https://avatar-retro.com/habbo-imaging/avatarimage?figure='.filter($getUserData['look']).'&direction=3&head_direction=3&action=wav&gesture=sml&size=s&headonly=0"> 
 								<b>'.filter($getUserData['username']).'</b></a><br>'.filter($getUserData['motto']).'<br><br><br><hr>  

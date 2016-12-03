@@ -6,8 +6,9 @@
 	<div style="width: 600px;"class="columleft">
 		<style>.staff-offline{text-indent:-9999px;width:0px;position:absolute;margin-top:6px;margin-left:7px;height:0px;border:5px solid #F37373;box-shadow:0px 0px 0px 1px rgba(0,0,0,0.2);border-radius:50%;}.staff-online{text-indent:-9999px;width:0px;position:absolute;margin-top:6px;margin-left:7px;height:0px;border:5px solid #73F375;box-shadow:0px 0px 0px 1px rgba(0,0,0,0.2);border-radius:50%;}</style>
 		<?php
-			$getRanks = DB::Query("SELECT id,name,badgeid FROM teams ORDER BY id DESC");
-			while ($Ranks = DB::Fetch($getRanks))
+			$getRanks = $dbh->prepare("SELECT id,name,badgeid FROM teams ORDER BY id DESC");
+			$getRanks->execute();
+			while ($Ranks = $getRanks->fetch())
 			{	
 				echo '
 				<div class="box">
@@ -15,16 +16,18 @@
 				<div class="mainBox" style="float;left">
 				<div class="boxHeader"></div>
 				';
-				$getMembers = DB::Query("SELECT id,username,motto,look,online FROM users WHERE teamrank = '" . filter(DB::Escape($Ranks['id']) . "'"));
 				echo '';
-				if (DB::NumRows($getMembers) > 0)
+				$getMembers = $dbh->prepare("SELECT id,username,motto,look,online FROM users WHERE teamrank = :ranid");
+				$getMembers->bindParam(':ranid', $Ranks['id']);
+				$getMembers->execute();
+				if ($getMembers->RowCount() > 0)
 				{
-					while ($member = DB::Fetch($getMembers))
+					while ($member = $getMembers->fetch())
 					{
-						$username = filter(DB::Escape($member['username']));
-						$motto = filter(DB::Escape($member['motto']));
-						$look = filter(DB::Escape($member['look']));
-						$online = filter(DB::Escape($member['online']));
+						$username = filter($member['username']);
+						$motto = filter($member['motto']);
+						$look = filter($member['look']);
+						$online = filter($member['online']);
 						if($online == 1){ $OnlineStatus = "online"; } else { $OnlineStatus = "offline"; }
 						echo '
 						<a href="/home/'.$username.'"><div style="pointer;float: left;padding-top: 20px;border-radius: 5px;border: 1px solid rgba(0, 0, 0, 0.2);border-bottom: 2px solid rgba(0, 0, 0, 0.2);width: 275px;margin-bottom: 5px;margin-left: 5px;margin-right: 5px;">

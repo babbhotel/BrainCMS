@@ -1,3 +1,5 @@
+
+
 <html>
 	<head>
 		<meta name="robots" content="index,follow,all"/>
@@ -5,7 +7,6 @@
 		<meta name="keywords" content="<?= $config['hotelName'] ?>, <?= $config['hotelName'] ?>hotel, <?= $config['hotelName'] ?> hotel, virtueel, wereld, sociaal netwerk, gratis, community, avatar, chat, online, tiener, roleplaying, doe mee, sociaal, groepen, forums, veilig, speel, games, online, vrienden, tieners, zeldzaams, zeldzame meubi, verzamelen, maak, verzamel, kom in contact, meubi, meubeks, huisdieren, kamer inrichten, delen, uitdrukking, badges, hangout, muziek, beroemdheid, VIP-visits, celebs, mmo, mmorpgs, massive multiplayer"/>
 		<meta name="build" content="AuroraCMS - RELEASE-02082016"/>
 		<title><?= $config['hotelName'] ?> Hotel: Beleef het plezier!</title>
-		<meta name="ripperonline" content="<?= Game::usersOnline() ?>">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
@@ -31,7 +32,7 @@
 								<div id="banner-counter-container-box">
 									<img src="/system/content/theme/brain/style/images/logo/logo.png" style="margin-top: -20px"><br>
 									<div class="text">
-										<div class="animated bounceIn"><b><?= Game::usersOnline() ?></b> <?= $config['hotelName'] ?>'s Online!</div>
+										<div class="animated bounceIn"><b>0</b> <?= $config['hotelName'] ?>'s Online!</div>
 									</div>
 								</div>
 							</div>

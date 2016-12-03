@@ -25,7 +25,6 @@
 		DeleteBans();
 		PostNews();
 	*/
-	
 	Class Admin
 	{
 		public static function error($errorName)
@@ -38,7 +37,7 @@
 		}
 		public static function CheckRank($rank)
 		{
-		global $config;
+			global $config;
 			{
 				if (User::userData('rank') <= $rank)
 				{
@@ -49,59 +48,82 @@
 		}
 		public static function UpdateUser()
 		{
-			if (isset($_POST['update'])) {
-				if ($updatesql = DB::Query("UPDATE users SET 
-				motto='".filter(DB::Escape($_POST['motto']))."' ,
-				username='".filter(DB::Escape($_POST['naam']))."',
-				mail='".filter(DB::Escape($_POST['mail']))."',
-				credits='".filter(DB::Escape($_POST['credits']))."',
-				vip_points='".filter(DB::Escape($_POST['vip_points']))."',
-				activity_points='".filter(DB::Escape($_POST['activity_points']))."',
-				teamrank='".filter(DB::Escape($_POST['teamrank']))."',
-				rank='".filter(DB::Escape($_POST['rank']))."'
-				WHERE username = '".filter(DB::Escape($_POST['naam']))."'")) {
-					Admin::gelukt("De gebruiker is opgeslagen!");
-					} else {
-					Admin::error("Niet gelukt!");
-				}  
-			}
+			global $dbh;
+			if (isset($_POST['update'])) 
+			{
+				$upateUser = $dbh->prepare("UPDATE users SET 
+				motto=:motto,
+				username=:name,
+				mail=:mail,
+				credits=:credits,
+				vip_points=:vip_points,
+				activity_points=:activity_points,
+				teamrank=:teamrank,
+				rank=:rank
+				WHERE username = :name");
+				$upateUser->bindParam(':motto', $_POST['motto']); 
+				$upateUser->bindParam(':name', $_POST['naam']); 
+				$upateUser->bindParam(':mail', $_POST['mail']); 
+				$upateUser->bindParam(':credits', $_POST['credits']); 
+				$upateUser->bindParam(':vip_points', $_POST['vip_points']); 
+				$upateUser->bindParam(':activity_points', $_POST['activity_points']); 
+				$upateUser->bindParam(':teamrank', $_POST['teamrank']); 
+				$upateUser->bindParam(':rank', $_POST['rank']); 
+				$upateUser->execute(); 
+				Admin::gelukt("De gebruiker is opgeslagen!");
+			}	
 		}
 		public static function UpdateUserOfTheWeek()
 		{
-			if (isset($_POST['update'])) {
-				$getUserData = DB::Fetch(DB::Query("SELECT id,username FROM users WHERE username = '" . filter(DB::Escape($_POST['naam']) . "'")));
-				if ($updatesql = DB::Query("UPDATE uotw SET 
-				userid='".filter(DB::Escape($getUserData['id']))."',
-				text='".filter(DB::Escape($_POST['uftwtext']))."'
-				")) {
-					Admin::gelukt("De gebruiker is opgeslagen!");
-					} else {
+			global $dbh;
+			if (isset($_POST['update'])) 
+			{
+				$getUserData = $dbh->prepare("SELECT id,username FROM users WHERE username = :name");
+				$getUserData->bindParam(':name', $_POST['naam']); 
+				$getUserData->execute(); 
+				$upateUser2 = $getUserData->fetch();
+				if ($upateUser = $dbh->prepare("UPDATE uotw SET userid=:userdata,text=:txt"))
+				{
+					$upateUser->bindParam(':userdata', $upateUser2['id']); 
+					$upateUser->bindParam(':txt', $_POST['uftwtext']); 
+					$upateUser->execute();
+					Admin::gelukt("De gebruiker heeft nu UOTW");
+				}
+				else 
+				{
 					Admin::error("Niet gelukt!");
 				}  
 			}
 		}
 		public static function UpdateNews()
 		{
-			if (isset($_POST['update'])) {
-				if ($updateNews = DB::Query("UPDATE cms_news SET 
-				id='".filter(DB::Escape($_POST['id']))."',
-				title='".filter(DB::Escape($_POST['title']))."',
-				shortstory='".filter(DB::Escape($_POST['shortstory']))."',
-				longstory='".filter(DB::Escape($_POST['longstory']))."',
-				image='".filter(DB::Escape($_POST['topstory']))."'
-				WHERE id = '".filter(DB::Escape($_POST['id']))."'")) {
-					Admin::gelukt("Nieuws bericht aangepast!");
-					} else {
-					Admin::error("Niet gelukt!");
-				}  
+			global $dbh;
+			if (isset($_POST['update'])) 
+			{
+				$editNews = $dbh->prepare("UPDATE cms_news SET 
+				id=:id,
+				title=:title,
+				shortstory=:shortstory,
+				longstory=:longstory,
+				image=:topstory
+				WHERE id = :id");
+				$editNews->bindParam(':title', $_POST['title']);
+				$editNews->bindParam(':shortstory', $_POST['shortstory']);
+				$editNews->bindParam(':topstory', $_POST['topstory']);
+				$editNews->bindParam(':longstory', $_POST['longstory']);
+				$editNews->bindParam(':id', $_POST['id']);
+				$editNews->execute();
+				Admin::gelukt("Nieuws bericht aangepast!");
 			}
 		}
 		public static function searchUser()
 		{
-		global $config;
+			global $dbh,$config;
 			if(isset($_POST['zoek'])) {	
-				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.filter(DB::Escape($_POST['user'])).'"'));
-				if ($searchUser == 1)
+				$searchUser = $dbh->prepare("SELECT * FROM users WHERE username = :user");
+				$searchUser->bindParam(':user', $_POST['user']); 
+				$searchUser->execute();
+				if ($searchUser->RowCount() == 1)
 				{
 					Admin::gelukt('Gebruiker '.$_POST['user'].' gevonden! Klik <a href ="'.$config['hotelUrl'].'/adminpan/gebruiker/'.$_POST['user'].'">hier</a> om naar zijn account te gaan.');
 				}
@@ -111,13 +133,14 @@
 				}
 			}
 		}
-		
 		public static function searchUserOfTheWeek()
 		{
-		global $config;
+			global $dbh,$config;
 			if(isset($_POST['zoek'])) {	
-				$searchUser = DB::NumRows(DB::Query('SELECT * FROM users WHERE username = "'.filter(DB::Escape($_POST['user'])).'"'));
-				if ($searchUser == 1)
+				$searchUser = $dbh->prepare("SELECT * FROM users WHERE username = :user");
+				$searchUser->bindParam(':user', $_POST['user']); 
+				$searchUser->execute();
+				if ($searchUser->RowCount() == 1)
 				{
 					Admin::gelukt(''.$_POST['user'].' gevonden! Klik <a href ="'.$config['hotelUrl'].'/adminpan/giveuseroftheweek/'.$_POST['user'].'">hier</a> om deze gebruiker Brain van de week te geven!');
 				}
@@ -127,101 +150,118 @@
 				}
 			}
 		}
-
 		public static function EditUser($variable)
 		{
+			global $dbh;
 			if (isset($_GET['user'])) {
-				if ($getUser = DB::Query("SELECT * FROM users WHERE username='".filter(DB::Escape($_GET['user']))."' LIMIT 1")) {
-					if (DB::NumRows($getUser) == 1) {
-						$user = DB::Fetch($getUser);
-						return $user[$variable];
-						} else {
-						Admin::error("Gebruiker niet gevonden!"); exit;
-					}
+				$getUser = $dbh->prepare("SELECT * FROM users WHERE username=:username LIMIT 1");
+				$getUser->bindParam(':username', $_GET['user']);
+				$getUser->execute();
+				if ($getUser->RowCount() == 1) 
+				{
+					$user = $getUser->fetch();
+					return filter($user[$variable]);
+				} 
+				else 
+				{
+					Admin::error("Gebruiker niet gevonden!"); exit;
 				}
 			}
 		}
 		public static function EditUserOfTheWeek($variable)
 		{
+			global $dbh;
 			if (isset($_GET['user'])) {
-				if ($getUser = DB::Query("SELECT * FROM users WHERE username='".filter(DB::Escape($_GET['user']))."' LIMIT 1")) {
-					if (DB::NumRows($getUser) == 1) {
-						$user = DB::Fetch($getUser);
-						return $user[$variable];
-						} else {
-						Admin::error("Gebruiker niet gevonden!"); exit;
-					}
+				$getUser = $dbh->prepare("SELECT * FROM users WHERE username=:username LIMIT 1");
+				$getUser->bindParam(':username', $_GET['user']);
+				$getUser->execute();
+				if ($getUser->RowCount() == 1) 
+				{
+					$user = $getUser->fetch();
+					return filter($user[$variable]);
+				} 
+				else 
+				{
+					Admin::error("Gebruiker niet gevonden!"); exit;
 				}
 			}
 		}
 		public static function EditNews($variable)
 		{
-			if (isset($_GET['news'])) {
-				if ($getNews = DB::Query("SELECT * FROM cms_news WHERE id='".filter(DB::Escape($_GET['news']))."' LIMIT 1")) {
-					if (DB::NumRows($getNews) == 1) {
-						$news = DB::Fetch($getNews);
-						return $news[$variable];
-						} else {
-						Admin::error("Geen nieuws gevonden!"); exit;
-					}
+			global $dbh;
+			if (isset($_GET['news'])) 
+			{
+				$getNews = $dbh->prepare("SELECT * FROM cms_news WHERE id=:newsid LIMIT 1");
+				$getNews->bindParam(':newsid', $_GET['news']);
+				$getNews->execute();
+				if ($getNews->RowCount() == 1) 
+				{
+					$news = $getNews->fetch();
+					return $news[$variable];
+				} 
+				else 
+				{
+					Admin::error("Geen nieuws gevonden!"); exit;
 				}
 			}
 		}
 		public static function LookSollie($variable)
 		{
-			Global $db,$config;
-			if (isset($_GET['look'])) {
-				$user = DB::Escape($_GET['look']);
-				if ($sql1 = $sql1 = DB::Query("SELECT * FROM staffApplication WHERE id='".filter(DB::Escape($_GET['look']))."' LIMIT 1")) {
-					if ($sql1->num_rows == 1) {
-						$user = $sql1->FETCH_ASSOC();
-						$datenow = date('d-m-Y', $user['date']);
-						return $user[$variable];
-						} else {
-						echo "<script language='javascript' type='text/javascript'>window.location.href='".$config['hotelUrl']."/adminpan/sollie'</script>"; exit;
-					}
+			Global $dbh,$config;
+			if (isset($_GET['look'])) 
+			{
+				$getSollie = $dbh->prepare("SELECT * FROM staffApplication WHERE id=:look LIMIT 1");
+				$getSollie->bindParam(':look', $_GET['look']);
+				$getSollie->execute();
+				if ($getSollie->RowCount() == 1) 
+				{
+					$data = $getSollie->fetch();
+					$datenow = date('d-m-Y', $data['date']);
+					return filter($data[$variable]);
+				} 
+				else 
+				{
+					header('Location: '.$config['hotelUrl'].'/adminpan/sollie');
 				}
 			}
 		}
 		public static function DeleteNews()
 		{
-			Global $db;
-			if(isset($_GET['delete'])) { 
-				$id = DB::Escape($_GET['delete']);
-				if ($deletesql = $sql1 = DB::Query("DELETE FROM cms_news WHERE id='".filter(DB::Escape($id))."'")) {
-					Admin::gelukt('Het nieuws bericht is verwijderd');
-					} else {
-					error();
-				}
+			Global $dbh;
+			if(isset($_GET['delete'])) 
+			{ 
+				$deleteNews = $dbh->prepare("DELETE FROM cms_news WHERE id=:newsid");
+				$deleteNews->bindParam(':newsid', $_GET['delete']);
+				$deleteNews->execute();
+				Admin::gelukt('Het nieuws bericht is verwijderd');
 			}
 		}
 		public static function DeleteSollie()
 		{
-			Global $db;
-			if(isset($_POST['DeleteSollieNow'])) { 
-				$id = DB::Escape($_POST['DeleteSollieNow']);
-				if ($deletesql = $sql1 = DB::Query("DELETE FROM staffApplication WHERE id='".filter(DB::Escape($id))."'")) {
-					Admin::gelukt('Sollicitatie verwijderd '.$id.'');
-					} else {
-					error();
-				}
+			Global $config, $dbh;
+			if(isset($_GET['delete'])) 
+			{ 
+				$deleteSollie = $dbh->prepare("DELETE FROM staffApplication WHERE id=:newsid");
+				$deleteSollie->bindParam(':newsid', $_GET['delete']);
+				$deleteSollie->execute();
+				Admin::gelukt('Sollicitatie verwijderd');
+				header('Location: '.$config['hotelUrl'].'/adminpan/sollie');
 			}
 		}
 		public static function DeleteBans()
 		{
-			Global $db;
-			if(isset($_GET['delete'])) { 
-				$id = DB::Escape($_GET['delete']);
-				if ($deletesql = $sql1 = DB::Query("DELETE FROM bans WHERE id='".filter(DB::Escape($id))."'")) {
-					Admin::gelukt('De ban verwijderd '.$id.'');
-					} else {
-					error();
-				}
+			Global $dbh;
+			if(isset($_GET['delete'])) 
+			{ 
+				$deleteBan = $dbh->prepare("DELETE FROM bans WHERE id=:newsid");
+				$deleteBan->bindParam(':newsid', $_GET['delete']);
+				$deleteBan->execute();
+				Admin::gelukt('Sollicitatie verwijderd');
 			}
 		}
 		public static function PostNews()
 		{
-			global $db;
+			global $dbh;
 			if (isset($_POST['postnews']))
 			{
 				$_SESSION['title'] = $_POST['title'];
@@ -230,36 +270,26 @@
 				{
 					if (!empty($_POST['news']))
 					{
-						$title = filter(DB::Escape($_POST['title']));
-						$kort = filter(DB::Escape($_POST['kort']));
-						$news = filter(DB::Escape($_POST['news']));
-						$topstory = filter(DB::Escape($_POST['topstory']));
-						$newsplaats = DB::Query("
-						INSERT INTO cms_news
-						(
-						title,
-						image,
-						shortstory,
-						longstory,
-						author,
-						date,
-						type,
-						roomid,
-						updated
-						)
+						$postNews = $dbh->prepare("
+						INSERT INTO cms_news(title,image,shortstory,longstory,author,date,type,roomid,updated)
 						VALUES
 						(
-						'".$title."',
-						'".$topstory."', 
-						'".$kort."',
-						'".$news."',
-						'".User::userData('id')."',
+						:title,
+						:topstory, 
+						:slogan,
+						:news,
+						:id,
 						'" . time() . "',
 						'1',
 						'1',
 						'1'
-						)
-						");
+						)");
+						$postNews->bindParam(':title', $_POST['title']);
+						$postNews->bindParam(':slogan', $_POST['slogan']);
+						$postNews->bindParam(':topstory', $_POST['topstory']);
+						$postNews->bindParam(':news', $_POST['news']);
+						$postNews->bindParam(':id', $_SESSION['id']);
+						$postNews->execute();
 						$_SESSION['title'] = '';
 						$_SESSION['kort'] = '';
 						$_SESSION['news'] ='';
@@ -279,8 +309,7 @@
 			}
 			else
 			{
-				//Login niet verstuurd!
 			}
 		}
 	}
-?>			
+?>							

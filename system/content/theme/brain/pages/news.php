@@ -58,14 +58,16 @@
 							$sectionCutoffMin = time() - 5184000;
 							break;
 						}
-						$q = DB::Query("SELECT id,date,title FROM cms_news WHERE date >= " . filter(DB::Escape($sectionCutoffMin)) . " AND date <= " . filter(DB::Escape($sectionCutoffMax)) .  " ORDER BY date DESC");
-						$getArticles = $q;
-						if (DB::NumRows($getArticles) > 0)
+						$getArticles = $dbh->prepare("SELECT id,date,title FROM cms_news WHERE date >= :sectionCutoffMin AND date <= :sectionCutoffMax ORDER BY date DESC");
+						$getArticles->bindParam(':sectionCutoffMin', $sectionCutoffMin);
+						$getArticles->bindParam(':sectionCutoffMax', $sectionCutoffMax);
+						$getArticles->execute();
+						if ($getArticles->RowCount() > 0)
 						{
 							echo '
 							<h2 style="  font-size: 100%;">' . filter($sectionName) . '</h2>
 							';
-							while ($a = DB::Fetch($getArticles))
+							while ($a = $getArticles->fetch())
 							{
 								echo '<a href="/news/' . filter($a['id']) . '" class="llink active" style="">' . filter($a['title']) . '&nbsp;&raquo;</a><br>';
 							}
@@ -96,7 +98,7 @@
 	</div>
 	<div style="margin-left: 10px;" class="columleft">
 		<?php
-			if (empty(filter(DB::Escape($_GET['id']))))
+			if (empty($_GET['id']))
 			{
 			?>
 			<div class='box'>
@@ -109,22 +111,24 @@
 			}
 			else
 			{
-				if (!is_numeric(filter(DB::Escape($_GET['id']))))
+				if (!is_numeric($_GET['id']))
 				{
 					exit('Shut up!');
 				}
-				$sql = DB::Query("SELECT id,title,longstory FROM cms_news WHERE id = ".filter(DB::Escape($_GET['id']))."");
-				if (DB::NumRows($sql) == 1)
+				$news = $dbh->prepare("SELECT id,title,longstory FROM cms_news WHERE id = :newsid");
+				$news->bindParam(':newsid', $_GET['id']);
+				$news->execute();
+				if ($news->RowCount() == 1)
 				{
-					while ($news = DB::Fetch($sql))
+					while ($news2 = $news->fetch())
 					{
 						echo'<div class="box">
 						<div class="title">
-						'.filter($news["title"]).'
+						'.filter($news2["title"]).'
 						</div>
 						<div class="mainBox newsBox" style="float;left">
 						<div class="boxHeader"></div>
-						'.html_entity_decode($news['longstory']).'
+						'.html_entity_decode($news2['longstory']).'
 						</div>
 						</div>';
 					}
@@ -193,16 +197,21 @@
 			<div class='mainBox'>
 				<?= deleteCommand() ?>
 				<?php
-					$getMessage = DB::Query("SELECT id,userid,newsid,date,message,hash FROM cms_news_message WHERE newsid = ".filter(DB::Escape($_GET['id']))."");
-					if (DB::NumRows($getMessage) > 0)
+					$getMessage = $dbh->prepare("SELECT id,userid,newsid,date,message,hash FROM cms_news_message WHERE newsid = :id");
+					$getMessage->bindParam(':id', $_GET['id']);
+					$getMessage->execute();
+					if ($getMessage->RowCount() > 0)
 					{
-						while ($getMessageData = DB::Fetch($getMessage))
+						while ($getMessageData = $getMessage->fetch())
 						{
-							$getMessageUser = DB::Fetch(DB::Query("SELECT id,username FROM users WHERE id = ".filter(DB::Escape($getMessageData["userid"])."")));
+							$getMessageUser = $dbh->prepare("SELECT id,username,look FROM users WHERE id = :id");
+							$getMessageUser->bindParam(':id', $getMessageData['userid']);
+							$getMessageUser->execute();
+							$user = $getMessageUser->fetch();
 							echo'<div class="mainnewscolumn">
-							<div id="newscolumn" style="border: 2px dotted rgba(0, 0, 0, 0.2);padding: 10px;margin-top: 10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure=hr-3163-1035.hd-3092-2.ch-215-63.lg-3320-1189-62.sh-3089-1408.ca-3219-110.wa-2001-0&amp;head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
+							<div id="newscolumn" style="border: 2px dotted rgba(0, 0, 0, 0.2);padding: 10px;margin-top: 10px;margin-left: 10px;margin-right: 10px;margin-bottom: 10px;float: left;height:55px;width: 55px;border-radius: 555px;-moz-border-radius: 555px;-webkit-border-radius: 555px;background:url(https://avatar-retro.com/habbo-imaging/avatarimage?figure='.filter($user["look"]).'&amp;head_direction=3&amp;action=wav) no-repeat;background-position: 50% 10%;"></div>
 							<div class="newscolumnname">
-							'.filter($getMessageUser["username"]).'
+							'.filter($user["username"]).'
 							</div>';
 							if ($getMessageData['userid'] == User::userData('id') || User::userData('rank') >= 3)
 							{

@@ -5,20 +5,40 @@
 	}
 	function newsComment()
 	{
-	global $lang;
+	global $dbh,$lang;
 		if (isset($_POST['newscomment']))
 		{
-			$count = DB::Query("SELECT * FROM cms_news_message WHERE userid = '" .User::userData('id'). "' AND newsid = '".filter(DB::Escape($_GET['id']))."'");
-			if (DB::NumRows($count) <= 2)
+	
+			$count = $dbh->prepare("SELECT * FROM cms_news_message WHERE userid = :id AND newsid = :newsid");
+			$count->bindParam(':id', $_SESSION['id']);
+			$count->bindParam(':newsid', $_GET['id']);
+			$count->execute();
+			
+			
+			
+			if ($count->RowCount() <= 2)
 			{
 				if (!empty($_POST['message']))
 				{
 					if (strlen($_POST['message']) >= 3)
 					{
-						$sql = DB::Query("SELECT id,title,longstory FROM cms_news WHERE id = ".DB::Escape(filter($_GET['id']))."");
-						if (!DB::NumRows($sql) == 0)
+				
+				
+				
+				
+						$sql = $dbh->prepare("SELECT id,title,longstory FROM cms_news WHERE id = :newsid");
+						$sql->bindParam(':newsid', $_GET['id']);
+						$sql->execute();
+						
+						
+						
+						
+						if (!$sql->RowCount() == 0)
 						{
-							$AddSollie = DB::Escape(DB::Fetch(DB::Query("
+							
+							$message = htmlentities($_POST['message']);
+							$hash = user::hashed($_POST['message']);
+							$addCommand = $dbh->prepare("
 							INSERT INTO cms_news_message (
 							newsid,
 							userid,
@@ -26,15 +46,22 @@
 							date,
 							hash
 							) VALUES (
-							'".filter(DB::Escape($_GET['id']))."', 
-							'".User::userData('id'). "',
-							'". htmlentities(DB::Escape($_POST['message'])). "',
-							'". filter(DB::Escape(time())) ."',
-							'". filter(DB::Escape(time())) ."'
-							'".DB::Escape(user::hashed($_POST['message']))."' 
+							:newsid, 
+							:id,
+							:message,
+							'". time() ."',
+							:hash
+							)");
+							$addCommand->bindParam(':newsid', $_GET['id']);
+							$addCommand->bindParam(':id', $_SESSION['id']);
+							$addCommand->bindParam(':message', $message);
+							$addCommand->bindParam(':hash', $hash);
+							$addCommand->execute();
 							
-							)")));
-							header('Location: '.$config['hotelUrl'].'/news/'.filter(DB::Escape($_GET['id'])).'');	
+							
+							
+							
+							header('Location: '.$config['hotelUrl'].'/news/'.$_GET['id'].'');	
 						}
 						else
 						{

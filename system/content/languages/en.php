@@ -285,6 +285,7 @@
 	
 	//Staffapplysend
 	$lang["Ssend"] = "Youre apply is sended!";
+	$lang["Ssenderror"] = "Fill out all the fields!";
 	
 	//Pin-------------------------------------------------------------------------------------------------
 	$lang["Ppinwrong"] = "You entered PIN is not correct!";
@@ -326,7 +327,7 @@
 	//Hotel settings--------------------------------------------------------------------------------------
 	$lang["Hchanges"] = "Hotel settings are changed!";
 	
-	//Maintenance-----------------------------------------------------------------------------------------
+	//Maintenance--------------------------------------------------------------------------------------
 	$lang["Mtitle"] = "".$config['hotelName']." is under maintenance";
 	$lang["Mstafflogin"] = "Staff login";
 	$lang["Mnologin"] = "Sorry but you are not authorized to login";
