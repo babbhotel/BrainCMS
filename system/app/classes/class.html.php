@@ -17,7 +17,7 @@
 	{
 		private static function checkBan($ip, $username = null)
 		{
-		global $dbh;
+			global $dbh;
 			$ipBan = $dbh->prepare("SELECT bantype,expire FROM bans WHERE bantype = 'ip' && value = :ip");
 			$ipBan->bindParam(':ip', $ip);
 			$ipBan->execute();
@@ -91,36 +91,36 @@
 					if($page)
 					{ 
 						if (!$config['maintenance'] == true || isset($_SESSION['adminlogin'])	){
-							$fileExists = A . G . H . S .'/pages/'.$page.".php";
+							$fileExists = Z . H . S .'/'.$page.".php";
 							if(file_exists($fileExists))
 							{
-								include A . G . H . S .'/pages/'.$page.'.php';
+								include Z . H . S .'/'.$page.'.php';
 							} 
 							else 
 							{
-								include A . G . H . S .'/pages/404.php'; 
+								include Z . H . S .'/404.php'; 
 							}
 						}
 						else
 						{
 							if ($page == 'adminlogin')
 							{
-								include A . G . I . 'adminlogin.php'; 
+								include A . I . 'adminlogin.php'; 
 							}
 							else
 							{
-								include A . G . I . 'index.php'; 
+								include A . I . 'index.php'; 
 							}
 						}
 					} 
 					else 
 					{
-						include A . G . H . S . '/pages/index.php';
+						include Z . H . S .'/pages/index.php';
 					}
 				} 
 				else 
 				{
-					include A . G . H . S . '/pages/index.php';
+					include A . H . S . '/pages/index.php';
 					header('Location: '.$config['hotelUrl'].'/index');
 				}
 			}
@@ -176,6 +176,9 @@
 					case "changename":
 					header('Location: '.$config['hotelUrl'].'/index');
 					break;
+					case "register":
+					$userref = 'lol';
+					break;
 					default:
 					//Nothing
 					break;
@@ -192,48 +195,48 @@
 				{ 
 					$fileExists = J . $pageHK.".php";
 					if(file_exists(filter($fileExists)))
-					{
-						include J .$pageHK.".php";
-					} 
-					else 
-					{
-						include J . "/404.php"; 
-					}
+				{
+				include J .$pageHK.".php";
 				} 
 				else 
 				{
-					include J . "/dash.php";
+				include J . "/404.php"; 
 				}
-			} 
-			else 
-			{
+				} 
+				else 
+				{
+				include J . "/dash.php";
+				}
+				} 
+				else 
+				{
 				include J . "dash.php";
 				header('Location: '.$config['hotelUrl'].'/adminpan/dash');
-			}
-			switch($pageHK)
-			{
+				}
+				switch($pageHK)
+				{
 				case $pageHK:
 				admin::CheckRank(3);
 				break;
 				default:
 				//Nothing
 				break;
-			}
-		} 
-		public static function error($errorName)
-		{
-			echo '<div class="error" style="display: block;">'.$errorName.'</div>';
-		}
-		public static function errorSucces($succesMessage)
-		{
-			echo '<div class="errorSucces" style="display: block;">'.$succesMessage.'</div>';
-		}
-		public static function loadPlugins()
-		{
-			$pluginDir = A . B . K;
-			foreach (glob($pluginDir."*.php") as $filename) {
+				}
+				} 
+				public static function error($errorName)
+				{
+				echo '<div class="error" style="display: block;">'.$errorName.'</div>';
+				}
+				public static function errorSucces($succesMessage)
+				{
+				echo '<div class="errorSucces" style="display: block;">'.$succesMessage.'</div>';
+				}
+				public static function loadPlugins()
+				{
+				$pluginDir = A . B . K;
+				foreach (glob($pluginDir."*.php") as $filename) {
 				require_once $pluginDir."".basename($filename)."";
-			}
-		}
-	} 
-?>			
+				}
+				}
+				} 
+				?>							

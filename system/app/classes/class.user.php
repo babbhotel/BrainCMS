@@ -22,7 +22,7 @@
 	{
 		public static function checkUser($password, $passwordDb, $username)
 		{
-		global $dbh;
+			global $dbh;
 			if (substr($passwordDb, 0, 1) == "$") 
 			{
 				if (password_verify($password, $passwordDb))
@@ -98,6 +98,30 @@
 				return false;
 			}
 		}
+		public static function refUser($refUsername)
+		{
+			global $dbh, $lang;
+			$getUsernameRef = $dbh->prepare("SELECT*FROM users WHERE username = :username LIMIT 1");
+			$getUsernameRef->bindParam(':username', $refUsername);
+			$getUsernameRef->execute();
+			$getUsernameRefData = $getUsernameRef->fetch();
+			if ($getUsernameRef->RowCount() > 0)
+			{
+				if ($getUsernameRefData['ip_reg'] == checkCloudflare())
+				{
+					html::error($lang["RsameIpRef"]);
+				}
+				else
+				{
+					return true;
+				}
+			}
+			else
+			{	
+				html::error($lang["RnotExist"]);
+				return false;
+			}
+		}
 		public static function login()
 		{
 			global $dbh,$config,$lang;
@@ -170,60 +194,107 @@
 															$stmt->execute();
 															if ($stmt->RowCount() < 4)
 															{
-																if(!$config['recaptchaSiteKeyEnable'] == true)
+																if (self::refUser($_POST['referrer']) || empty($_POST['referrer']))
 																{
-																	$_POST['g-recaptcha-response'] = true;
-																}
-																if ($_POST['g-recaptcha-response'])
-																{
-																	if ($_POST['motto'] !== $config['startMotto'])
+																	if(!$config['recaptchaSiteKeyEnable'] == true)
 																	{
-																		$motto = $_POST['motto'];
+																		$_POST['g-recaptcha-response'] = true;
+																	}
+																	if ($_POST['g-recaptcha-response'])
+																	{																
+																		$password = self::hashed($_POST['password']);
+																		$addNewUser = $dbh->prepare("
+																		INSERT INTO
+																		users
+																		(username, password, rank, motto, account_created, mail, look, ip_last, ip_reg, credits, activity_points, vip_points)
+																		VALUES
+																		(
+																		:username, 
+																		:password, 
+																		'1', 
+																		:motto, 
+																		'".strtotime("now")."', 
+																		:email, 
+																		:avatar,
+																		'".checkCloudflare()."', 
+																		'".checkCloudflare()."', 
+																		:credits,
+																		:duckets,
+																		:diamonds
+																		)");
+																		$addNewUser->bindParam(':username', $_POST['username']);
+																		$addNewUser->bindParam(':password', $password);
+																		$addNewUser->bindParam(':motto', $_POST['motto']);
+																		$addNewUser->bindParam(':email', $_POST['email']);
+																		$addNewUser->bindParam(':avatar', $_POST['habbo-avatar']);
+																		$addNewUser->bindParam(':credits', $config['credits']);
+																		$addNewUser->bindParam(':duckets', $config['duckets']);
+																		$addNewUser->bindParam(':diamonds', $config['diamonds']);
+																		$addNewUser->execute();
+																		$lastId = $dbh->lastInsertId();
+																		//User referrer//
+																		if (!empty($_POST['referrer']))
+																		{	
+																			$getUserRef = $dbh->prepare("SELECT id,username FROM users WHERE username = :username LIMIT 1");
+																			$getUserRef->bindParam(':username', $_POST['referrer']);
+																			$getUserRef->execute();
+																			$getInfoRefUser = $getUserRef->fetch();
+																			$addRef = $dbh->prepare("
+																			INSERT INTO
+																			referrer
+																			(userid, refid,diamonds)
+																			VALUES
+																			(
+																			:lastid, 
+																			:refid,
+																			:diamonds
+																			)");
+																			$addRef->bindParam(':lastid', $lastId);
+																			$addRef->bindParam(':refid', $getInfoRefUser['id']);
+																			$addRef->bindParam(':diamonds', $config['diamondsRef']);
+																			$addRef->execute();
+																			$stmt = $dbh->prepare("SELECT*FROM referrerbank WHERE userid = :id LIMIT 1");
+																			$stmt->bindParam(':id', $getInfoRefUser['id']);
+																			$stmt->execute();
+																			if ($stmt->RowCount() == 0)
+																			{
+																				$addDiamondsRow = $dbh->prepare("
+																				INSERT INTO
+																				referrerbank
+																				(userid,diamonds)
+																				VALUES
+																				(
+																				:lastid, 
+																				:diamonds
+																				)");
+																				$addDiamondsRow->bindParam(':lastid', $getInfoRefUser['id']);
+																				$addDiamondsRow->bindParam(':diamonds', $config['diamondsRef']);
+																				$addDiamondsRow->execute();
+																			}
+																			else
+																			{
+																				$addDiamonds = $dbh->prepare("
+																				UPDATE referrerbank SET 
+																				diamonds=diamonds + :diamonds 
+																				WHERE 
+																				userid=:lastid
+																				");
+																				$addDiamonds->bindParam(':lastid', $getInfoRefUser['id']);
+																				$addDiamonds->bindParam(':diamonds', $config['diamondsRef']);
+																				$addDiamonds->execute(); 
+																			}
+																			$_SESSION['id'] = $lastId;
+																		}
+																		//User referrer//
+																		else
+																		{
+																			$_SESSION['id'] = $lastId;
+																		}
 																	}
 																	else
 																	{
-																		$motto = $config['startMotto'];
+																		return html::error($lang["Rrobot"]); 
 																	}
-																	$password = self::hashed($_POST['password']);
-																	$stmt = $dbh->prepare("
-																	INSERT INTO
-																	users
-																	(username, password, rank, motto, account_created, mail, look, ip_last, ip_reg, credits, activity_points, vip_points)
-																	VALUES
-																	(
-																	:username, 
-																	:password, 
-																	'1', 
-																	:motto, 
-																	'".strtotime("now")."', 
-																	:email, 
-																	:avatar,
-																	'".checkCloudflare()."', 
-																	'".checkCloudflare()."', 
-																	:credits,
-																	:duckets,
-																	:diamonds
-																	)");
-																	$stmt->bindParam(':username', $_POST['username']);
-																	$stmt->bindParam(':password', $password);
-																	$stmt->bindParam(':motto', $motto);
-																	$stmt->bindParam(':email', $_POST['email']);
-																	$stmt->bindParam(':avatar', $_POST['habbo-avatar']);
-																	$stmt->bindParam(':credits', $config['credits']);
-																	$stmt->bindParam(':duckets', $config['duckets']);
-																	$stmt->bindParam(':diamonds', $config['diamonds']);
-																	$stmt->execute();
-																	$getUser = $dbh->prepare("SELECT id FROM users WHERE username = :username && mail = :email");
-																	$getUser->bindParam(':username', $_POST['username']);
-																	$getUser->bindParam(':email', $_POST['email']);
-																	$getUser->execute();
-																	$getUserData = $getUser->fetch();
-																	$_SESSION['id'] = $getUserData['id'];
-																	header('Location: '.$config['hotelUrl'].'/me');
-																}
-																else
-																{
-																	return html::error($lang["Rrobot"]); 
 																}
 															}
 															else
@@ -284,6 +355,49 @@
 				else
 				{
 					return html::error($lang["RregisterDisable"]);
+				}
+			}
+		}
+		public static function userRefClaim()
+		{
+			global $dbh, $lang;
+			if (isset($_POST['claimdiamonds']))
+			{
+				if (User::userData('online') == 0)
+				{
+					$bankCount = $dbh->prepare("SELECT userid,diamonds FROM referrerbank WHERE userid = :userid");
+					$bankCount->bindParam(':userid', $_SESSION['id']);
+					$bankCount->execute();
+					$bankCountData = $bankCount->fetch();
+					if ($bankCountData['diamonds'] == 0)
+					{
+						return html::error($lang["MrefNoDia"]);
+					}
+					else
+					{
+						$addDiamondsRef = $dbh->prepare("
+						UPDATE users SET 
+						vip_points=vip_points + :diamonds 
+						WHERE 
+						id=:id
+						");
+						$addDiamondsRef->bindParam(':id', $_SESSION['id']);
+						$addDiamondsRef->bindParam(':diamonds', $bankCountData['diamonds']);
+						$addDiamondsRef->execute();
+						$DiamondsCountRemove = $dbh->prepare("
+						UPDATE referrerbank SET 
+						diamonds = 0 
+						WHERE 
+						userid=:userid
+						");
+						$DiamondsCountRemove->bindParam(':userid', $_SESSION['id']);
+						$DiamondsCountRemove->execute();
+						return html::errorSucces($lang["MrefOnline"]);
+					}	
+				}
+				else
+				{
+					return html::error('Je mag niet online zijn om je diamanten te claimen!');
 				}
 			}
 		}
@@ -463,4 +577,4 @@
 			}
 		}
 	}
-?>			
+?>																	

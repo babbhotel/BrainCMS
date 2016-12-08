@@ -89,3 +89,26 @@ CREATE TABLE `cms_news_message` (
   `hash` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Table structure for `referrer`
+-- ----------------------------
+DROP TABLE IF EXISTS `referrer`;
+CREATE TABLE `referrer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` decimal(10,0) DEFAULT NULL,
+  `refid` decimal(10,0) DEFAULT NULL,
+  `diamonds` decimal(10,0) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for `referrerbank`
+-- ----------------------------
+DROP TABLE IF EXISTS `referrerbank`;
+CREATE TABLE `referrerbank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` varchar(255) DEFAULT NULL,
+  `diamonds` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

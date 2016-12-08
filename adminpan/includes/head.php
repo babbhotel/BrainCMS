@@ -1,6 +1,4 @@
-<?php
-		include_once "..\system\global.php";
-		?>
+
 <head>
     <meta charset="UTF-8">
     <title>Admin | Paneel</title>

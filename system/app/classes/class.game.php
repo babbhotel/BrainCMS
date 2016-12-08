@@ -16,10 +16,11 @@
 		{
 			global $dbh;
 			$timeNow = strtotime("now");
-			$sessionKey  = 'Brain-1.0.0-'.substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 5)), 0, 25).'-SSO';
-			$stmt = $dbh->prepare("UPDATE users SET auth_ticket = :timenow , last_online = :timenow WHERE id = :id");
+			$sessionKey  = 'Brain-1.1.1-'.substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 5)), 0, 25).'-SSO';
+			$stmt = $dbh->prepare("UPDATE users SET auth_ticket = :sso , last_online = :timenow WHERE id = :id");
 			$stmt->bindParam(':timenow', $timeNow);
 			$stmt->bindParam(':id', $_SESSION['id']);
+			$stmt->bindParam(':sso', $sessionKey);
 			$stmt->execute();
 		}
 		Public static function usersOnline()
