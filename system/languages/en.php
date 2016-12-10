@@ -356,5 +356,5 @@
 	//Change username-------------------------------------------------------------------------------------
 	$lang["Cusernameshort"] = "Your name must contain at least 3 characters and no more than 13 characters!";
 	$lang["Cusernameused"] = "Username is already used!";
-	$lang["Cchangeno"] = "You can not change your name anymore!"
+	$lang["Cchangeno"] = "You can not change your name anymore!";
 ?>

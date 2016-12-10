@@ -35,13 +35,14 @@
 			{
 				if (md5($password) == $passwordDb) 
 				{	
-					$stmt = $dbh->prepare("UPDATE users SET password = :password WHERE username = :username");
-					$stmt->bindParam(':username', $username); 
-					$stmt->bindParam(':password', $password); 
-					$stmt->execute(); 
+					$passwordBcrypt = self::hashed($password);
+					$updatePassword = $dbh->prepare("UPDATE users SET password = :password WHERE username = :username");
+					$updatePassword->bindParam(':username', $username); 
+					$updatePassword->bindParam(':password', $passwordBcrypt); 
+					$updatePassword->execute(); 
 					return true;
 				}
-				return false;
+				return false;	
 			}
 		}
 		public static function hashed($password)
@@ -65,7 +66,7 @@
 				$stmt->bindParam(':id', $_SESSION['id']);
 				$stmt->execute();
 				$row = $stmt->fetch();
-				return $row[$key];
+				return filter($row[$key]);
 			}
 		}
 		public static function emailTaken($email)
