@@ -5,38 +5,25 @@
 	}
 	function newsComment()
 	{
-	global $dbh,$lang;
+		global $dbh,$lang;
 		if (isset($_POST['newscomment']))
 		{
-	
 			$count = $dbh->prepare("SELECT * FROM cms_news_message WHERE userid = :id AND newsid = :newsid");
 			$count->bindParam(':id', $_SESSION['id']);
 			$count->bindParam(':newsid', $_GET['id']);
 			$count->execute();
-			
-			
-			
 			if ($count->RowCount() <= 2)
 			{
 				if (!empty($_POST['message']))
 				{
 					if (strlen($_POST['message']) >= 3)
 					{
-				
-				
-				
-				
 						$sql = $dbh->prepare("SELECT id,title,longstory FROM cms_news WHERE id = :newsid");
 						$sql->bindParam(':newsid', $_GET['id']);
 						$sql->execute();
-						
-						
-						
-						
 						if (!$sql->RowCount() == 0)
 						{
-							
-							$message = htmlentities($_POST['message']);
+							$message = filter($_POST['message']);
 							$hash = user::hashed($_POST['message']);
 							$addCommand = $dbh->prepare("
 							INSERT INTO cms_news_message (
@@ -57,10 +44,6 @@
 							$addCommand->bindParam(':message', $message);
 							$addCommand->bindParam(':hash', $hash);
 							$addCommand->execute();
-							
-							
-							
-							
 							header('Location: '.$config['hotelUrl'].'/news/'.$_GET['id'].'');	
 						}
 						else

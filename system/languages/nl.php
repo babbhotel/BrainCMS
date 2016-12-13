@@ -79,6 +79,7 @@
 	$lang["MrefLink"] = "Geef deze link aan je vrienden en verdien diamanten!";
 	$lang["MrefDiaBank"] = "Diamanten bank";
 	$lang["MrefButton"] = "Claimen";
+	$lang["Mreadmore"] = "Lees meer";
 	
 	//Settings-----------------------------------------------------------------------------------------
 	$lang["Ssettings"] = "Instellingen";
@@ -362,4 +363,35 @@
 	$lang["Cusernameshort"] = "Je naam moet minimaal uit 3 karakters bestaan en niet langer dan 13 karakters!";
 	$lang["Cusernameused"] = "Gebruikersnaam is al gebruik!";
 	$lang["Cchangeno"] = "Je kunt je naam niet meer veranderen!";
+	
+	//Forgot Password-------------------------------------------------------------------------------------
+	$lang["FemailIsSend"] = "How to reset your password have been sent to you by email.";
+	$lang["FkeyError"] = "This code does not exist or has already been used!";
+	$lang["FnoEmailUser"] = "No user found with this email";
+	$lang["FPasschange"] = "Password changed!";
+	$lang["Femailempty"] = "Password is empty!";
+	$lang["Fpasswordsempty"] = "Entered passwords do not match!";
+	$lang["Fpasswordshort"] = "Password must be more than 6 characters!";
+	$lang["Femailempty"] = "Key is empty!";
+	
+	//BuyVipNavi------------------------------------------------------------------------------------------
+	$lang["Sshopnaviname"] = "Shop";
+	$lang["Vvipnaviname"] = "Buy VIP";
+	
+	//BuyVip----------------------------------------------------------------------------------------------
+	$lang["Vvipheader"] = "Whats in the VIP pack?";
+	$lang["Vvipwhatsin"] = "★ Premium VIP Catalogue.<br>
+							★ VIP badge.<br>
+							★ Special commands.<br>";
+	$lang["VvipBuyHeader"] = "Buy VIP";
+	$lang["VvipBuyslogan"] = "How much cost VIP?<br>
+							  VIP cost <b>25</b> diamonds.";
+	$lang["VvipBuyButton"] = "Buy VIP";
+	
+	//BuyVipFunction---------------------------------------------------------------------------------------
+	$lang["Vonline"] = "You may not be online to buy VIP!";
+	$lang["Valreadyvip"] = "You're already VIP!";
+	$lang["VbuySucces"] = "You bought VIP successfully!";
+	$lang["VnoDimonds"] = "Sorry you do not have enough diamonds!";
+	
 	?>

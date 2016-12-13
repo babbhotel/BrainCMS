@@ -79,6 +79,7 @@
 	$lang["MrefLink"] = "¡Dale este enlace a tus amigos y gana diamantes!";
 	$lang["MrefDiaBank"] = "Banco de diamantes";
 	$lang["MrefButton"] = "Claim";
+	$lang["Mreadmore"] = "Lee mas";
 	
 	//Settings-----------------------------------------------------------------------------------------
 	$lang["Ssettings"] = "Ajustes";
@@ -323,5 +324,5 @@ Aquí tienes a todos los miembros que estén conectados o no.	</P>
 	//Change username-------------------------------------------------------------------------------------
 	$lang["Cusernameshort"] = "Tu usuario tiene que tener mas de 3 tres letras y menos de 13!";
 	$lang["Cusernameused"] = "Este nombre ya está en uso!";
-	$lang["Cchangeno"] = "Ya no puedes cambiar tu nombre!";
+	$lang["Cchangeno"] = "Ya no puedes cambiar tu nombre!"
 ?>

@@ -12,11 +12,14 @@
 		userData();
 		emailTaken();
 		userTaken();
+		refUser();
 		login();
 		register();
+		userRefClaim();
 		editPassword();
 		editEmail();
 		editHotelSettings();
+		editUsername();
 	*/
 	class User 
 	{
@@ -33,13 +36,13 @@
 			}
 			else 
 			{
+				$passwordBcrypt = self::hashed($password);
 				if (md5($password) == $passwordDb) 
 				{	
-					$passwordBcrypt = self::hashed($password);
-					$updatePassword = $dbh->prepare("UPDATE users SET password = :password WHERE username = :username");
-					$updatePassword->bindParam(':username', $username); 
-					$updatePassword->bindParam(':password', $passwordBcrypt); 
-					$updatePassword->execute(); 
+					$stmt = $dbh->prepare("UPDATE users SET password = :password WHERE username = :username");
+					$stmt->bindParam(':username', $username); 
+					$stmt->bindParam(':password', $passwordBcrypt); 
+					$stmt->execute(); 
 					return true;
 				}
 				return false;	
@@ -202,7 +205,9 @@
 																		$_POST['g-recaptcha-response'] = true;
 																	}
 																	if ($_POST['g-recaptcha-response'])
-																	{																
+																	{			
+																		$motto = filter($_POST['motto'] );
+																		$avatar = filter($_POST['habbo-avatar']);
 																		$password = self::hashed($_POST['password']);
 																		$addNewUser = $dbh->prepare("
 																		INSERT INTO
@@ -225,9 +230,9 @@
 																		)");
 																		$addNewUser->bindParam(':username', $_POST['username']);
 																		$addNewUser->bindParam(':password', $password);
-																		$addNewUser->bindParam(':motto', $_POST['motto']);
+																		$addNewUser->bindParam(':motto', $motto);
 																		$addNewUser->bindParam(':email', $_POST['email']);
-																		$addNewUser->bindParam(':avatar', $_POST['habbo-avatar']);
+																		$addNewUser->bindParam(':avatar', $avatar);
 																		$addNewUser->bindParam(':credits', $config['credits']);
 																		$addNewUser->bindParam(':duckets', $config['duckets']);
 																		$addNewUser->bindParam(':diamonds', $config['diamonds']);
@@ -530,7 +535,7 @@
 				$stmt = $dbh->prepare("
 				UPDATE 
 				users 
-				SET allow_mimic = 
+				SET hide_online = 
 				:hinstellingeno
 				WHERE id = 
 				:id
@@ -578,4 +583,4 @@
 			}
 		}
 	}
-?>																	
+?>																			

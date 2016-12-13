@@ -132,6 +132,10 @@
 					header('Location: '.$config['hotelUrl'].'/me');
 					break;
 					case "changename";
+					
+					
+					
+					
 					if (User::userData('fbenable') >= 1)
 					{
 						header('Location: '.$config['hotelUrl'].'/me');	

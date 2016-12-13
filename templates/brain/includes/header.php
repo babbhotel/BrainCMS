@@ -92,6 +92,12 @@
 									<a href="/teams"><?= $lang["Nteams"] ?></a>
 								</div>
 							</li>
+							<li class="groen">
+								<a href="/vip"><?= $lang["Sshopnaviname"] ?></a>
+								<div class="submenu">
+									<a href="/vip"><?= $lang["Vvipnaviname"] ?></a>
+								</div>
+							</li>
 							<a href="<?= $config['hotelUrl'] ?>/logout"><li class="logout"><?= $lang["NsignOut"] ?></li></a>
 						</ul>
 					</div>

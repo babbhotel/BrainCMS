@@ -47,6 +47,19 @@
     left: -7px;
     top: 10px;
 }
+.errorSucces
+{
+	background: #28bb20;
+	border-radius: 2px;
+	color: #fff;
+	display: none;
+	font-size: 13px;
+	line-height: 40px;
+	margin-bottom: 8px;
+	padding: 0 10px;
+	text-align: center;
+	overflow: hidden;
+}
 .navbar .sub-menu:after {
     border-top: 6px solid transparent;
     border-left: none;

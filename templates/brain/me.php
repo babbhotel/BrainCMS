@@ -184,7 +184,7 @@
 						</div>
 						<div class="newsTitleRead">
 						<div class="newsTitleReadName">
-						<a href="/news/'.filter($news["id"]).'">Lees meer »</a>
+						<a href="/news/'.filter($news["id"]).'">'.$lang["Mreadmore"].' »</a>
 						</div>
 						</div>
 						</div>';

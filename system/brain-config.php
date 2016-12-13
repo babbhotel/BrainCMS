@@ -9,7 +9,8 @@
 	$db['port'] = '3306';
 	$db['user'] = "root";
 	$db['pass'] = '*****';
-	$db['db'] = "hotel";
+	$db['db'] = "brain";
+	
 
 	/* Client Setting */
 	$hotel['emuHost'] = "127.0.0.1";
@@ -39,12 +40,21 @@
 	$config['maintenancekMinimumRankLogin'] = 3;
 	$config['staffCheckHk'] = true;
 	$config['staffCheckHkMinimumRank'] = 3;
-	$config['facebookLogin'] = true;
-	$config['facebookAPPID'] = '3341625902925ewr28';
-	$config['facebookAPPSecret'] = 'ce2504ff5aa3ff7a6a2fawre6d984cd8836';
+	$config['facebookLogin'] = false;
+	$config['facebookAPPID'] = '3341625902fsdf92528';
+	$config['facebookAPPSecret'] = 'ce2504sdfsff5aa3ff7a6a2fa6d984cd8836';
 	
 	$config['groupBadgeURL'] = "http://127.0.0.1/swf/habbo-imaging/badge.php?badge=";
 	$config['badgeURL'] = "http://127.0.0.1/swf/c_images/album1584/"; 
+	
+	/* Email Settings */
+	$email['mailServerHost'] = 'smtp.gmail.com';
+	$email['mailServerPort'] = 587;
+	$email['SMTPSecure'] = 'TLS';
+	$email['mailUsername'] = 'gmail@gmail.com';
+	$email['mailPassword'] = '*****';
+	$email['mailLogo'] = 'http://127.0.0.1/templates/brain/style/images/logo/logo.png';
+	$email['mailTemplate'] = '/system/app/plugins/PHPMailer-master/temp/resetpassword.html';
 	
 	/* Social settings */
 	$config['facebook'] = 'https://www.facebook.com/Habbo/';
@@ -61,7 +71,13 @@
 	
 	/* Google recaptcha Site Key  
 	   Go to this website to create a recaptcha Site Key: https://www.google.com/recaptcha/intro/index.html	*/
-	$config['recaptchaSiteKey'] = "6LdzewwUAAAAABkJ3vCDcwerwea9qmLGDaWAHqMRtFEs2";
+	$config['recaptchaSiteKey'] = "6LdzewwUAAAAABkJ3vCDca9qmLGsdafDaWAHqMRtFEs2";
 	$config['recaptchaSiteKeyEnable'] = false;
+	
+	/* Buy VIP Settings */
+	$config['vipCost'] = "25";
+	$config['vipRankToGet'] = "3";
+	$config['vipBadge'] = "vip";
+	
 	
 ?>

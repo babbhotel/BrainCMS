@@ -32,7 +32,7 @@
 								<div id="banner-counter-container-box">
 									<img src="/templates/brain/style/images/logo/logo.png" style="margin-top: -20px"><br>
 									<div class="text">
-										<div class="animated bounceIn"><b><?= Game::usersOnline() ?></b> <?= $config['hotelName'] ?>'s Online!</div>
+										<div class="animated bounceIn"><b>0</b> <?= $config['hotelName'] ?>'s Online!</div>
 									</div>
 								</div>
 							</div>
