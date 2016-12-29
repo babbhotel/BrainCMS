@@ -132,23 +132,25 @@
 					header('Location: '.$config['hotelUrl'].'/me');
 					break;
 					case "changename";
-					
-					
-					
-					
-					if (User::userData('fbenable') >= 1)
+					if ($config['facebookLogin'] == true)
 					{
-						header('Location: '.$config['hotelUrl'].'/me');	
-						exit();
+						if (User::userData('fbenable') >= 1)
+						{
+							header('Location: '.$config['hotelUrl'].'/me');	
+							exit();
+						}
 					}
 					break;
 					case "game":
 					case "client":
 					case "hotel":
-					if (User::userData('fbenable') == 0)
+					if ($config['facebookLogin'] == true)
 					{
-						header('Location: '.$config['hotelUrl'].'/changename');	
-						exit();
+						if (User::userData('fbenable') == 0)
+						{
+							header('Location: '.$config['hotelUrl'].'/changename');	
+							exit();
+						}
 					}
 					break;
 					default:
@@ -199,48 +201,48 @@
 				{ 
 					$fileExists = J . $pageHK.".php";
 					if(file_exists(filter($fileExists)))
-				{
-				include J .$pageHK.".php";
+					{
+						include J .$pageHK.".php";
+					} 
+					else 
+					{
+						include J . "/404.php"; 
+					}
 				} 
 				else 
 				{
-				include J . "/404.php"; 
+					include J . "/dash.php";
 				}
-				} 
-				else 
-				{
-				include J . "/dash.php";
-				}
-				} 
-				else 
-				{
+			} 
+			else 
+			{
 				include J . "dash.php";
 				header('Location: '.$config['hotelUrl'].'/adminpan/dash');
-				}
-				switch($pageHK)
-				{
+			}
+			switch($pageHK)
+			{
 				case $pageHK:
 				admin::CheckRank(3);
 				break;
 				default:
 				//Nothing
 				break;
-				}
-				} 
-				public static function error($errorName)
-				{
-				echo '<div class="error" style="display: block;">'.$errorName.'</div>';
-				}
-				public static function errorSucces($succesMessage)
-				{
-				echo '<div class="errorSucces" style="display: block;">'.$succesMessage.'</div>';
-				}
-				public static function loadPlugins()
-				{
-				$pluginDir = A . B . K;
-				foreach (glob($pluginDir."*.php") as $filename) {
+			}
+		} 
+		public static function error($errorName)
+		{
+			echo '<div class="error" style="display: block;">'.$errorName.'</div>';
+		}
+		public static function errorSucces($succesMessage)
+		{
+			echo '<div class="errorSucces" style="display: block;">'.$succesMessage.'</div>';
+		}
+		public static function loadPlugins()
+		{
+			$pluginDir = A . B . K;
+			foreach (glob($pluginDir."*.php") as $filename) {
 				require_once $pluginDir."".basename($filename)."";
-				}
-				}
-				} 
-				?>							
+			}
+		}
+	} 
+?>												

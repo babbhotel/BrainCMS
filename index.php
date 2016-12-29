@@ -9,6 +9,5 @@
 	echo'<link rel="shortcut icon" href="'.$config['favicon'].'"/>';
 	
 	Html::page();	
-	
 ?>
 

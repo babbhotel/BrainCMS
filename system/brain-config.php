@@ -5,19 +5,19 @@
 	}
 	
 	/* Database Setting */
-	$db['host'] = '127.0.0.1';
-	$db['port'] = '3306';
-	$db['user'] = "root";
-	$db['pass'] = '*****';
-	$db['db'] = "brain";
+	$db['host'] = '127.0.0.1'; //Mysql's Host
+	$db['port'] = '3306'; //Mysql's port
+	$db['user'] = "root"; //Mysql's user
+	$db['pass'] = '*****'; //Mysql's password
+	$db['db'] = "brain"; //Mysql's database
 	
 
 	/* Client Setting */
-	$hotel['emuHost'] = "127.0.0.1";
-	$hotel['emuPort'] = "30000";  
-	$hotel['staffCheckClient'] = true;
-	$hotel['staffCheckClientMinimumRank'] = 3;
-	$hotel['homeRoom'] = '0';
+	$hotel['emuHost'] = "127.0.0.1"; //IP of VPS//IP of Proxy
+	$hotel['emuPort'] = "30000";  //Port of VPS//Port of Proxy
+	$hotel['staffCheckClient'] = true; //Enable the staff pin in the client (true) or disable it (false)
+	$hotel['staffCheckClientMinimumRank'] = 3; //Minium staff rank to get the staff pin in the client
+	$hotel['homeRoom'] = '0'; //Set the start room when you get in the hotel
 	$hotel['external_Variables'] = "http://127.0.0.1/swf/gamedata/external_variables.txt";
 	$hotel['external_Variables_Override'] = "http://127.0.0.1/swf/gamedata/override/external_override_variables.txt";
 	$hotel['external_Texts'] = "http://127.0.0.1/swf/gamedata/external_flash_texts.txt";
@@ -30,48 +30,52 @@
 	$hotel['swfFolderSwf'] = "http://127.0.0.1/swf/gordon/PRODUCTION-201601012205-226667486/Habbo.swf";
 	
 	/* Website Setting */
-	$config['hotelUrl'] = "http://127.0.0.1";
-	$config['skin'] = "brain";
-	$config['lang'] = "en";
-	$config['hotelName'] = "Brain";
-	$config['startMotto'] = "Welkom in Brain!";
+	$config['hotelUrl'] = "http://127.0.0.1";//Address of your hotel. Does not end with a "/"
+	$config['skin'] = "brain"; //Skin/template of your website
+	$config['lang'] = "en"; //Language of your website /en/nl/es
+	$config['hotelName'] = "Brain"; //Name of your hotel
 	$config['favicon'] = "http://127.0.0.1/system/theme/brain/style/images/favicon/favicon.ico";
-	$config['maintenance'] = false;
-	$config['maintenancekMinimumRankLogin'] = 3;
-	$config['staffCheckHk'] = true;
-	$config['staffCheckHkMinimumRank'] = 3;
-	$config['facebookLogin'] = false;
-	$config['facebookAPPID'] = '3341625902fsdf92528';
-	$config['facebookAPPSecret'] = 'ce2504sdfsff5aa3ff7a6a2fa6d984cd8836';
-	
+	$config['staffCheckHk'] = true; //Enable the staff pin in the housekeeping (true) or disable it (false)
+	$config['staffCheckHkMinimumRank'] = 3; //Minium staff rank to get the staff pin in the housekeeping
+	$config['maintenance'] = false; //Enable the maintenance of your website (true) or disable it (false)
+	$config['maintenancekMinimumRankLogin'] = 3; //Minium staff rank to login when the website is in maintenance
 	$config['groupBadgeURL'] = "http://127.0.0.1/swf/habbo-imaging/badge.php?badge=";
 	$config['badgeURL'] = "http://127.0.0.1/swf/c_images/album1584/"; 
+	
+	/* Facebook Login Settings
+		You need a Facebook app for this to work go to
+		https://developers.facebook.com/apps/ */
+	 
+	$config['facebookLogin'] = false; //Enable the Facebook login (true) or disable it (false)
+	$config['facebookAPPID'] = '3341625902d3sf392528';
+	$config['facebookAPPSecret'] = 'ce2504ff5aa3ff7a6agfsh2fa6d984cd8836';
 	
 	/* Email Settings */
 	$email['mailServerHost'] = 'smtp.gmail.com';
 	$email['mailServerPort'] = 587;
 	$email['SMTPSecure'] = 'TLS';
-	$email['mailUsername'] = 'gmail@gmail.com';
+	$email['mailUsername'] = 'brain@gmail.com';
 	$email['mailPassword'] = '*****';
 	$email['mailLogo'] = 'http://127.0.0.1/templates/brain/style/images/logo/logo.png';
-	$email['mailTemplate'] = '/system/app/plugins/PHPMailer-master/temp/resetpassword.html';
+	$email['mailTemplate'] = '/system/app/plugins/PHPmailer/temp/resetpassword.html';
 	
 	/* Social settings */
 	$config['facebook'] = 'https://www.facebook.com/Habbo/';
 	$config['facebookEnable'] = true;
 	$config['twitter'] = 'https://twitter.com/Habbo';
 	$config['twitterEnable'] = true;
-	$config['registerEnable'] = true;
 	
 	/* Register Setting */
+	$config['startMotto'] = "Welkom in Brain!"; //Regsiter start motto
 	$config['credits']	= "10000";
 	$config['duckets']	= "20000";
 	$config['diamonds']	= "10";
 	$config['diamondsRef']	= "10";
+	$config['registerEnable'] = true;
 	
 	/* Google recaptcha Site Key  
 	   Go to this website to create a recaptcha Site Key: https://www.google.com/recaptcha/intro/index.html	*/
-	$config['recaptchaSiteKey'] = "6LdzewwUAAAAABkJ3vCDca9qmLGsdafDaWAHqMRtFEs2";
+	$config['recaptchaSiteKey'] = "6LdzewwUAAAA564ABkJ3vCDca9qmLGSUDDaWAHqMRtFEs2";
 	$config['recaptchaSiteKeyEnable'] = false;
 	
 	/* Buy VIP Settings */

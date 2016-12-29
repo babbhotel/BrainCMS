@@ -111,7 +111,7 @@
 	function email($useEmail, $mailBody)
 	{
 		global $config,$email;
-		require 'system/app/plugins/PHPmailer-master/PHPMailerAutoload.php';
+		require 'system/app/plugins/PHPmailer/PHPMailerAutoload.php';
 		$mail = new PHPMailer(); // create a new object
 		$mail->IsSMTP(); // send via SMTP
 		$mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only

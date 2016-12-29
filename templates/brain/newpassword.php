@@ -15,10 +15,10 @@
 <?php
 	
 	if(isset($_GET['key'])) {
-		$key = $_GET['key'];
+		filter($key = $_GET['key']);
 	}
 	else{
-		$key = '';
+		filter($key = '');
 	}
 	
 ?>
